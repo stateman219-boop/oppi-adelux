@@ -1,8 +1,9 @@
-import { defineConfig } from ‘vite’;
+
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-base: ‘./’,
-server: {
-host: ‘0.0.0.0’
-}
+  base: '/oppi-adelux/',
+  server: {
+    host: '0.0.0.0'
+  }
 });
