@@ -119,7 +119,18 @@ function render() {
         <button id="menu-close" class="drawer-close" aria-label="Close menu">Close</button>
       </div>
       <nav class="drawer-nav" aria-label="Main menu">
-        <a href="#collection" data-menu-link>Shop the collection</a>
+        <a href="#collection" data-menu-link>Shop our collection</a>
+        <div class="drawer-subcategories" aria-label="Shop categories">
+          <button data-shop-category="Shirts & Tops">Shirts & tops</button>
+          <button data-shop-category="Denim">Baggy jeans</button>
+          <button data-shop-category="Sportswear">Jerseys</button>
+          <button data-shop-category="Casualwear">Joggers</button>
+          <button data-shop-category="Casualwear">Hoodies</button>
+          <button data-shop-category="Dresses">Cotton dresses</button>
+          <button data-shop-category="Accessories">Shoes</button>
+          <button data-shop-category="Accessories">Bags</button>
+          <button data-shop-category="Accessories">Jewelry</button>
+        </div>
         <a href="#story" data-menu-link>Our point of view</a>
         <button id="drawer-search">Search the collection</button>
         <button id="drawer-bag">Shopping bag <span>${bag.reduce((total, item) => total + item.quantity, 0)}</span></button>
@@ -357,6 +368,14 @@ function bindEvents() {
   document.querySelector('#menu-backdrop')?.addEventListener('click', () => setMenuOpen(false));
   document.querySelectorAll<HTMLAnchorElement>('[data-menu-link]')
     .forEach(link => link.addEventListener('click', () => setMenuOpen(false)));
+
+  document.querySelectorAll<HTMLButtonElement>('[data-shop-category]').forEach(button => button.addEventListener('click', () => {
+    activeCategory = button.dataset.shopCategory || 'All pieces';
+    searchTerm = '';
+    render();
+    setMenuOpen(false);
+    document.querySelector('#collection')?.scrollIntoView({ behavior: 'smooth' });
+  }));
 
   document.querySelector('#drawer-search')?.addEventListener('click', () => {
     setMenuOpen(false);
