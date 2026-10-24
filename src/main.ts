@@ -144,10 +144,10 @@ function render() {
         <a href="#story">Our point of view</a>
       </nav>
 
-      <a class="wordmark brand-cycle" href="#" aria-label="ADELUX Collections and Oppi Graphics">
-        <span class="brand-name is-active" data-brand="adelux">ADELUX <small>COLLECTIONS</small></span>
-        <span class="brand-name" data-brand="oppi">OPPI <small>GRAPHICS</small></span>
-      </a>
+      <div class="wordmark brand-cycle" aria-label="ADELUX Collections and Oppi Graphics">
+        <a class="brand-name is-active" data-brand="adelux" href="./index.html">ADELUX <small>COLLECTIONS</small></a>
+        <a class="brand-name" data-brand="oppi" href="./oppi.html">OPPI <small>GRAPHICS</small></a>
+      </div>
 
       <div class="header-actions">
         <button id="search-toggle" class="text-action">
