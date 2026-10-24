@@ -12,68 +12,15 @@ type Product = {
 };
 
 const products: Product[] = [
-  {
-    id: 1,
-    name: 'The Form Coat',
-    category: 'Outerwear',
-    price: 285000,
-    color: 'Espresso',
-    image: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=900&q=85',
-    note: 'A considered silhouette in a rich, tactile finish.',
-  },
-  {
-    id: 2,
-    name: 'The Everyday Knit',
-    category: 'Knitwear',
-    price: 98000,
-    color: 'Oat',
-    image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=900&q=85',
-    note: 'Soft structure. Designed to be worn on repeat.',
-  },
-  {
-    id: 3,
-    name: 'The Tailored Trouser',
-    category: 'Tailoring',
-    price: 125000,
-    color: 'Charcoal',
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85',
-    note: 'An easy, precise line with room to move.',
-  },
-  {
-    id: 4,
-    name: 'The Studio Shirt',
-    category: 'Essentials',
-    price: 72000,
-    color: 'Ivory',
-    image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85',
-    note: 'Quietly distinctive, from morning through evening.',
-  },
-  {
-    id: 5,
-    name: 'The Weekend Jacket',
-    category: 'Outerwear',
-    price: 198000,
-    color: 'Stone',
-    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=900&q=85',
-    note: 'Relaxed utility refined by proportion.',
-  },
-  {
-    id: 6,
-    name: 'The Soft Layer',
-    category: 'Knitwear',
-    price: 89000,
-    color: 'Black',
-    image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=900&q=85',
-    note: 'A clean layer with an understated presence.',
-  },
+  { id: 1, name: 'Shirts & Tops', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85', note: 'Everyday shirts and tops.' },
+  { id: 2, name: 'Baggy Jeans', category: 'Denim', price: 0, color: 'Unisex', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85', note: 'Relaxed denim styles.' },
+  { id: 3, name: 'Jerseys', category: 'Sportswear', price: 0, color: 'Unisex', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85', note: 'Sport-inspired everyday wear.' },
+  { id: 4, name: 'Joggers & Hoodies', category: 'Casualwear', price: 0, color: 'Unisex', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85', note: 'Comfortable casual pieces.' },
+  { id: 5, name: 'Cotton Dresses', category: 'Dresses', price: 0, color: 'For her', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=85', note: 'Easy cotton dresses.' },
+  { id: 6, name: 'Shoes, Bags & Jewelry', category: 'Accessories', price: 0, color: 'Accessories', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=85', note: 'Accessories to complete your look.' },
 ];
 
-const money = (amount: number) =>
-  new Intl.NumberFormat('en-NG', {
-    style: 'currency',
-    currency: 'NGN',
-    maximumFractionDigits: 0,
-  }).format(amount);
+const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
 
 let activeCategory = 'All pieces';
 let searchTerm = '';
@@ -112,10 +59,12 @@ function productCard(product: Product) {
 function render() {
   const categories = [
     'All pieces',
-    'Outerwear',
-    'Tailoring',
-    'Knitwear',
-    'Essentials',
+    'Shirts & Tops',
+    'Denim',
+    'Sportswear',
+    'Casualwear',
+    'Dresses',
+    'Accessories',
   ];
 
   const shown = products.filter(product =>
@@ -130,7 +79,7 @@ function render() {
 
   app.innerHTML = `
     <div class="announcement">
-      A considered wardrobe, made for every day.
+      ADELUX COLLECTIONS · UNLEASH YOUR ELEGANCE
     </div>
 
     <header class="site-header">
@@ -203,8 +152,8 @@ function render() {
           <p class="eyebrow">A STUDY IN SIMPLICITY</p>
           <h1>Fresh Looks.<br><em>Bold Energy.</em></h1>
           <p class="hero-description">
-            Pieces that find their place in your life.<br>
-            Designed for everyone. Made to stay.
+            Unisex styles for all ages.<br>
+            Elevate your style with pieces you love.
           </p>
           <a class="light-link" href="#collection">
             Discover the collection
@@ -215,12 +164,11 @@ function render() {
       <section class="intro-strip" id="story">
         <p class="eyebrow">THE ADELUX PERSPECTIVE</p>
         <p class="intro-statement">
-          A wardrobe is not built in a season.<br>
-          It is <em>collected over time.</em>
+          Unleash your elegance.<br>
+          <em>Elevate your style.</em>
         </p>
         <p class="intro-note">
-          Thoughtful proportions. Honest textures.
-          A shared language of dressing, beyond labels and seasons.
+          Premium quality, effortless comfort and styles you'll love every day.
         </p>
       </section>
 
@@ -231,7 +179,7 @@ function render() {
             <h2>AVAILABLE <em>PRODUCTS</em></h2>
           </div>
           <p class="section-aside">
-            Objects for the everyday,<br>made with intention.
+            Premium quality and everyday style,<br>for all ages.
           </p>
         </div>
 
@@ -294,7 +242,7 @@ function render() {
         ADELUX <span>COLLECTIONS</span>
       </a>
       <p>Unleash your elegance.</p>
-      <span>© ADELUX COLLECTIONS 2026</span>
+      <span>@adeluxcollections · 2026</span>
     </footer>
 
     <div class="cart-backdrop ${bagOpen ? 'is-open' : ''}" id="cart-backdrop" aria-hidden="${!bagOpen}"></div>
