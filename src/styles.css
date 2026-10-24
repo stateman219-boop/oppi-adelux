@@ -1204,3 +1204,12 @@ body.cart-open{overflow:hidden}
 .cart-quantity button{border-radius:50%;background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 .drawer-nav a,.drawer-nav button{border-radius:18px;padding:18px 15px}.drawer-nav a:hover,.drawer-nav button:hover{padding-left:20px;background:rgba(255,255,255,.55)}
 @media(prefers-reduced-motion:reduce){.btn,.buttons .btn,.light-link,.category-tab,.quick-add,.text-action,.bag-button,.menu-trigger,.drawer-close,.drawer-nav a,.drawer-nav button,.cart-head button,.cart-quantity button,.cart-checkout,#clear-search{transition:none}}
+
+
+/* Cart item personalization */
+.personalize{margin:14px 0;border-top:1px solid rgba(20,20,20,.12);border-bottom:1px solid rgba(20,20,20,.12);padding:10px 0;font-size:12px}
+.personalize summary{cursor:pointer;font-weight:600;letter-spacing:.04em;padding:5px 0}
+.personalize label{display:grid;gap:6px;margin:12px 0;color:#555;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.personalize input:not([type=color]),.personalize select{width:100%;min-height:38px;border:1px solid #ddd;border-radius:10px;background:rgba(255,255,255,.72);padding:8px 10px;color:#111;font:inherit;text-transform:none;letter-spacing:normal}
+.personalize input[type=color]{width:100%;height:34px;border:0;background:transparent;cursor:pointer}
+.custom-summary{font-size:10px;color:#666;line-height:1.5;margin:10px 0 2px}
