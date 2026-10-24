@@ -144,8 +144,9 @@ function render() {
         <a href="#story">Our point of view</a>
       </nav>
 
-      <a class="wordmark" href="#">ADELUX
-        <span>COLLECTIONS</span>
+      <a class="wordmark brand-cycle" href="#" aria-label="ADELUX Collections and Oppi Graphics">
+        <span class="brand-name is-active" data-brand="adelux">ADELUX <small>COLLECTIONS</small></span>
+        <span class="brand-name" data-brand="oppi">OPPI <small>GRAPHICS</small></span>
       </a>
 
       <div class="header-actions">
