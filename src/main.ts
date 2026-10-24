@@ -27,6 +27,7 @@ let searchTerm = '';
 let bag: { lineId: number; product: Product; quantity: number }[] = [];
 let bagOpen = false;
 let menuOpen = false;
+let shopCategoriesOpen = false;
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 
@@ -119,8 +120,8 @@ function render() {
         <button id="menu-close" class="drawer-close" aria-label="Close menu">Close</button>
       </div>
       <nav class="drawer-nav" aria-label="Main menu">
-        <a href="#collection" data-menu-link>Shop our collection</a>
-        <div class="drawer-subcategories" aria-label="Shop categories">
+        <button id="shop-collection-toggle" class="shop-collection-toggle" aria-expanded="${shopCategoriesOpen}" aria-controls="shop-subcategories">Shop our collection <span class="shop-chevron">${shopCategoriesOpen ? '−' : '＋'}</span></button>
+        <div class="drawer-subcategories ${shopCategoriesOpen ? 'is-open' : ''}" id="shop-subcategories" aria-label="Shop categories" ${shopCategoriesOpen ? '' : 'hidden'}>
           <button data-shop-category="Shirts & Tops">Shirts & tops</button>
           <button data-shop-category="Denim">Baggy jeans</button>
           <button data-shop-category="Sportswear">Jerseys</button>
@@ -369,6 +370,15 @@ function bindEvents() {
   document.querySelectorAll<HTMLAnchorElement>('[data-menu-link]')
     .forEach(link => link.addEventListener('click', () => setMenuOpen(false)));
 
+  document.querySelector('#shop-collection-toggle')?.addEventListener('click', () => {
+    shopCategoriesOpen = !shopCategoriesOpen;
+    const submenu = document.querySelector('#shop-subcategories');
+    submenu?.classList.toggle('is-open', shopCategoriesOpen);
+    if (submenu) submenu.toggleAttribute('hidden', !shopCategoriesOpen);
+    document.querySelector('#shop-collection-toggle')?.setAttribute('aria-expanded', String(shopCategoriesOpen));
+    const chevron = document.querySelector('.shop-chevron');
+    if (chevron) chevron.textContent = shopCategoriesOpen ? '−' : '＋';
+  });
   document.querySelectorAll<HTMLButtonElement>('[data-shop-category]').forEach(button => button.addEventListener('click', () => {
     activeCategory = button.dataset.shopCategory || 'All pieces';
     searchTerm = '';
