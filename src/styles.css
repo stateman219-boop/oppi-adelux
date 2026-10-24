@@ -1218,3 +1218,22 @@ body.cart-open{overflow:hidden}
 @media (hover: none) and (pointer: coarse) {
   .quick-add { transform: translateY(0); opacity: 1; bottom: 22px; }
 }
+
+
+/* Make product Quick add buttons clearly visible without hover */
+.product-image .quick-add {
+  transform: translateY(0);
+  opacity: 1;
+  bottom: 18px;
+  padding: 15px 17px;
+  border: 1px solid rgba(255,255,255,.85);
+  background: rgba(215, 20, 42, .94);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .035em;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.product-image .quick-add::before { opacity: .22; }
+.product-image:hover .quick-add,
+.product-image:focus-visible .quick-add { transform: translateY(-2px); opacity: 1; }
+@media(max-width:600px){.product-image .quick-add{bottom:6px;padding:11px 9px}}
