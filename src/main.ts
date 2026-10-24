@@ -200,7 +200,7 @@ function render() {
 
         <div class="hero-copy">
           <p class="eyebrow">A STUDY IN SIMPLICITY</p>
-          <h1>Less, but<br><em>considered.</em></h1>
+          <h1>Fresh Looks.<br><em>Bold Energy.</em></h1>
           <p class="hero-description">
             Pieces that find their place in your life.<br>
             Designed for everyone. Made to stay.
@@ -227,7 +227,7 @@ function render() {
         <div class="section-heading">
           <div>
             <p class="eyebrow">THE CURRENT EDIT</p>
-            <h2>Considered <em>essentials.</em></h2>
+            <h2>AVAILABLE <em>PRODUCTS</em></h2>
           </div>
           <p class="section-aside">
             Objects for the everyday,<br>made with intention.
