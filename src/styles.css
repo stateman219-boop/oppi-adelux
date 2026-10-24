@@ -1110,16 +1110,37 @@ body.cart-open{overflow:hidden}
 .site-header { position: sticky !important; top: 0; z-index: 50 !important; background: #fff !important; }
 
 
-/* Glass-like transparent navigation while scrolling */
+/* Liquid-glass floating navigation */
 .site-header {
   position: sticky !important;
-  top: 0;
+  top: 12px;
   z-index: 50 !important;
-  background: rgba(255, 255, 255, 0.58) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  backdrop-filter: blur(20px) saturate(160%);
-  border-bottom: 1px solid rgba(17, 17, 17, 0.08) !important;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.025);
+  margin: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.78) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.48) !important;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,255,255,.30) 42%, rgba(255,255,255,.52)) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(190%) contrast(108%);
+  backdrop-filter: blur(30px) saturate(190%) contrast(108%);
+  box-shadow:
+    0 10px 34px rgba(15, 15, 15, .075),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(255,255,255,.28);
+  isolation: isolate;
+}
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(255,255,255,.56), transparent 38%, rgba(255,255,255,.20) 72%, transparent);
+  opacity: .8;
+}
+.site-header > * { position: relative; z-index: 1; }
+@media(max-width:600px) {
+  .site-header { top: 8px; margin: 0 8px; border-radius: 19px; }
 }
 
 
