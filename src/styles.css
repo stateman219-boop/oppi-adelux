@@ -1104,3 +1104,7 @@ body.cart-open{overflow:hidden}
 .campaign::after { background: transparent !important; }
 .hero-image, .campaign > img, .product-image img, .cart-item img { opacity: 1 !important; filter: none !important; }
 .product-image img { transition: transform 0.35s ease !important; }
+
+
+/* Keep the main navigation accessible while scrolling */
+.site-header { position: sticky !important; top: 0; z-index: 50 !important; background: #fff !important; }
