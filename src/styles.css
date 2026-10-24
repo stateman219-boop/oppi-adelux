@@ -1297,3 +1297,18 @@ body.cart-open{overflow:hidden}
  .brand-logo-adelux{max-width:min(180px,48vw);max-height:58px;}
  .brand-logo-oppi{max-width:min(175px,48vw);max-height:58px;}
 }
+
+
+/* ADELUX logo: slightly smaller to sit comfortably inside its header frame */
+.brand-cycle{width:min(260px,34vw);height:76px;overflow:hidden;}
+.site-header .brand-cycle .brand-name{padding:3px 6px;}
+.brand-logo{max-width:min(245px,33vw);max-height:68px;}
+.brand-logo-adelux{max-width:min(245px,33vw);max-height:68px;}
+.brand-logo-oppi{max-width:min(235px,33vw);max-height:68px;}
+@media(max-width:600px){
+ .brand-cycle{width:min(155px,41vw);height:52px;overflow:hidden;}
+ .site-header .brand-cycle .brand-name{padding:1px;}
+ .brand-logo{max-width:min(148px,40vw);max-height:48px;}
+ .brand-logo-adelux{max-width:min(148px,40vw);max-height:48px;}
+ .brand-logo-oppi{max-width:min(142px,39vw);max-height:48px;}
+}
