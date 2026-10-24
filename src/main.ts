@@ -92,7 +92,7 @@ function productCard(product: Product) {
         <img src="${product.image}"
           alt="${product.name}" loading="lazy">
         <span class="image-label">
-          OPPI / OBJECT ${String(product.id).padStart(2, '0')}
+          ADELUX / OBJECT ${String(product.id).padStart(2, '0')}
         </span>
         <span class="quick-add">
           Quick add
@@ -144,8 +144,8 @@ function render() {
         <a href="#story">Our point of view</a>
       </nav>
 
-      <a class="wordmark" href="#">OPPI
-        <span>CLOTHING</span>
+      <a class="wordmark" href="#">ADELUX
+        <span>COLLECTIONS</span>
       </a>
 
       <div class="header-actions">
@@ -165,7 +165,7 @@ function render() {
     <div class="menu-backdrop ${menuOpen ? 'is-open' : ''}" id="menu-backdrop" aria-hidden="${!menuOpen}"></div>
     <aside class="menu-drawer ${menuOpen ? 'is-open' : ''}" id="menu-drawer" aria-hidden="${!menuOpen}">
       <div class="drawer-head">
-        <a class="wordmark" href="#">OPPI <span>CLOTHING</span></a>
+        <a class="wordmark" href="#">ADELUX <span>COLLECTIONS</span></a>
         <button id="menu-close" class="drawer-close" aria-label="Close menu">Close</button>
       </div>
       <nav class="drawer-nav" aria-label="Main menu">
@@ -174,7 +174,7 @@ function render() {
         <button id="drawer-search">Search the collection</button>
         <button id="drawer-bag">Shopping bag <span>${bag.reduce((total, item) => total + item.quantity, 0)}</span></button>
       </nav>
-      <p class="drawer-note">A quieter kind of statement.<br>Designed for everyone. Made to stay.</p>
+      <p class="drawer-note">Unleash your elegance.<br>Designed for everyone. Made to stay.</p>
     </aside>
 
     <div class="search-row" id="search-row">
@@ -189,7 +189,7 @@ function render() {
       <section class="hero">
         <img class="hero-image"
           src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=2200&q=90"
-          alt="OPPI fashion editorial">
+          alt="ADELUX fashion editorial">
 
         <div class="hero-shade"></div>
 
@@ -212,7 +212,7 @@ function render() {
       </section>
 
       <section class="intro-strip" id="story">
-        <p class="eyebrow">THE OPPI PERSPECTIVE</p>
+        <p class="eyebrow">THE ADELUX PERSPECTIVE</p>
         <p class="intro-statement">
           A wardrobe is not built in a season.<br>
           It is <em>collected over time.</em>
@@ -259,7 +259,7 @@ function render() {
       <section class="campaign">
         <img
           src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85"
-          alt="OPPI campaign">
+          alt="ADELUX campaign">
         <div class="campaign-overlay">
           <p class="eyebrow">BEYOND THE SEASON</p>
           <h2>Wear what<br><em>remains.</em></h2>
@@ -290,10 +290,10 @@ function render() {
 
     <footer class="footer">
       <a class="wordmark" href="#">
-        OPPI <span>CLOTHING</span>
+        ADELUX <span>COLLECTIONS</span>
       </a>
-      <p>A quieter kind of statement.</p>
-      <span>© OPPI CLOTHING 2026</span>
+      <p>Unleash your elegance.</p>
+      <span>© ADELUX COLLECTIONS 2026</span>
     </footer>
 
     <div class="cart-backdrop ${bagOpen ? 'is-open' : ''}" id="cart-backdrop" aria-hidden="${!bagOpen}"></div>
