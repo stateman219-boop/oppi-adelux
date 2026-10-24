@@ -1011,3 +1011,51 @@ input:focus-visible {
     animation-duration: 0.01ms !important;
   }
 }
+
+
+/* Responsive navigation drawer */
+.menu-backdrop {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  background: rgba(15, 15, 14, .42);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+.menu-backdrop.is-open { opacity: 1; visibility: visible; }
+.menu-drawer {
+  position: fixed;
+  z-index: 31;
+  inset: 0 auto 0 0;
+  display: flex;
+  flex-direction: column;
+  width: min(430px, 88vw);
+  padding: 28px clamp(22px, 4vw, 42px);
+  background: var(--paper);
+  transform: translateX(-102%);
+  transition: transform .38s cubic-bezier(.2,.7,.2,1);
+  box-shadow: 18px 0 50px rgba(0,0,0,.08);
+}
+.menu-drawer.is-open { transform: translateX(0); }
+body.menu-open { overflow: hidden; }
+.drawer-head { display:flex; align-items:center; justify-content:space-between; padding-bottom:28px; border-bottom:1px solid var(--line); }
+.drawer-head .wordmark { align-items:flex-start; font-size:25px; }
+.drawer-head .wordmark span { font-size:7px; }
+.drawer-close { border:0; background:transparent; font-size:32px; font-weight:300; line-height:1; padding:5px; }
+.drawer-nav { display:flex; flex-direction:column; margin-top:18px; }
+.drawer-nav a, .drawer-nav button {
+  display:flex; align-items:center; justify-content:space-between;
+  width:100%; padding:21px 0; border:0; border-bottom:1px solid var(--line);
+  background:transparent; text-align:left; font-family:var(--serif); font-size:23px;
+  transition: padding .2s ease, opacity .2s ease;
+}
+.drawer-nav a:hover, .drawer-nav button:hover { padding-left:7px; opacity:.65; }
+.drawer-nav span { font-family:'DM Sans',sans-serif; font-size:15px; }
+.drawer-note { margin-top:auto; padding-top:30px; color:var(--muted); font-size:10px; line-height:1.9; letter-spacing:.03em; }
+.menu-trigger[aria-expanded="true"] span:first-child { transform:translateY(3.5px) rotate(45deg); }
+.menu-trigger[aria-expanded="true"] span:last-child { transform:translateY(-3.5px) rotate(-45deg); }
+.menu-trigger span { transition:transform .2s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .menu-backdrop, .menu-drawer, .menu-trigger span { transition:none; }
+}
