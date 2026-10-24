@@ -1108,3 +1108,15 @@ body.cart-open{overflow:hidden}
 
 /* Keep the main navigation accessible while scrolling */
 .site-header { position: sticky !important; top: 0; z-index: 50 !important; background: #fff !important; }
+
+
+/* Floating translucent navigation while scrolling */
+.site-header {
+  position: sticky !important;
+  top: 0;
+  z-index: 50 !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.10) !important;
+}
