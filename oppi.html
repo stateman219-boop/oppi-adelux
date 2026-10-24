@@ -46,7 +46,23 @@
       footer{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:24px 20px;line-height:1.6}footer .logo{font-size:20px}
     }
     @media(max-width:380px){.hero{padding-left:16px;padding-right:16px}.section,.band,.contact{padding-left:16px;padding-right:16px}.nav{padding-left:14px;padding-right:14px}.art{min-height:240px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.navlinks a{transition:none}}
+    
+    /* Full liquid-glass visual system */
+    :root{--glass-white:rgba(255,255,255,.56);--glass-border:rgba(255,255,255,.78);--glass-shadow:0 18px 55px rgba(18,18,24,.11)}
+    body{background:radial-gradient(ellipse at 12% 4%,rgba(223,30,50,.08),transparent 32%),linear-gradient(135deg,#f7f7f8,#e9e9ec 48%,#fafafa);background-attachment:fixed}
+    .top{background:rgba(12,12,14,.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.18)}
+    .nav{background:rgba(255,255,255,.48);border:1px solid var(--glass-border);border-radius:24px;box-shadow:0 12px 40px rgba(0,0,0,.08);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%)}
+    .btn{background:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.8);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 28px rgba(0,0,0,.08)}
+    .btn.primary{background:rgba(20,20,22,.78);border-color:rgba(255,255,255,.48);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .art{border:1px solid rgba(255,255,255,.28);background:linear-gradient(135deg,rgba(24,24,28,.94),rgba(70,70,75,.72));backdrop-filter:blur(30px);box-shadow:0 28px 70px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.22)}
+    .step,.service,.work,.step-card,.contactbox{border:1px solid rgba(255,255,255,.72);border-radius:22px;background:rgba(255,255,255,.48);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);box-shadow:var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.82)}
+    .steps,.services,.workgrid,.steps-short{border:0;gap:18px}.step,.step-card{padding:26px}.service{padding:28px 24px}.work{border-radius:22px}.work:nth-child(2){background:rgba(18,18,20,.78);color:#fff}.work:nth-child(3){background:rgba(223,30,50,.78);color:#fff}.work:nth-child(4){background:rgba(210,210,215,.62)}
+    .band{background:rgba(14,14,16,.82);border:1px solid rgba(255,255,255,.18);border-radius:30px;margin:0 var(--pad);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);box-shadow:0 25px 65px rgba(0,0,0,.16)}
+    .contact{background:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.65);border-radius:30px;margin:0 var(--pad);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px)}
+    footer{background:rgba(255,255,255,.42);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid rgba(255,255,255,.75)}
+    @media(max-width:700px){.nav{border-radius:0 0 20px 20px;margin:0 8px;width:calc(100% - 16px)}.navlinks{background:rgba(255,255,255,.82);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:18px}.step,.service,.step-card{padding:22px;border-radius:18px;margin-bottom:12px}.work{border-radius:18px}.band,.contact{margin:0 10px;border-radius:22px}.contactbox{border-radius:18px}.art{border-radius:22px}}
+    @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.nav,.btn,.step,.service,.work,.step-card,.contactbox,.band,.contact,footer{background:rgba(255,255,255,.94)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.navlinks a{transition:none}}
   </style>
 </head>
 <body>
