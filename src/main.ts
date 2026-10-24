@@ -433,3 +433,14 @@ function bindEvents() {
 
 render();
 
+let activeBrand = 'adelux';
+window.setInterval(() => {
+  const nextBrand = activeBrand === 'adelux' ? 'oppi' : 'adelux';
+  const current = document.querySelector(`.brand-name[data-brand="${activeBrand}"]`);
+  const next = document.querySelector(`.brand-name[data-brand="${nextBrand}"]`);
+  if (current && next) {
+    current.classList.remove('is-active');
+    next.classList.add('is-active');
+    activeBrand = nextBrand;
+  }
+}, 5000);
