@@ -1097,3 +1097,10 @@ body.cart-open{overflow:hidden}
 :root, body, button, input { font-family: Arial, Helvetica, sans-serif !important; }
 .hero h1, .section-heading h2, .campaign h2, .intro-statement { font-family: Arial, Helvetica, sans-serif !important; font-weight: 600; letter-spacing: -0.035em; }
 .hero h1 em, .section-heading h2 em, .campaign h2 em, .intro-statement em { font-style: normal; font-weight: 600; }
+
+
+/* Keep fashion photos crisp and fully visible; remove image fading overlays */
+.hero-shade { background: transparent !important; }
+.campaign::after { background: transparent !important; }
+.hero-image, .campaign > img, .product-image img, .cart-item img { opacity: 1 !important; filter: none !important; }
+.product-image img { transition: transform 0.35s ease !important; }
