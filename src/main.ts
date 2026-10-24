@@ -296,10 +296,25 @@ function render() {
       <span>© OPPI CLOTHING 2026</span>
     </footer>
 
+    <div class="cart-backdrop ${bagOpen ? 'is-open' : ''}" id="cart-backdrop" aria-hidden="${!bagOpen}"></div>
+    <aside class="cart-drawer ${bagOpen ? 'is-open' : ''}" id="cart-drawer" aria-hidden="${!bagOpen}" aria-label="Shopping cart">
+      <div class="cart-head"><div><p class="eyebrow">YOUR SELECTION</p><h2>Shopping cart <span>(${bag.reduce((n, item) => n + item.quantity, 0)})</span></h2></div><button id="cart-close" aria-label="Close cart">×</button></div>
+      <div class="cart-items">${bag.length ? bag.map(({product, quantity}) => `<article class="cart-item"><img src="${product.image}" alt="${product.name}"><div class="cart-item-info"><p class="cart-item-name">${product.name}</p><p class="cart-item-color">${product.color}</p><p class="cart-item-price">${money(product.price)}</p><div class="cart-quantity"><button data-qty="${product.id}" data-change="-1" aria-label="Decrease quantity">−</button><span>${quantity}</span><button data-qty="${product.id}" data-change="1" aria-label="Increase quantity">+</button><button class="cart-remove" data-remove="${product.id}">Remove</button></div></div></article>`).join('') : '<p class="cart-empty">Your cart is empty.<br>Find something considered.</p>'}</div>
+      <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><strong>${money(bag.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}</strong></div><p>Shipping and taxes calculated at checkout.</p><button class="cart-checkout" id="cart-checkout" ${bag.length ? '' : 'disabled'}>Continue to checkout</button></div>
+    </aside>
     <div class="toast" id="toast" role="status"></div>
   `;
 
   bindEvents();
+}
+
+function setCartOpen(open: boolean) {
+  bagOpen = open;
+  document.querySelector('#cart-drawer')?.classList.toggle('is-open', open);
+  document.querySelector('#cart-backdrop')?.classList.toggle('is-open', open);
+  document.querySelector('#cart-drawer')?.setAttribute('aria-hidden', String(!open));
+  document.querySelector('#cart-backdrop')?.setAttribute('aria-hidden', String(!open));
+  document.body.classList.toggle('cart-open', open);
 }
 
 function setMenuOpen(open: boolean) {
@@ -383,8 +398,7 @@ function bindEvents() {
 
   document.querySelector('#bag-toggle')
     ?.addEventListener('click', () => {
-      bagOpen = true;
-      showToast('Shopping bag preview');
+      setCartOpen(true);
     });
 
   document.querySelector('#menu-trigger')
