@@ -241,7 +241,7 @@ function render() {
       <a class="wordmark" href="#">
         ADELUX <span>COLLECTIONS</span>
       </a>
-      <p>Unleash your elegance.</p>
+      <p>Unleash your elegance. · @adeluxcollections<br><a href="https://wa.me/2349073740692">+234 907 374 0692</a> · <a href="https://wa.me/2348167087184">+234 816 708 7184</a></p>
       <span>@adeluxcollections · 2026</span>
     </footer>
 
