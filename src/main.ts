@@ -188,7 +188,7 @@ function render() {
     <main>
       <section class="hero">
         <img class="hero-image"
-          src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=2200&q=90"
+          src="/adelux-hero.png"
           alt="ADELUX fashion editorial">
 
         <div class="hero-shade"></div>
