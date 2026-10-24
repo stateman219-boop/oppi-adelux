@@ -415,11 +415,19 @@ function bindEvents() {
     document.querySelector<HTMLInputElement>('#site-search')?.focus();
   });
 
-  document.querySelector('#drawer-bag')?.addEventListener('click', () => {
-    setMenuOpen(false);
-    bagOpen = true;
-    showToast(bag.length ? 'Shopping bag preview' : 'Your bag is currently empty');
-  });
+  document.querySelector('#drawer-bag')?.addEventListener('click', () => { setMenuOpen(false); setCartOpen(true); });
+  document.querySelector('#cart-close')?.addEventListener('click', () => setCartOpen(false));
+  document.querySelector('#cart-backdrop')?.addEventListener('click', () => setCartOpen(false));
+  document.querySelectorAll<HTMLButtonElement>('[data-qty]').forEach(button => button.addEventListener('click', () => {
+    const item = bag.find(entry => entry.product.id === Number(button.dataset.qty)); if (!item) return;
+    item.quantity += Number(button.dataset.change);
+    if (item.quantity <= 0) bag = bag.filter(entry => entry.product.id !== item.product.id);
+    render(); setCartOpen(true);
+  }));
+  document.querySelectorAll<HTMLButtonElement>('[data-remove]').forEach(button => button.addEventListener('click', () => {
+    bag = bag.filter(entry => entry.product.id !== Number(button.dataset.remove)); render(); setCartOpen(true);
+  }));
+  document.querySelector('#cart-checkout')?.addEventListener('click', () => showToast('Checkout is not connected yet'));
 }
 
 render();
