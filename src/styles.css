@@ -1281,3 +1281,19 @@ body.cart-open{overflow:hidden}
 .brand-logo-adelux{max-width:min(280px,36vw);max-height:70px}
 .brand-logo-oppi{max-width:min(270px,36vw);max-height:70px}
 @media(max-width:600px){.brand-cycle{width:170px;height:58px}.brand-logo{max-width:165px;max-height:54px}.brand-logo-adelux{max-width:165px;max-height:54px}.brand-logo-oppi{max-width:160px;max-height:54px}}
+
+/* Final responsive logo fit: keep complete transparent PNG visible on desktop and phones */
+.site-header{min-height:104px;}
+.brand-cycle{width:min(320px,40vw);height:88px;overflow:visible;}
+.site-header .brand-cycle .brand-name{padding:4px 8px;overflow:visible;}
+.brand-logo{width:auto;max-width:min(300px,40vw);max-height:82px;object-fit:contain;object-position:center;}
+.brand-logo-adelux{max-width:min(300px,40vw);max-height:82px;}
+.brand-logo-oppi{max-width:min(290px,40vw);max-height:82px;}
+@media(max-width:600px){
+ .site-header{min-height:82px;padding-top:8px;padding-bottom:8px;grid-template-columns:32px minmax(0,1fr) auto;gap:8px;}
+ .brand-cycle{width:min(190px,48vw);height:62px;overflow:visible;justify-self:center;}
+ .site-header .brand-cycle .brand-name{padding:2px;}
+ .brand-logo{max-width:min(180px,48vw);max-height:58px;width:auto;height:auto;}
+ .brand-logo-adelux{max-width:min(180px,48vw);max-height:58px;}
+ .brand-logo-oppi{max-width:min(175px,48vw);max-height:58px;}
+}
