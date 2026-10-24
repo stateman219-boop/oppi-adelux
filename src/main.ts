@@ -135,7 +135,7 @@ function render() {
 
     <header class="site-header">
       <button class="menu-trigger" id="menu-trigger"
-        aria-label="Open menu">
+        aria-label="Open menu" aria-expanded="${menuOpen}" aria-controls="menu-drawer">
         <span></span><span></span>
       </button>
 
@@ -161,6 +161,21 @@ function render() {
         </button>
       </div>
     </header>
+
+    <div class="menu-backdrop ${menuOpen ? 'is-open' : ''}" id="menu-backdrop" aria-hidden="${!menuOpen}"></div>
+    <aside class="menu-drawer ${menuOpen ? 'is-open' : ''}" id="menu-drawer" aria-hidden="${!menuOpen}">
+      <div class="drawer-head">
+        <a class="wordmark" href="#">OPPI <span>CLOTHING</span></a>
+        <button id="menu-close" class="drawer-close" aria-label="Close menu">×</button>
+      </div>
+      <nav class="drawer-nav" aria-label="Main menu">
+        <a href="#collection" data-menu-link>Shop the collection <span>↗</span></a>
+        <a href="#story" data-menu-link>Our point of view <span>↗</span></a>
+        <button id="drawer-search">Search the collection <span>⌕</span></button>
+        <button id="drawer-bag">Shopping bag <span>${bag.reduce((total, item) => total + item.quantity, 0)} ↗</span></button>
+      </nav>
+      <p class="drawer-note">A quieter kind of statement.<br>Designed for everyone. Made to stay.</p>
+    </aside>
 
     <div class="search-row" id="search-row">
       <label for="site-search">SEARCH THE COLLECTION</label>
@@ -287,6 +302,16 @@ function render() {
   bindEvents();
 }
 
+function setMenuOpen(open: boolean) {
+  menuOpen = open;
+  document.querySelector("#menu-drawer")?.classList.toggle("is-open", open);
+  document.querySelector("#menu-backdrop")?.classList.toggle("is-open", open);
+  document.querySelector("#menu-drawer")?.setAttribute("aria-hidden", String(!open));
+  document.querySelector("#menu-backdrop")?.setAttribute("aria-hidden", String(!open));
+  document.querySelector("#menu-trigger")?.setAttribute("aria-expanded", String(open));
+  document.body.classList.toggle("menu-open", open);
+}
+
 function addToBag(id: number) {
   const product = products.find(item => item.id === id);
   if (!product) return;
@@ -363,10 +388,24 @@ function bindEvents() {
     });
 
   document.querySelector('#menu-trigger')
-    ?.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      showToast(menuOpen ? 'Menu opened' : 'Menu closed');
-    });
+    ?.addEventListener('click', () => setMenuOpen(!menuOpen));
+
+  document.querySelector('#menu-close')?.addEventListener('click', () => setMenuOpen(false));
+  document.querySelector('#menu-backdrop')?.addEventListener('click', () => setMenuOpen(false));
+  document.querySelectorAll<HTMLAnchorElement>('[data-menu-link]')
+    .forEach(link => link.addEventListener('click', () => setMenuOpen(false)));
+
+  document.querySelector('#drawer-search')?.addEventListener('click', () => {
+    setMenuOpen(false);
+    document.querySelector('#search-row')?.classList.add('is-visible');
+    document.querySelector<HTMLInputElement>('#site-search')?.focus();
+  });
+
+  document.querySelector('#drawer-bag')?.addEventListener('click', () => {
+    setMenuOpen(false);
+    bagOpen = true;
+    showToast(bag.length ? 'Shopping bag preview' : 'Your bag is currently empty');
+  });
 }
 
 render();
