@@ -188,7 +188,7 @@ function render() {
     <main>
       <section class="hero">
         <img class="hero-image"
-          src="/adelux-hero.png"
+          src="https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/adelux-hero.png"
           alt="ADELUX fashion editorial">
 
         <div class="hero-shade"></div>
