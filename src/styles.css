@@ -1274,3 +1274,10 @@ body.cart-open{overflow:hidden}
 
 /* Mobile header stays visible and lifts above page content while scrolling */
 @media(max-width:600px){.site-header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.10);border-bottom:1px solid #dedede}html{scroll-padding-top:82px}}
+
+/* Uploaded brand PNGs */
+.brand-name{padding:0}
+.brand-logo{display:block;width:auto;max-width:min(220px,42vw);height:auto;max-height:54px;object-fit:contain}
+.brand-logo-adelux{max-width:min(220px,42vw);max-height:52px}
+.brand-logo-oppi{max-width:min(210px,42vw);max-height:56px}
+@media(max-width:600px){.brand-logo{max-width:150px;max-height:42px}.brand-logo-adelux{max-width:150px}.brand-logo-oppi{max-width:145px}}
