@@ -121,8 +121,8 @@
   </style>
 </head>
 <body>
-<div class="top">OPPIGRAPHIX LTD · CORPORATE IMAGING · PRINTING · BRANDING · PUBLISHING</div>
-<header class="nav"><a class="logo brand-switch" href="./index.html" aria-label="Switch to ADELUX Collections">OPPI<span>GRAPHIX</span></a><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button><nav class="navlinks" id="mobile-menu"><a href="#services">Services</a><a href="#work">What we do</a><a href="#process">Process</a><a href="#contact">Contact</a></nav><a class="btn desktop-adelux" href="./index.html">ADELUX COLLECTIONS</a></header>
+
+<header class="nav"><div class="logo-cycle" aria-label="OPPIGRAPHIX and ADELUX Collections"><a class="cycle-logo cycle-oppi active" href="./oppi.html" aria-label="OPPIGRAPHIX"><img src="./oppi-logo.png.png" alt="OPPIGRAPHIX"></a><a class="cycle-logo cycle-adelux" href="./index.html" aria-label="ADELUX Collections"><img src="./adelux-logo.png.png" alt="ADELUX Collections"></a></div><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button><nav class="navlinks" id="mobile-menu"><a href="#services">Services</a><a href="#work">What we do</a><a href="#process">Process</a><a href="#contact">Contact</a></nav><a class="btn desktop-adelux" href="./index.html">ADELUX COLLECTIONS</a></header>
 <main>
 <section class="hero"><div><p class="eyebrow">Creativity · Originality · Professional print</p><h1>Creative vision.<br><span>Print excellence.</span></h1><p class="lead">OPPIGRAPHIX LTD, launched in 2013 (RC 1264334), is a corporate imaging, printing, branding, design and publishing company. We bring creative ideas and professional print expertise together to serve businesses, institutions and events.</p><div class="buttons"><a class="btn primary" href="#contact">Start a project</a><a class="btn" href="#services">Explore services</a></div></div><div class="art" aria-label="OPPI GRAPHIX creative artwork"><div class="art-text">MAKE<br>IT<span>POP</span></div><div class="tag">Ideas into impact</div></div></section>
 <section class="section" id="about"><div class="sectionhead"><div><p class="eyebrow">About OPPIGRAPHIX LTD</p><h2>Creative since<br>2013.</h2></div><p>Our trained and experienced professionals help clients achieve outstanding print quality, creative designs and service excellence.</p></div><div class="steps"><div class="step"><span class="num">Our vision</span><p>Our vision is to be the most successful business magnate upholding the highest standards of creativity, originality and style in the print sector.</p></div><div class="step"><span class="num">Our mission</span><p>We are dedicated to providing our clients with the best services in prints, branding, designs and publishing with a high level of professional expertise and conduct.</p></div><div class="step"><span class="num">What sets us apart</span><p>Client satisfaction, timely delivery, flexibility, technical capabilities, an international network and a multidisciplinary professional team.</p></div></div></section>
@@ -134,6 +134,9 @@
 </main>
 <footer><a class="logo" href="./index.html" aria-label="Switch to ADELUX Collections"><img src="./oppi-logo.png.png" alt="OPPIGRAPHIX" class="header-logo"></a><span>Design · Print · Branding</span><a href="./index.html">Back to ADELUX COLLECTIONS</a><span>© OPPIGRAPHIX LTD 2026</span></footer>
 <script>const menuButton=document.querySelector('.menu-toggle');const menu=document.querySelector('#mobile-menu');if(menuButton&&menu){menuButton.addEventListener('click',()=>{const open=menu.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Close menu':'Open menu');});menu.querySelectorAll('a').forEach(link=>{link.addEventListener('click',()=>{menu.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Open menu');});});}</script>
+<script>
+(()=>{const logos=[...document.querySelectorAll('.logo-cycle .cycle-logo')];if(logos.length<2)return;let index=0;setInterval(()=>{logos[index].classList.remove('active');index=(index+1)%logos.length;logos[index].classList.add('active');},3500);})();
+</script>
 </body>
 </html>
 
@@ -146,4 +149,13 @@
  .nav .logo{max-width: min(190px,48vw);}
  .nav .header-logo{width:min(185px,48vw);max-height:58px;object-fit:contain;}
 }
+</style>
+
+<style>
+/* Header brand carousel: clean logo-only header, alternating both uploaded marks */
+.logo-cycle{position:relative;display:block;flex:0 1 300px;width:min(300px,30vw);height:78px;min-width:0;overflow:visible}
+.logo-cycle .cycle-logo{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;opacity:0;visibility:hidden;transform:translateY(5px);transition:opacity .55s ease,transform .55s ease,visibility .55s}
+.logo-cycle .cycle-logo.active{opacity:1;visibility:visible;transform:translateY(0)}
+.logo-cycle img{display:block;width:auto;max-width:min(290px,30vw);height:auto;max-height:72px;object-fit:contain;object-position:left center}
+@media(max-width:600px){.logo-cycle{flex:0 1 170px;width:min(170px,46vw);height:58px}.logo-cycle img{max-width:min(165px,46vw);max-height:54px}.nav{gap:10px;padding-left:14px;padding-right:14px}}
 </style>
