@@ -1,17 +1,17 @@
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=display=swap');
 
 :root {
   font-family: 'DM Sans', sans-serif;
   color: #171717;
-  background: #f4f0e8;
+  background: #ffffff;
 
   --ink: #171717;
-  --paper: #f4f0e8;
-  --white: #fffdf8;
+  --paper: #ffffff;
+  --white: #ffffff;
   --muted: #777269;
-  --line: #d9d3c8;
-  --serif: 'Playfair Display', Georgia, serif;
+  --line: #e5e5e5;
+  --serif: 'DM Sans', Arial, sans-serif;
   --page-padding: clamp(18px, 5vw, 76px);
 }
 
@@ -58,7 +58,7 @@ img {
 }
 
 ::selection {
-  background: #d5cbbb;
+  background: #e31b2f;
   color: var(--ink);
 }
 
@@ -212,7 +212,7 @@ img {
   min-height: min(760px, 78vw);
   height: 690px;
   overflow: hidden;
-  background: #777269;
+  background: #ffffff;
   color: #fffdf8;
 }
 
@@ -433,7 +433,7 @@ img {
   overflow: hidden;
   border: 0;
   padding: 0;
-  background: #e5dfd4;
+  background: #f5f5f5;
   text-align: left;
 }
 
@@ -527,7 +527,7 @@ img {
   align-items: center;
   min-height: 600px;
   overflow: hidden;
-  background: #69665e;
+  background: #ffffff;
   color: var(--white);
 }
 
@@ -652,7 +652,7 @@ img {
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
-  outline: 2px solid #777269;
+  outline: 2px solid #e31b2f;
   outline-offset: 4px;
 }
 
@@ -1088,3 +1088,7 @@ body.cart-open{overflow:hidden}
 .cart-checkout:disabled{opacity:.35;cursor:not-allowed}
 @media(max-width:600px){.cart-drawer{padding:20px 18px}.cart-item{grid-template-columns:82px 1fr;gap:12px}.cart-item img{width:82px;height:108px}.cart-head h2{font-size:25px}}
 @media(prefers-reduced-motion:reduce){.cart-backdrop,.cart-drawer{transition:none}}
+
+:root{--accent:#d7192d;--paper:#fff;--white:#fff;--ink:#111;--line:#e6e6e6;--muted:#707070}
+.announcement{background:#111;color:#fff}.hero{background:#fff;color:#111}.hero-shade{background:linear-gradient(90deg,rgba(255,255,255,.94),rgba(255,255,255,.68) 45%,rgba(255,255,255,.05))}
+.hero h1 em,.section-heading h2 em,.campaign h2 em{color:var(--accent);font-style:normal}.hero .light-link{border-color:var(--accent)}.category-tab.active:after{background:var(--accent)}.image-label{border-left:2px solid var(--accent)}.campaign{background:#fff;color:#111}.campaign:after{background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(255,255,255,.15))}.value-number{color:var(--accent)}
