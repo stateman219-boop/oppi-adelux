@@ -24,7 +24,20 @@ const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.
 
 let activeCategory = 'All pieces';
 let searchTerm = '';
-let bag: { lineId: number; product: Product; quantity: number }[] = [];
+let searchOpen = false;
+type BagLine = { lineId: number; product: Product; quantity: number };
+function loadSavedBag(): BagLine[] {
+  try {
+    const saved = JSON.parse(localStorage.getItem('adelux-bag-v1') || '[]') as { productId: number; quantity: number; lineId: number }[];
+    return saved.flatMap(line => {
+      const product = products.find(item => item.id === line.productId);
+      return product && Number.isFinite(line.quantity) && line.quantity > 0
+        ? [{ lineId: line.lineId || line.productId, product, quantity: Math.floor(line.quantity) }]
+        : [];
+    });
+  } catch { return []; }
+}
+let bag: BagLine[] = loadSavedBag();
 let bagOpen = false;
 let menuOpen = false;
 let shopCategoriesOpen = false;
@@ -36,14 +49,14 @@ function productCard(product: Product) {
     <article class="product-card">
       <button class="product-image"
         data-view="${product.id}"
-        aria-label="Add ${product.name} to bag">
+        aria-label="Enquire about ${product.name}">
         <img src="${product.image}"
           alt="${product.name}" loading="lazy">
         <span class="image-label">
           ADELUX / OBJECT ${String(product.id).padStart(2, '0')}
         </span>
         <span class="quick-add">
-          Quick add
+          Enquire about item
         </span>
       </button>
 
@@ -74,7 +87,7 @@ function render() {
     (
       product.name + ' ' +
       product.category + ' ' +
-      product.color
+      product.color + ' ' + product.note
     ).toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -300,8 +313,22 @@ function addToBag(id: number) {
     bag.push({ lineId: Date.now() + Math.floor(Math.random() * 1000), product, quantity: 1 });
   }
 
+  saveBag();
   render();
-  showToast(`${product.name} added to your bag`);
+  showToast(`${product.name} added to your enquiry list`);
+}
+
+function saveBag() {
+  try {
+    localStorage.setItem('adelux-bag-v1', JSON.stringify(bag.map(({ lineId, product, quantity }) => ({ lineId, productId: product.id, quantity }))));
+  } catch { /* Keep the bag available for this visit if storage is unavailable. */ }
+}
+
+function startWhatsAppEnquiry() {
+  if (!bag.length) return;
+  const lines = bag.map(({ product, quantity }) => '• ' + product.name + ' — Qty: ' + quantity + '; option: ' + product.color + '; price: to be confirmed');
+  const message = ['Hello ADELUX Collections, I would like to enquire about these items:', '', ...lines, '', 'Please confirm current availability, sizes/colours, prices in NGN, and delivery charges. This is an enquiry; my order is not confirmed yet.'].join('\n');
+  window.open('https://wa.me/2349073740692?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
 }
 
 function showToast(message: string) {
@@ -400,12 +427,12 @@ function bindEvents() {
     const item = bag.find(entry => entry.lineId === Number(button.dataset.qty)); if (!item) return;
     item.quantity += Number(button.dataset.change);
     if (item.quantity <= 0) bag = bag.filter(entry => entry.lineId !== item.lineId);
-    render(); setCartOpen(true);
+    saveBag(); render(); setCartOpen(true);
   }));
   document.querySelectorAll<HTMLButtonElement>('[data-remove]').forEach(button => button.addEventListener('click', () => {
-    bag = bag.filter(entry => entry.lineId !== Number(button.dataset.remove)); render(); setCartOpen(true);
+    bag = bag.filter(entry => entry.lineId !== Number(button.dataset.remove)); saveBag(); render(); setCartOpen(true);
   }));
-  document.querySelector('#cart-checkout')?.addEventListener('click', () => showToast('Checkout is not connected yet'));
+  document.querySelector('#cart-checkout')?.addEventListener('click', startWhatsAppEnquiry);
 }
 
 render();
