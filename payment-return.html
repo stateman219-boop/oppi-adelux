@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Payment status | ADELUX Collections</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#fff;color:#111;font:16px/1.5 Arial,sans-serif;padding:24px}
+    main{max-width:560px;width:100%;border:1px solid #ddd;padding:32px}h1{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0 0 16px}p{color:#555}a{display:inline-block;margin-top:20px;background:#111;color:#fff;padding:14px 20px;text-decoration:none}
+    .accent{color:#c00}
+  </style>
+</head>
+<body>
+  <main>
+    <p class="accent">ADELUX COLLECTIONS</p>
+    <h1>Payment status</h1>
+    <p id="status">Your payment is being checked. Please do not make another payment yet.</p>
+    <p id="detail">This page does not confirm payment by itself. ADELUX must verify the transaction securely.</p>
+    <a href="./index.html">Return to ADELUX</a>
+  </main>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const transactionId = params.get('transaction_id');
+    const status = params.get('status');
+    const txRef = params.get('tx_ref');
+    const statusEl = document.querySelector('#status');
+    const detailEl = document.querySelector('#detail');
+    if (status === 'cancelled') {
+      statusEl.textContent = 'Checkout was cancelled.';
+      detailEl.textContent = 'No payment confirmation was received. You can return to your bag and try again.';
+    } else if (transactionId || txRef) {
+      statusEl.textContent = 'Checkout returned. Verification is still required.';
+      detailEl.textContent = 'Keep your transaction reference for support. Do not treat this page as proof of a successful payment.';
+    } else {
+      statusEl.textContent = 'No transaction details were provided.';
+      detailEl.textContent = 'If you completed checkout, contact ADELUX with your Flutterwave transaction reference.';
+    }
+  </script>
+</body>
+</html>
