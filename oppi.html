@@ -120,6 +120,24 @@
     @media(max-width:700px){.nav{position:sticky;top:0;z-index:1000;box-shadow:0 10px 28px rgba(0,0,0,.18)!important;border-bottom:1px solid rgba(0,0,0,.12)!important}html{scroll-padding-top:88px}}
   
 .work-detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(22px,4vw,54px);align-items:center;padding:clamp(22px,4vw,44px) 0;border-bottom:1px solid var(--line)}.work-slider{position:relative;overflow:hidden;aspect-ratio:16/10;border-radius:18px;background:#eee}.work-slider .slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:workFade 12s infinite}.work-slider .slide-1{animation-delay:0s}.work-slider .slide-2{animation-delay:4s}.work-slider .slide-3{animation-delay:8s}.work-copy small{display:block;color:var(--red);font-weight:700;letter-spacing:.08em;margin-bottom:12px}.work-copy h3{font-size:clamp(1.5rem,3vw,2.5rem);margin:0 0 14px}.work-copy p{line-height:1.8;color:var(--gray);margin:0}@keyframes workFade{0%,30%{opacity:1}36%,100%{opacity:0}}@media(max-width:700px){.work-detail{grid-template-columns:1fr;gap:20px}.work-slider{aspect-ratio:16/9}}
+
+/* Final restrained Liquid Glass layer. Overrides conflicting later solid-surface rules without touching markup or behavior. */
+:root{--glass-edge:rgba(255,255,255,.72);--glass-shadow:0 14px 38px rgba(0,0,0,.075)}
+.nav,.contactbox,.step,.service,.step-card,.work,.work-slider,.band,.contact,footer,.navlinks{backdrop-filter:blur(20px) saturate(125%);-webkit-backdrop-filter:blur(20px) saturate(125%);border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.78)}
+.nav{background:rgba(255,255,255,.66);border-radius:24px}
+.navlinks{background:rgba(255,255,255,.48)}
+.navlinks a{background:transparent;box-shadow:none}
+.btn{background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.82);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 7px 20px rgba(0,0,0,.065);backdrop-filter:blur(14px) saturate(130%);-webkit-backdrop-filter:blur(14px) saturate(130%)}
+.btn.primary{background:rgba(15,15,17,.88);border-color:rgba(255,255,255,.38);color:#fff}
+.art{background:rgba(18,18,20,.94);border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 48px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.2)}
+.step,.service,.step-card,.contactbox{background:rgba(255,255,255,.72);border-color:rgba(255,255,255,.86);box-shadow:var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.9)}
+.work{background:rgba(255,255,255,.72);border-color:rgba(255,255,255,.84)}.work:nth-child(2){background:rgba(17,17,19,.9);color:#fff}.work:nth-child(3){background:rgba(223,30,50,.9);color:#fff}.work:nth-child(4){background:rgba(225,225,228,.78);color:#111}
+.work-slider{background:rgba(235,235,235,.72);border-color:rgba(255,255,255,.8);box-shadow:0 12px 30px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+.band{background:rgba(13,13,15,.92);border-color:rgba(255,255,255,.22);color:#fff}.contact{background:rgba(245,245,245,.72);border-color:rgba(255,255,255,.88)}footer{background:rgba(255,255,255,.74);border-color:rgba(255,255,255,.9)}
+.navlinks a:hover,.btn:hover{transition:transform .22s ease,box-shadow .22s ease,background .22s ease}.btn:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 11px 25px rgba(0,0,0,.12)}
+@media(max-width:700px){.nav{background:rgba(255,255,255,.78)}.navlinks{background:rgba(255,255,255,.9);border-color:rgba(255,255,255,.9);box-shadow:0 12px 28px rgba(0,0,0,.1)}.step,.service,.step-card,.contactbox{background:rgba(255,255,255,.8)}.band{background:rgba(13,13,15,.94)}.contact{background:rgba(245,245,245,.8)}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.nav,.contactbox,.step,.service,.step-card,.work,.work-slider,.band,.contact,footer,.navlinks{background:#fff}.band{background:#111;color:#fff}.work:nth-child(2){background:#111}.work:nth-child(3){background:#df1e32}}
+@media(prefers-reduced-motion:reduce){.btn:hover{transform:none}}
 </style>
 
 <style>
