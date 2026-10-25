@@ -326,6 +326,7 @@ function startWhatsAppEnquiry() {
   if (!bag.length) return;
   const lines = bag.map(({ product, quantity }) => '• ' + product.name + ' — Qty: ' + quantity + '; option: ' + product.color + '; price: to be confirmed');
   const message = ['Hello ADELUX Collections, I would like to enquire about these items:', '', ...lines, '', 'Please confirm current availability, sizes/colours, prices in NGN, and delivery charges. This is an enquiry; my order is not confirmed yet.'].join('\n');
+  const account=getAccount();if(account){account.orders.push({date:new Date().toLocaleString('en-NG'),items:lines.join(' | '),status:'WhatsApp enquiry — order not confirmed'});localStorage.setItem(accountKey,JSON.stringify(account));}
   window.open('https://wa.me/2348184952775?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
 }
 
