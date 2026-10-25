@@ -266,7 +266,7 @@ function render() {
       <a class="wordmark" href="#">
         ADELUX <span>COLLECTIONS</span>
       </a>
-      <p>Unleash your elegance. · @adeluxcollections<br><a href="https://wa.me/2349073740692">+234 907 374 0692</a> · <a href="https://wa.me/2348167087184">+234 816 708 7184</a></p>
+      <p>Unleash your elegance. · @adeluxcollections<br><a href="https://wa.me/2348184952775">+234 907 374 0692</a> · <a href="https://wa.me/2348184952775">+234 816 708 7184</a></p>
       <span>@adeluxcollections · 2026</span>
     </footer>
 
@@ -328,7 +328,7 @@ function startWhatsAppEnquiry() {
   if (!bag.length) return;
   const lines = bag.map(({ product, quantity }) => '• ' + product.name + ' — Qty: ' + quantity + '; option: ' + product.color + '; price: to be confirmed');
   const message = ['Hello ADELUX Collections, I would like to enquire about these items:', '', ...lines, '', 'Please confirm current availability, sizes/colours, prices in NGN, and delivery charges. This is an enquiry; my order is not confirmed yet.'].join('\n');
-  window.open('https://wa.me/2349073740692?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+  window.open('https://wa.me/2348184952775?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
 }
 
 function showToast(message: string) {
