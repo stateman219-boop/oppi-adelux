@@ -15,12 +15,12 @@ const currency = "NGN";
 // Prices are configured as integer kobo amounts on the server.
 // Set PRODUCT_1_PRICE_KOBO ... PRODUCT_6_PRICE_KOBO in hosting env vars.
 const catalog = {
-  1: { name: "Shirts & Tops", price: Number(process.env.PRODUCT_1_PRICE_KOBO || 0) },
-  2: { name: "Baggy Jeans", price: Number(process.env.PRODUCT_2_PRICE_KOBO || 0) },
-  3: { name: "Jerseys", price: Number(process.env.PRODUCT_3_PRICE_KOBO || 0) },
-  4: { name: "Joggers & Hoodies", price: Number(process.env.PRODUCT_4_PRICE_KOBO || 0) },
-  5: { name: "Cotton Dresses", price: Number(process.env.PRODUCT_5_PRICE_KOBO || 0) },
-  6: { name: "Shoes, Bags & Jewelry", price: Number(process.env.PRODUCT_6_PRICE_KOBO || 0) }
+  1: { name: "Shirts & Tops", price: Number(process.env.PRODUCT_1_PRICE_KOBO) || 500000 },
+  2: { name: "Baggy Jeans", price: Number(process.env.PRODUCT_2_PRICE_KOBO) || 1200000 },
+  3: { name: "Jerseys", price: Number(process.env.PRODUCT_3_PRICE_KOBO) || 800000 },
+  4: { name: "Joggers & Hoodies", price: Number(process.env.PRODUCT_4_PRICE_KOBO) || 1500000 },
+  5: { name: "Cotton Dresses", price: Number(process.env.PRODUCT_5_PRICE_KOBO) || 1800000 },
+  6: { name: "Shoes, Bags & Jewelry", price: Number(process.env.PRODUCT_6_PRICE_KOBO) || 1000000 }
 };
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
