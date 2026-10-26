@@ -328,7 +328,7 @@ async function startPaystackCheckout() {
   if (!bag.length) return;
   const email = window.prompt('Enter your email address for Paystack checkout:');
   if (!email) return;
-  if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email.trim())) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
     showToast('Please enter a valid email address');
     return;
   }
