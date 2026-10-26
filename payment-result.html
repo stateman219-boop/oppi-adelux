@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment result · ADELUX Collections</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#f7f7f7;color:#111;font:16px/1.5 Arial,sans-serif;display:grid;place-items:center;padding:24px}.panel{width:min(100%,520px);background:#fff;border:1px solid #ddd;padding:32px}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#666}h1{font-size:clamp(30px,7vw,46px);line-height:1.05;margin:12px 0 18px}p{color:#555}.status{font-weight:700;margin:22px 0}.link{display:inline-block;background:#111;color:#fff;text-decoration:none;padding:13px 18px;margin-top:12px}.ref{overflow-wrap:anywhere;font-size:13px}
+</style>
+</head>
+<body><main class="panel">
+<p class="eyebrow">ADELUX COLLECTIONS · CHECKOUT</p>
+<h1 id="heading">Checking your payment…</h1>
+<p id="message">Please wait while we confirm your transaction with Paystack.</p>
+<p class="status" id="status">Verifying</p>
+<p class="ref" id="reference"></p>
+<a class="link" href="./index.html">Return to ADELUX</a>
+</main>
+<script>
+(async()=>{
+ const params=new URLSearchParams(location.search);
+ const ref=params.get('reference')||params.get('trxref');
+ const heading=document.getElementById('heading'),message=document.getElementById('message'),status=document.getElementById('status'),reference=document.getElementById('reference');
+ if(!ref){heading.textContent='No payment reference';message.textContent='We could not find a Paystack reference in this page URL. If you completed payment, contact ADELUX with your receipt.';status.textContent='Not verified';return;}
+ reference.textContent='Reference: '+ref;
+ try{
+  const response=await fetch('https://oppi-adelux.onrender.com/api/payments/verify/'+encodeURIComponent(ref));
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.error||'Verification could not be completed.');
+  if(data.verified===true){
+   heading.textContent='Payment confirmed';message.textContent='Paystack has confirmed this transaction. Keep your payment reference for your records.';status.textContent='PAID · '+(data.currency||'NGN')+' '+(Number(data.amount||0)/100).toLocaleString('en-NG');
+  }else{
+   heading.textContent='Payment not confirmed';message.textContent='Paystack did not report this transaction as successful. Do not treat this order as paid.';status.textContent='Status: '+(data.status||'not successful');
+  }
+ }catch(error){
+  heading.textContent='Could not verify payment';message.textContent=(error instanceof Error?error.message:'Verification failed')+' Please retry later or contact ADELUX with your reference.';status.textContent='Verification pending';
+ }
+})();
+</script></body></html>
