@@ -12,12 +12,12 @@ type Product = {
 };
 
 const products: Product[] = [
-  { id: 1, name: 'Shirts & Tops', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85', note: 'Everyday shirts and tops.' },
-  { id: 2, name: 'Baggy Jeans', category: 'Denim', price: 0, color: 'Unisex', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85', note: 'Relaxed denim styles.' },
-  { id: 3, name: 'Jerseys', category: 'Sportswear', price: 0, color: 'Unisex', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85', note: 'Sport-inspired everyday wear.' },
-  { id: 4, name: 'Joggers & Hoodies', category: 'Casualwear', price: 0, color: 'Unisex', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85', note: 'Comfortable casual pieces.' },
-  { id: 5, name: 'Cotton Dresses', category: 'Dresses', price: 0, color: 'For her', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=85', note: 'Easy cotton dresses.' },
-  { id: 6, name: 'Shoes, Bags & Jewelry', category: 'Accessories', price: 0, color: 'Accessories', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=85', note: 'Accessories to complete your look.' },
+  { id: 1, name: 'Shirts & Tops', category: 'Shirts & Tops', price: 5000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85', note: 'Everyday shirts and tops.' },
+  { id: 2, name: 'Baggy Jeans', category: 'Denim', price: 12000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85', note: 'Relaxed denim styles.' },
+  { id: 3, name: 'Jerseys', category: 'Sportswear', price: 8000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85', note: 'Sport-inspired everyday wear.' },
+  { id: 4, name: 'Joggers & Hoodies', category: 'Casualwear', price: 15000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85', note: 'Comfortable casual pieces.' },
+  { id: 5, name: 'Cotton Dresses', category: 'Dresses', price: 18000, color: 'For her', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=85', note: 'Easy cotton dresses.' },
+  { id: 6, name: 'Shoes, Bags & Jewelry', category: 'Accessories', price: 10000, color: 'Accessories', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=85', note: 'Accessories to complete your look.' },
 ];
 
 const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
