@@ -56,7 +56,7 @@ function productCard(product: Product) {
           ADELUX / OBJECT ${String(product.id).padStart(2, '0')}
         </span>
         <span class="quick-add">
-          Enquire about item
+          Add to cart
         </span>
       </button>
 
@@ -272,7 +272,7 @@ function render() {
     <aside class="cart-drawer ${bagOpen ? 'is-open' : ''}" id="cart-drawer" aria-hidden="${!bagOpen}" aria-label="Shopping cart">
       <div class="cart-head"><div><p class="eyebrow">YOUR SELECTION</p><h2>Shopping cart <span>(${bag.reduce((n, item) => n + item.quantity, 0)})</span></h2></div><button id="cart-close" aria-label="Close cart">Close</button></div>
       <div class="cart-items">${bag.length ? bag.map(({lineId, product, quantity}) => `<article class="cart-item"><img src="${product.image}" alt="${product.name}"><div class="cart-item-info"><p class="cart-item-name">${product.name}</p><p class="cart-item-color">${product.color}</p><p class="cart-item-price">${money(product.price)}</p><div class="cart-quantity"><button data-qty="${lineId}" data-change="-1" aria-label="Decrease quantity">Decrease</button><span>${quantity}</span><button data-qty="${lineId}" data-change="1" aria-label="Increase quantity">Increase</button><button class="cart-remove" data-remove="${lineId}">Remove</button></div></div></article>`).join('') : '<p class="cart-empty">Your cart is empty.<br>Find something considered.</p>'}</div>
-      <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><strong>${money(bag.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}</strong></div><p>Prices are confirmed by WhatsApp. Delivery charges and availability will be discussed before you place an order.</p><button class="cart-checkout" id="cart-checkout" ${bag.length ? '' : 'disabled'}>Enquire on WhatsApp</button></div>
+      <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><strong>${money(bag.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}</strong></div><p>Enter your email at checkout. Payment will be processed securely by Paystack.</p><button class="cart-checkout" id="cart-checkout" ${bag.length ? '' : 'disabled'}>Proceed to payment</button></div>
     </aside>
     <div class="toast" id="toast" role="status"></div><div class="account-backdrop" id="account-backdrop" aria-hidden="true"><section class="account-panel" role="dialog" aria-modal="true"><button id="account-close" class="account-close">×</button><p class="eyebrow">ADELUX ACCOUNT</p><h2 id="account-title">Your purchases,<br><em>kept together.</em></h2><div class="account-tabs"><button id="account-signin-tab">Sign in</button><button id="account-signup-tab">Create account</button></div><form id="account-form"><label id="name-wrap">Name<input id="account-name" autocomplete="name"></label><label>Email<input id="account-email" type="email" required></label><label>Password<input id="account-password" type="password" minlength="6" required></label><button class="account-submit" id="account-submit">Sign in</button></form><div id="account-history" hidden></div><button id="account-signout" hidden>Sign out</button><p class="account-note">Saved locally in this browser. Not cloud-synced or a secure online account.</p></section></div>
   `;
@@ -313,7 +313,7 @@ function addToBag(id: number) {
 
   saveBag();
   render();
-  showToast(`${product.name} added to your enquiry list`);
+  showToast(`${product.name} added to your cart`);
 }
 
 function saveBag() {
@@ -322,14 +322,32 @@ function saveBag() {
   } catch { /* Keep the bag available for this visit if storage is unavailable. */ }
 }
 
-function startWhatsAppEnquiry() {
-  if (!bag.length) return;
-  const lines = bag.map(({ product, quantity }) => '• ' + product.name + ' — Qty: ' + quantity + '; option: ' + product.color + '; price: to be confirmed');
-  const message = ['Hello ADELUX Collections, I would like to enquire about these items:', '', ...lines, '', 'Please confirm current availability, sizes/colours, prices in NGN, and delivery charges. This is an enquiry; my order is not confirmed yet.'].join('\n');
-  const account=getAccount();if(account){account.orders.push({date:new Date().toLocaleString('en-NG'),items:lines.join(' | '),status:'WhatsApp enquiry — order not confirmed'});localStorage.setItem(accountKey,JSON.stringify(account));}
-  window.open('https://wa.me/2348184952775?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
-}
+const PAYMENTS_API_URL = 'https://YOUR-RENDER-SERVICE.onrender.com';
 
+async function startPaystackCheckout() {
+  if (!bag.length) return;
+  const email = window.prompt('Enter your email address for Paystack checkout:');
+  if (!email) return;
+  if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email.trim())) {
+    showToast('Please enter a valid email address');
+    return;
+  }
+  const button = document.querySelector<HTMLButtonElement>('#cart-checkout');
+  if (button) { button.disabled = true; button.textContent = 'Starting secure checkout…'; }
+  try {
+    const response = await fetch(PAYMENTS_API_URL + '/api/payments/initialize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email.trim().toLowerCase(), items: bag.map(({ product, quantity }) => ({ productId: product.id, quantity })) })
+    });
+    const data = await response.json();
+    if (!response.ok || !data.authorizationUrl) throw new Error(data.error || 'Checkout could not start');
+    window.location.assign(data.authorizationUrl);
+  } catch (error) {
+    showToast(error instanceof Error ? error.message : 'Payment service unavailable');
+    if (button) { button.disabled = false; button.textContent = 'Proceed to payment'; }
+  }
+}
 function showToast(message: string) {
   const toast = document.querySelector<HTMLDivElement>('#toast');
   if (!toast) return;
@@ -429,7 +447,7 @@ function bindEvents() {
   document.querySelectorAll<HTMLButtonElement>('[data-remove]').forEach(button => button.addEventListener('click', () => {
     bag = bag.filter(entry => entry.lineId !== Number(button.dataset.remove)); saveBag(); render(); setCartOpen(true);
   }));
-  document.querySelector('#cart-checkout')?.addEventListener('click', startWhatsAppEnquiry);
+  document.querySelector('#cart-checkout')?.addEventListener('click', startPaystackCheckout);
 }
 
 render();
