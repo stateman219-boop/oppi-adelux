@@ -178,17 +178,25 @@ input,textarea,select{border:1px solid rgba(0,0,0,.12);box-shadow:inset 0 2px 5p
 img{image-rendering:auto}
 @media(prefers-reduced-motion:reduce){.image-only-gallery img,button,.btn,.button,a.button{transition:none}.image-only-gallery img:hover,button:hover,.btn:hover,.button:hover,a.button:hover{transform:none}}
 </style><style id="service-liquid-popup-css">
-.service{cursor:pointer;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
-.service:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(0,0,0,.10),inset 0 1px rgba(255,255,255,.9)}
-.service:focus-visible{outline:2px solid var(--black);outline-offset:4px}
-.lg-popup-backdrop{position:fixed;inset:0;z-index:9998;display:grid;place-items:center;padding:22px;background:rgba(12,12,12,.28);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .24s ease,visibility .24s}
+.service{cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.service:hover{transform:translateY(-3px);box-shadow:0 18px 38px rgba(0,0,0,.10)}
+.service:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+.lg-popup-backdrop{position:fixed;inset:0;z-index:9998;display:grid;place-items:center;padding:22px;background:rgba(12,12,12,.48);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .24s ease,visibility .24s}
 .lg-popup-backdrop.is-open{opacity:1;visibility:visible}
-.lg-popup{position:relative;width:min(620px,100%);max-height:min(82vh,760px);overflow:auto;padding:clamp(26px,5vw,48px);border:1px solid rgba(255,255,255,.78);border-radius:28px;background:rgba(255,255,255,.58);backdrop-filter:blur(32px) saturate(1.2);-webkit-backdrop-filter:blur(32px) saturate(1.2);box-shadow:0 30px 90px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.95);transform:translateY(12px) scale(.985);transition:transform .28s ease}
+.lg-popup{position:relative;display:grid;grid-template-columns:minmax(220px,.85fr) minmax(0,1.15fr);width:min(900px,100%);max-height:min(84vh,760px);overflow:auto;border:1px solid rgba(255,255,255,.8);border-radius:26px;background:#fff;box-shadow:0 30px 90px rgba(0,0,0,.25);transform:translateY(12px) scale(.985);transition:transform .28s ease}
 .is-open .lg-popup{transform:translateY(0) scale(1)}
-.lg-popup-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:1px solid rgba(0,0,0,.1);border-radius:50%;background:rgba(255,255,255,.55);color:#111;font-size:24px;line-height:1;cursor:pointer}
-.lg-popup .popup-kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:700}
-.lg-popup h3{font-size:clamp(26px,5vw,40px);margin:16px 0;letter-spacing:-.04em}
-.lg-popup p{color:#555;line-height:1.8;margin:0}
+.lg-popup-frame{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:360px;padding:30px;background:#111;color:#fff;overflow:hidden}
+.lg-popup-frame:before{content:"";position:absolute;width:260px;height:260px;border:1px solid rgba(255,255,255,.22);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.lg-popup-frame:after{content:"";position:absolute;width:190px;height:190px;border:1px solid rgba(223,30,50,.85);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.lg-frame-number{position:relative;z-index:1;color:#ff5261;font-size:11px;letter-spacing:.16em;font-weight:700}
+.lg-frame-word{position:relative;z-index:1;margin:auto 0;font-size:clamp(34px,5vw,62px);font-weight:900;letter-spacing:-.07em;line-height:.95;overflow-wrap:anywhere}
+.lg-frame-foot{position:relative;z-index:1;color:#c9c9c9;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.lg-popup-copy{position:relative;padding:clamp(28px,5vw,52px);align-self:center}
+.lg-popup-close{position:absolute;top:14px;right:14px;z-index:2;width:38px;height:38px;border:1px solid #ddd;border-radius:50%;background:#fff;color:#111;font-size:24px;line-height:1;cursor:pointer}
+.lg-popup .popup-kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:700;padding-right:38px}
+.lg-popup h3{font-size:clamp(27px,4vw,42px);margin:16px 0;letter-spacing:-.04em}
+.lg-popup p{color:#555;line-height:1.85;margin:0;font-size:14px}
+@media(max-width:620px){.lg-popup{grid-template-columns:1fr;max-height:88vh}.lg-popup-frame{min-height:190px;padding:22px}.lg-popup-frame:before{width:170px;height:170px}.lg-popup-frame:after{width:125px;height:125px}.lg-frame-word{font-size:38px;margin:24px 0}.lg-popup-copy{padding:28px 24px 32px}.lg-popup h3{margin:12px 0}}
 @media(prefers-reduced-motion:reduce){.lg-popup-backdrop,.lg-popup,.service{transition:none}}
 </style></head>
 <body>
@@ -210,11 +218,11 @@ img{image-rendering:auto}
 <script id="service-liquid-popup-js">
 (()=>{const cards=[...document.querySelectorAll('#services .service')];if(!cards.length)return;
 const backdrop=document.createElement('div');backdrop.className='lg-popup-backdrop';backdrop.setAttribute('role','presentation');
-backdrop.innerHTML='<div class="lg-popup" role="dialog" aria-modal="true" aria-labelledby="lg-popup-title"><button class="lg-popup-close" type="button" aria-label="Close popup">×</button><span class="popup-kicker"></span><h3 id="lg-popup-title"></h3><p></p></div>';document.body.appendChild(backdrop);
-const box=backdrop.querySelector('.lg-popup'),close=backdrop.querySelector('.lg-popup-close'),kicker=backdrop.querySelector('.popup-kicker'),title=backdrop.querySelector('h3'),desc=backdrop.querySelector('p');let previous=null;
-function open(card){previous=document.activeElement;kicker.textContent=card.querySelector('.num')?.textContent||'OPPIGRAPHIX';title.textContent=card.querySelector('h3')?.textContent||'Service';desc.textContent=card.querySelector('p')?.textContent||'';backdrop.classList.add('is-open');document.body.style.overflow='hidden';close.focus()}
+backdrop.innerHTML='<div class="lg-popup" role="dialog" aria-modal="true" aria-labelledby="lg-popup-title"><div class="lg-popup-frame"><span class="lg-frame-number"></span><div class="lg-frame-word"></div><span class="lg-frame-foot">OPPIGRAPHIX LTD · PRINT & DESIGN</span></div><div class="lg-popup-copy"><button class="lg-popup-close" type="button" aria-label="Close popup">×</button><span class="popup-kicker"></span><h3 id="lg-popup-title"></h3><p></p></div></div>';document.body.appendChild(backdrop);
+const close=backdrop.querySelector('.lg-popup-close'),kicker=backdrop.querySelector('.popup-kicker'),title=backdrop.querySelector('h3'),desc=backdrop.querySelector('.lg-popup-copy p'),frameNum=backdrop.querySelector('.lg-frame-number'),frameWord=backdrop.querySelector('.lg-frame-word');let previous=null;
+function open(card){previous=document.activeElement;const num=card.querySelector('.num')?.textContent||'OPPIGRAPHIX';const heading=card.querySelector('h3')?.textContent||'Service';kicker.textContent=num;title.textContent=heading;desc.textContent=card.querySelector('p')?.textContent||'';frameNum.textContent=num;frameWord.textContent=heading;backdrop.classList.add('is-open');document.body.style.overflow='hidden';close.focus()}
 function shut(){backdrop.classList.remove('is-open');document.body.style.overflow='';previous?.focus()}
-cards.forEach(card=>{card.setAttribute('tabindex','0');card.setAttribute('role','button');card.setAttribute('aria-haspopup','dialog');card.addEventListener('click',()=>open(card));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card)}})});
+cards.forEach(card=>{card.setAttribute('tabindex','0');card.setAttribute('role','button');card.setAttribute('aria-haspopup','dialog');card.setAttribute('aria-label','Open details for '+(card.querySelector('h3')?.textContent||'service'));card.addEventListener('click',()=>open(card));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card)}})});
 close.addEventListener('click',shut);backdrop.addEventListener('click',e=>{if(e.target===backdrop)shut()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&backdrop.classList.contains('is-open'))shut()});
 })();
 </script></body>
