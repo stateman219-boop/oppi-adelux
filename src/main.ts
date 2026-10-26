@@ -333,19 +333,32 @@ async function startPaystackCheckout() {
     return;
   }
   const button = document.querySelector<HTMLButtonElement>('#cart-checkout');
-  if (button) { button.disabled = true; button.textContent = 'Starting secure checkout…'; }
+  if (button) { button.disabled = true; button.textContent = 'Connecting to payment… (Render may take up to 90 seconds)'; }
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 90000);
   try {
     const response = await fetch(PAYMENTS_API_URL + '/api/payments/initialize', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.trim().toLowerCase(), items: bag.map(({ product, quantity }) => ({ productId: product.id, quantity })) })
+      body: JSON.stringify({ email: email.trim().toLowerCase(), items: bag.map(({ product, quantity }) => ({ productId: product.id, quantity })) }),
+      signal: controller.signal
     });
-    const data = await response.json();
-    if (!response.ok || !data.authorizationUrl) throw new Error(data.error || 'Checkout could not start');
-    window.location.assign(data.authorizationUrl);
+    const raw = await response.text();
+    let data: { authorizationUrl?: string; error?: string } = {};
+    try { data = JSON.parse(raw); } catch { throw new Error('Payment server returned an unreadable response. Check Render logs.'); }
+    if (!response.ok || !data.authorizationUrl) throw new Error(data.error || 'Checkout could not start (HTTP ' + response.status + ').');
+    showToast('Opening Paystack…');
+    window.location.href = data.authorizationUrl;
   } catch (error) {
-    showToast(error instanceof Error ? error.message : 'Payment service unavailable');
-    if (button) { button.disabled = false; button.textContent = 'Proceed to payment'; }
+    const message = error instanceof DOMException && error.name === 'AbortError'
+      ? 'Payment server took too long to respond. Render may be waking up; please retry once.'
+      : error instanceof TypeError
+        ? 'Could not reach the payment server. Check Render is Live and its logs.'
+        : error instanceof Error ? error.message : 'Payment service unavailable.';
+    showToast(message);
+    if (button) { button.disabled = false; button.textContent = 'Retry payment'; }
+  } finally {
+    window.clearTimeout(timeout);
   }
 }
 function showToast(message: string) {
