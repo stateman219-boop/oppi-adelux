@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: adelux-payments-api
+    runtime: node
+    rootDir: api
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: FRONTEND_ORIGIN
+        value: https://stateman219-boop.github.io
+      - key: PAYSTACK_CALLBACK_URL
+        value: https://stateman219-boop.github.io/oppi-adelux/payment-result.html
+      - key: PRODUCT_1_PRICE_KOBO
+        value: "0"
+      - key: PRODUCT_2_PRICE_KOBO
+        value: "0"
+      - key: PRODUCT_3_PRICE_KOBO
+        value: "0"
+      - key: PRODUCT_4_PRICE_KOBO
+        value: "0"
+      - key: PRODUCT_5_PRICE_KOBO
+        value: "0"
+      - key: PRODUCT_6_PRICE_KOBO
+        value: "0"
