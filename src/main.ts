@@ -322,7 +322,7 @@ function saveBag() {
   } catch { /* Keep the bag available for this visit if storage is unavailable. */ }
 }
 
-const PAYMENTS_API_URL = 'https://YOUR-RENDER-SERVICE.onrender.com';
+const PAYMENTS_API_URL = 'https://oppi-adelux.onrender.com';
 
 async function startPaystackCheckout() {
   if (!bag.length) return;
