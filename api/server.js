@@ -56,8 +56,10 @@ app.post("/api/payments/initialize", async (req, res) => {
   }
 
   try {
+    console.log(`[payment:init] request received; itemCount=${items.length}; amountKobo=${amount}`);
     const response = await fetch("https://api.paystack.co/transaction/initialize", {
       method: "POST",
+      signal: AbortSignal.timeout(20000),
       headers: { Authorization: `Bearer ${secret}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         email,
@@ -68,12 +70,15 @@ app.post("/api/payments/initialize", async (req, res) => {
       })
     });
     const data = await response.json();
+    console.log(`[payment:init] Paystack responded; http=${response.status}; status=${Boolean(data?.status)}; message=${String(data?.message || "none")}`);
     if (!response.ok || !data.status || !data.data?.authorization_url) {
       return res.status(502).json({ error: data?.message || "Paystack rejected the initialization request.", paystackStatus: response.status });
     }
     res.json({ authorizationUrl: data.data.authorization_url, reference: data.data.reference });
-  } catch {
-    res.status(502).json({ error: "Payment service is temporarily unavailable." });
+  } catch (error) {
+    const timedOut = error?.name === "TimeoutError" || error?.name === "AbortError";
+    console.error(`[payment:init] ${timedOut ? "Paystack request timed out" : "Paystack request failed"}; error=${String(error?.message || error)}`);
+    if (!res.headersSent) res.status(502).json({ error: timedOut ? "Paystack did not respond within 20 seconds. Please retry." : "Payment service is temporarily unavailable. Check backend logs." });
   }
 });
 
