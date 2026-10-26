@@ -69,7 +69,7 @@ app.post("/api/payments/initialize", async (req, res) => {
     });
     const data = await response.json();
     if (!response.ok || !data.status || !data.data?.authorization_url) {
-      return res.status(502).json({ error: "Paystack could not initialize this payment." });
+      return res.status(502).json({ error: data?.message || "Paystack rejected the initialization request.", paystackStatus: response.status });
     }
     res.json({ authorizationUrl: data.data.authorization_url, reference: data.data.reference });
   } catch {
