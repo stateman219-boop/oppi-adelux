@@ -108,8 +108,8 @@ function render() {
       </nav>
 
       <div class="wordmark brand-cycle" aria-label="ADELUX Collections and Oppi Graphics">
-        <a class="brand-name is-active" data-brand="adelux" href="./index.html" aria-label="ADELUX Collections"><img src="./adelux-logo.png.png" alt="ADELUX Collections" class="brand-logo brand-logo-adelux"></a>
-        <a class="brand-name" data-brand="oppi" href="./oppi.html" aria-label="OPPIGRAPHIX"><img src="./oppi-logo.png.png" alt="OPPIGRAPHIX" class="brand-logo brand-logo-oppi"></a>
+        <a class="brand-name is-active" data-brand="adelux" href="/adelux/" aria-label="ADELUX Collections"><img src="/adelux-logo.png.png" alt="ADELUX Collections" class="brand-logo brand-logo-adelux"></a>
+        <a class="brand-name" data-brand="oppi" href="/" aria-label="OPPIGRAPHIX"><img src="/oppi-logo.png.png" alt="OPPIGRAPHIX" class="brand-logo brand-logo-oppi"></a>
       </div>
 
       <div class="header-actions">
