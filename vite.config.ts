@@ -2,14 +2,14 @@ import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 
 export default defineConfig({
-  base: '/oppi-adelux/',
+  base: '/',
   server: {
     host: '0.0.0.0'
   },
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
+        main: resolve(__dirname, 'adelux/index.html'),
         oppi: resolve(__dirname, 'oppi.html')
       }
     }
