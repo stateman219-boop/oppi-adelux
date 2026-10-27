@@ -41,6 +41,7 @@ jobs:
 
       - name: Copy standalone page and uploaded logos
         run: |
+          cp oppi.html dist/index.html
           cp oppi.html dist/oppi.html
           cp adelux-logo.png.png dist/adelux-logo.png.png
           cp oppi-logo.png.png dist/oppi-logo.png.png
