@@ -46,6 +46,7 @@ jobs:
           cp adelux-logo.png.png dist/adelux-logo.png.png
           cp oppi-logo.png.png dist/oppi-logo.png.png
           cp oppi-contact.jpeg dist/oppi-contact.jpeg
+          cp oppi-homepage.jpeg dist/oppi-homepage.jpeg
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
