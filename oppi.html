@@ -268,7 +268,48 @@ function shut(){backdrop.classList.remove('is-open');document.body.style.overflo
 cards.forEach(card=>{card.setAttribute('tabindex','0');card.setAttribute('role','button');card.setAttribute('aria-haspopup','dialog');card.setAttribute('aria-label','Open details for '+(card.querySelector('h3')?.textContent||'service'));card.addEventListener('click',()=>open(card));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card)}})});
 close.addEventListener('click',shut);backdrop.addEventListener('click',e=>{if(e.target===backdrop)shut()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&backdrop.classList.contains('is-open'))shut()});
 })();
-</script></body>
+</script>
+<style id="contact-bright-liquid-glass">
+/* Brighter studio image + glossy liquid-glass project enquiry panel */
+section.contact#contact::before{
+  background:linear-gradient(90deg,rgba(5,5,7,.24) 0%,rgba(5,5,7,.16) 52%,rgba(5,5,7,.10) 100%)!important;
+}
+section.contact#contact .contactbox{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,255,255,.48) 48%,rgba(255,255,255,.30))!important;
+  color:#141414!important;
+  border:1px solid rgba(255,255,255,.88)!important;
+  border-radius:24px!important;
+  box-shadow:0 22px 65px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(255,255,255,.28)!important;
+  backdrop-filter:blur(24px) saturate(175%)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(175%)!important;
+}
+section.contact#contact .contactbox:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(118deg,rgba(255,255,255,.76) 0%,rgba(255,255,255,.16) 27%,transparent 52%,rgba(255,255,255,.22) 100%);
+  border-radius:inherit;
+}
+section.contact#contact .contactbox .eyebrow{color:#df1e32!important}
+section.contact#contact .contactbox a{
+  color:#171717!important;
+  border-color:rgba(20,20,20,.14)!important;
+  font-weight:600;
+}
+section.contact#contact .contactbox a:hover{color:#df1e32!important}
+section.contact#contact .contactbox p{color:rgba(20,20,20,.78)!important}
+@media(max-width:700px){
+  section.contact#contact::before{background:rgba(5,5,7,.22)!important}
+  section.contact#contact .contactbox{background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.54))!important}
+}
+</style>
+
+</body>
 
 <style>
 
