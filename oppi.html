@@ -568,6 +568,46 @@ main{width:100%;overflow:clip}
 
 <style>
 
+<script id="mobile-menu-reliability-fix">
+(function(){
+ function init(){
+  var header=document.getElementById('site-header');
+  if(!header)return;
+  var trigger=header.querySelector('.menu-toggle');
+  var panel=header.querySelector('#mobile-menu');
+  if(!trigger||!panel)return;
+  function setOpen(open){
+   panel.classList.toggle('open',open);
+   trigger.setAttribute('aria-expanded',open?'true':'false');
+   trigger.setAttribute('aria-label',open?'Close menu':'Open menu');
+   document.body.classList.toggle('menu-open',open);
+  }
+  trigger.addEventListener('click',function(event){
+   event.preventDefault();
+   event.stopPropagation();
+   setOpen(!panel.classList.contains('open'));
+  });
+  panel.addEventListener('click',function(event){
+   var link=event.target.closest('a');
+   if(link)setOpen(false);
+  });
+  document.addEventListener('click',function(event){
+   if(panel.classList.contains('open')&&!header.contains(event.target))setOpen(false);
+  });
+  document.addEventListener('keydown',function(event){if(event.key==='Escape')setOpen(false)});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+<style id="mobile-menu-reliability-css">
+@media(max-width:760px){
+ #site-header{position:sticky!important;z-index:5000!important;isolation:isolate}
+ #site-header .menu-toggle{display:flex!important;position:relative!important;z-index:5002!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;cursor:pointer!important}
+ #site-header #mobile-menu{z-index:5001!important;pointer-events:none!important}
+ #site-header #mobile-menu.open{pointer-events:auto!important}
+ #site-header #mobile-menu a{pointer-events:auto!important}
+}
+</style>
 </html>
 
 <style>
