@@ -243,28 +243,28 @@ img{image-rendering:auto}
 @media(prefers-reduced-motion:reduce){.lg-popup-backdrop,.lg-popup,.service{transition:none}}
 </style><style id="homepage-photo-hero">
 .hero.hero-photo{
-  position:relative;display:flex;align-items:center;min-height:clamp(560px,70vw,760px);
-  width:100%;max-width:none;margin:0;padding:clamp(48px,7vw,90px) var(--pad);
-  overflow:hidden;border-radius:0;background:#f2f2f3 url("/oppi-homepage.jpeg") center 52%/cover no-repeat;
-  isolation:isolate;box-shadow:none;
-  -webkit-mask-image:radial-gradient(ellipse 88% 94% at 56% 48%,#000 58%,rgba(0,0,0,.92) 72%,transparent 100%);
-  mask-image:radial-gradient(ellipse 88% 94% at 56% 48%,#000 58%,rgba(0,0,0,.92) 72%,transparent 100%);
+  position:relative;display:flex;align-items:flex-end;justify-content:flex-start;
+  width:100%;max-width:none;min-height:0;height:auto;aspect-ratio:4/3;
+  margin:0;padding:clamp(24px,5vw,64px) var(--pad);
+  overflow:hidden;border-radius:0;background:#f2f2f3 url("/oppi-homepage.jpeg") center center/100% 100% no-repeat;
+  isolation:isolate;box-shadow:none;-webkit-mask-image:none;mask-image:none;
 }
-.hero.hero-photo:before{content:"";position:absolute;inset:0;z-index:-1;background:transparent}
-.hero-photo .hero-copy{position:relative;z-index:1;max-width:650px;color:#111}
-.hero-photo .eyebrow{color:#df1e32}
-.hero-photo .lead{color:#171717;max-width:570px;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.hero.hero-photo:before{content:none}
+.hero-photo .hero-copy{
+  position:relative;z-index:1;width:min(680px,100%);max-width:680px;
+  padding:clamp(18px,3vw,30px);color:#111;
+  background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.96);
+  border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.10);
+}
+.hero-photo .eyebrow{color:#df1e32;margin:0 0 10px}
+.hero-photo .lead{color:#171717;max-width:620px;margin:0 0 16px;text-shadow:none}
 .hero-photo .btn.primary{background:#df1e32;color:#fff;border-color:#df1e32}
 @media(max-width:700px){
- .hero.hero-photo{
-  min-height:640px;width:100%;margin:0;padding:34px 24px;border-radius:0;
-  background-position:56% center;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 8%,#000 91%,transparent 100%);
-  mask-image:linear-gradient(to bottom,transparent 0%,#000 8%,#000 91%,transparent 100%);
- }
- .hero.hero-photo:before{background:transparent}
- .hero-photo .hero-copy{align-self:flex-end}
- .hero-photo .lead{font-size:13px;line-height:1.65}
+ .hero.hero-photo{width:100%;aspect-ratio:4/3;min-height:0;height:auto;padding:18px 14px;background-position:center;background-size:100% 100%}
+ .hero-photo .hero-copy{width:100%;padding:14px;border-radius:12px}
+ .hero-photo .eyebrow{font-size:10px;margin-bottom:6px}
+ .hero-photo .lead{font-size:12px;line-height:1.5;margin-bottom:10px}
+ .hero-photo .btn.primary{font-size:12px;padding:10px 14px}
 }
 </style>
 </head>
