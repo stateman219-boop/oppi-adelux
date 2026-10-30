@@ -309,6 +309,26 @@ section.contact#contact .contactbox p{color:rgba(20,20,20,.78)!important}
 }
 </style>
 
+
+<style id="contact-glass-more-transparent">
+/* Increase translucency of the Project Enquiries liquid-glass panel */
+section.contact#contact .contactbox{
+  background:linear-gradient(135deg,rgba(255,255,255,.43),rgba(255,255,255,.22) 52%,rgba(255,255,255,.14))!important;
+  border-color:rgba(255,255,255,.68)!important;
+  box-shadow:0 22px 65px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.82),inset 0 -1px 0 rgba(255,255,255,.18)!important;
+  backdrop-filter:blur(18px) saturate(165%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(165%)!important;
+}
+section.contact#contact .contactbox:before{
+  background:linear-gradient(118deg,rgba(255,255,255,.48) 0%,rgba(255,255,255,.10) 27%,transparent 56%,rgba(255,255,255,.13) 100%)!important;
+}
+@media(max-width:700px){
+  section.contact#contact .contactbox{
+    background:linear-gradient(145deg,rgba(255,255,255,.52),rgba(255,255,255,.27))!important;
+  }
+}
+</style>
+
 </body>
 
 <style>
