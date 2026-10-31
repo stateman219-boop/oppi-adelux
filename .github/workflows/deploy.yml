@@ -49,6 +49,12 @@ jobs:
           cp oppi-contact.jpeg dist/oppi-contact.jpeg
           cp oppi-homepage.jpeg dist/oppi-homepage.jpeg
           cp Q*.JPG dist/
+          cp "Commercial Printing.png" dist/
+          cp "Corporate Branding.png" dist/
+          cp "Corporate Publications.png" dist/
+          cp "Design & Publishing.png" dist/
+          cp "Modern Signage and Display Showcase.png" dist/
+          cp "Souvenirs & More.png" dist/
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
