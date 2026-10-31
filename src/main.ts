@@ -79,6 +79,7 @@ function render() {
     'Casualwear',
     'Dresses',
     'Accessories',
+    'Kids (5–12)',
   ];
 
   const shown = products.filter(product =>
@@ -142,6 +143,7 @@ function render() {
           <button data-shop-category="Accessories">Shoes</button>
           <button data-shop-category="Accessories">Bags</button>
           <button data-shop-category="Accessories">Jewelry</button>
+          <button data-shop-category="Kids (5–12)">Kids clothing · Ages 5–12</button>
         </div>
         <a href="#story" data-menu-link>Our point of view</a>
         <button id="drawer-search">Search the collection</button>
@@ -224,7 +226,7 @@ function render() {
         <div class="product-grid">
           ${shown.length
             ? shown.map(productCard).join('')
-            : '<p class="no-results">Nothing in this edit yet.</p>'}
+            : `<p class="no-results">${activeCategory === 'Kids (5–12)' ? 'The ADELUX Kids edit for ages 5–12 is coming soon. Check back for children’s styles.' : 'Nothing in this edit yet.'}</p>`}
         </div>
       </section>
 
