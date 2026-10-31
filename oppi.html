@@ -320,9 +320,9 @@ img{image-rendering:auto}
 <script id="service-liquid-popup-js">
 (()=>{const cards=[...document.querySelectorAll('#services .service')];if(!cards.length)return;
 const backdrop=document.createElement('div');backdrop.className='lg-popup-backdrop';backdrop.setAttribute('role','presentation');
-backdrop.innerHTML='<div class="lg-popup" role="dialog" aria-modal="true" aria-labelledby="lg-popup-title"><div class="lg-popup-frame"><span class="lg-frame-number"></span><div class="lg-frame-word"></div><span class="lg-frame-foot">OPPIGRAPHIX LTD · PRINT & DESIGN</span></div><div class="lg-popup-copy"><button class="lg-popup-close" type="button" aria-label="Close popup">×</button><span class="popup-kicker"></span><h3 id="lg-popup-title"></h3><p></p></div></div>';document.body.appendChild(backdrop);
-const close=backdrop.querySelector('.lg-popup-close'),kicker=backdrop.querySelector('.popup-kicker'),title=backdrop.querySelector('h3'),desc=backdrop.querySelector('.lg-popup-copy p'),frameNum=backdrop.querySelector('.lg-frame-number'),frameWord=backdrop.querySelector('.lg-frame-word');let previous=null;
-function open(card){previous=document.activeElement;const num=card.querySelector('.num')?.textContent||'OPPIGRAPHIX';const heading=card.querySelector('h3')?.textContent||'Service';kicker.textContent=num;title.textContent=heading;desc.textContent=card.querySelector('p')?.textContent||'';frameNum.textContent=num;frameWord.textContent=heading;backdrop.classList.add('is-open');document.body.style.overflow='hidden';close.focus()}
+backdrop.innerHTML='<div class="lg-popup" role="dialog" aria-modal="true" aria-labelledby="lg-popup-title"><div class="lg-popup-frame"><img class="lg-frame-image" src="" alt=""><span class="lg-frame-shade"></span><span class="lg-frame-number"></span><div class="lg-frame-word"></div><span class="lg-frame-foot">OPPIGRAPHIX LTD · PRINT & DESIGN</span></div><div class="lg-popup-copy"><button class="lg-popup-close" type="button" aria-label="Close popup">×</button><span class="popup-kicker"></span><h3 id="lg-popup-title"></h3><p></p></div></div>';document.body.appendChild(backdrop);
+const close=backdrop.querySelector('.lg-popup-close'),kicker=backdrop.querySelector('.popup-kicker'),title=backdrop.querySelector('h3'),desc=backdrop.querySelector('.lg-popup-copy p'),frameNum=backdrop.querySelector('.lg-frame-number'),frameWord=backdrop.querySelector('.lg-frame-word'),frameImage=backdrop.querySelector('.lg-frame-image');let previous=null;\nconst serviceImages={'Corporate Publications':'/Corporate%20Publications.png','Commercial Printing':'/Commercial%20Printing.png','Signage & Display':'/Modern%20Signage%20and%20Display%20Showcase.png','Corporate Branding':'/Corporate%20Branding.png','Design & Publishing':'/Design%20%26%20Publishing.png','Souvenirs & More':'/Souvenirs%20%26%20More.png'};
+function open(card){previous=document.activeElement;const num=card.querySelector('.num')?.textContent||'OPPIGRAPHIX';const heading=card.querySelector('h3')?.textContent||'Service';kicker.textContent=num;title.textContent=heading;desc.textContent=card.querySelector('p')?.textContent||'';frameNum.textContent=num;frameWord.textContent=heading;frameImage.src=serviceImages[heading]||'';frameImage.alt=heading+' service showcase';backdrop.classList.add('is-open');document.body.style.overflow='hidden';close.focus()}
 function shut(){backdrop.classList.remove('is-open');document.body.style.overflow='';previous?.focus()}
 cards.forEach(card=>{card.setAttribute('tabindex','0');card.setAttribute('role','button');card.setAttribute('aria-haspopup','dialog');card.setAttribute('aria-label','Open details for '+(card.querySelector('h3')?.textContent||'service'));card.addEventListener('click',()=>open(card));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card)}})});
 close.addEventListener('click',shut);backdrop.addEventListener('click',e=>{if(e.target===backdrop)shut()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&backdrop.classList.contains('is-open'))shut()});
@@ -639,6 +639,16 @@ main{width:100%;overflow:clip}
 /* Remove the outline/border around the OPPIGRAPHIX header */
 .nav{border:0!important;outline:0!important;box-shadow:none!important;}
 .nav:focus,.nav:focus-visible{outline:0!important;}
+</style>
+
+<style id="service-popup-image-frame">
+.lg-popup-frame{padding:0!important;min-height:420px!important;isolation:isolate!important;background:#111!important}
+.lg-frame-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
+.lg-frame-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.04) 38%,rgba(0,0,0,.62))}
+.lg-frame-number,.lg-frame-word,.lg-frame-foot{z-index:2!important;margin-left:28px;margin-right:28px;text-shadow:0 2px 12px rgba(0,0,0,.45)}
+.lg-frame-number{margin-top:28px}.lg-frame-word{margin-top:auto!important;margin-bottom:22px!important}.lg-frame-foot{margin-bottom:28px}
+.lg-popup-frame:before,.lg-popup-frame:after{display:none!important}
+@media(max-width:620px){.lg-popup-frame{min-height:230px!important}.lg-frame-number{margin-top:20px}.lg-frame-word{font-size:34px!important;margin-bottom:14px!important}.lg-frame-foot{margin-bottom:20px}}
 </style>
 </body>
 </html>
