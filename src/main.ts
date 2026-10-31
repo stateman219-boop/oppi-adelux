@@ -232,7 +232,7 @@ function render() {
 
       <section class="campaign">
         <img
-          src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85"
+          src="https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/SECOND%20FRAME.png"
           alt="ADELUX campaign">
         <div class="campaign-overlay">
           <p class="eyebrow">BEYOND THE SEASON</p>
