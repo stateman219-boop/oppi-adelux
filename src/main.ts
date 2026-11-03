@@ -12,7 +12,21 @@ type Product = {
 };
 
 const products: Product[] = [
-  { id: 1, name: 'Shirts & Tops', category: 'Shirts & Tops', price: 5000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=900&q=85', note: 'Everyday shirts and tops.' },
+  { id: 1, name: 'Shirt Design 01', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5841.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 37, name: 'Shirt Design 02', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5842.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 38, name: 'Shirt Design 03', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5843.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 39, name: 'Shirt Design 04', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5844.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 40, name: 'Shirt Design 05', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5845.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 41, name: 'Shirt Design 06', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5846.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 42, name: 'Shirt Design 07', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5847.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 43, name: 'Shirt Design 08', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5848.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 44, name: 'Shirt Design 09', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5849.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 45, name: 'Shirt Design 10', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5850.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 46, name: 'Shirt Design 11', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5851.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 47, name: 'Shirt Design 12', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5852.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 48, name: 'Shirt Design 13', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5853.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 49, name: 'Shirt Design 14', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5854.jpeg', note: 'ADELUX shirts and tops collection.' },
+  { id: 50, name: 'Shirt Design 15', category: 'Shirts & Tops', price: 0, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5855.jpeg', note: 'ADELUX shirts and tops collection.' },
   { id: 2, name: 'Baggy Jeans', category: 'Denim', price: 12000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85', note: 'Relaxed denim styles.' },
   { id: 3, name: 'Jerseys', category: 'Sportswear', price: 8000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85', note: 'Sport-inspired everyday wear.' },
   { id: 4, name: 'Joggers & Hoodies', category: 'Casualwear', price: 15000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85', note: 'Comfortable casual pieces.' },
