@@ -164,26 +164,6 @@ function mainContentMarkup() {
         </div>
       </section>
 
-      <div class="category-collections">
-        ${[...new Set(products.map(product => product.category))]
-          .filter(category => activeCategory === 'All pieces' || category === activeCategory)
-          .map(category => {
-            const categoryProducts = products.filter(product =>
-              product.category === category &&
-              (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())
-            );
-            return `
-              <section class="category-section" id="category-${category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}">
-                <div class="category-section-heading">
-                  <div><p class="eyebrow">THE ADELUX EDIT</p><h2>${category}</h2></div>
-                  <span>${categoryProducts.length} PIECES</span>
-                </div>
-                <div class="product-grid">
-                  ${categoryProducts.length ? categoryProducts.map(product => productCard(product)).join('') : '<p class="no-results">No products match your search in this section.</p>'}
-                </div>
-              </section>`;
-          }).join('')}
-      </div>
       <section class="campaign">
         <img
           src="https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/SECOND%20FRAME.png"
@@ -252,7 +232,7 @@ function render() {
       </button>
 
       <nav class="desktop-nav">
-        <a href="#collection">Shop</a>
+        <a href="/adelux/">Shop</a>
         <a href="/adelux/#story">Our point of view</a>
       </nav>
 
