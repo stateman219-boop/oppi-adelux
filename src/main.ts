@@ -18,6 +18,7 @@ const products: Product[] = [
   { id: 4, name: 'Joggers & Hoodies', category: 'Casualwear', price: 15000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85', note: 'Comfortable casual pieces.' },
   { id: 5, name: 'Cotton Dresses', category: 'Dresses', price: 18000, color: 'For her', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=85', note: 'Easy cotton dresses.' },
   { id: 6, name: 'Shoes, Bags & Jewelry', category: 'Accessories', price: 10000, color: 'Accessories', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=85', note: 'Accessories to complete your look.' },
+  { id: 7, name: 'Agbada Designs', category: 'Traditional Wear', price: 0, color: 'Made to order', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nigerian_Agbada.jpg', note: 'Custom Nigerian Agbada designs, tailored to your preferred fabric, colour and fit.' },
 ];
 
 const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
@@ -79,6 +80,7 @@ function render() {
     'Casualwear',
     'Dresses',
     'Accessories',
+    'Traditional Wear',
     'Kids (5–12)',
   ];
 
@@ -143,6 +145,7 @@ function render() {
           <button data-shop-category="Accessories">Shoes</button>
           <button data-shop-category="Accessories">Bags</button>
           <button data-shop-category="Accessories">Jewelry</button>
+          <button data-shop-category="Traditional Wear">Agbada designs</button>
           <button data-shop-category="Kids (5–12)">Kids clothing · Ages 5–12</button>
         </div>
         <a href="#story" data-menu-link>Our point of view</a>
@@ -261,6 +264,8 @@ function render() {
         </div>
       </section>
     </main>
+
+    <p class="image-credit">Agbada reference photograph: Ayobami99 / Wikimedia Commons · CC BY-SA 4.0</p>
 
     <footer class="footer">
       <a class="wordmark" href="#">
