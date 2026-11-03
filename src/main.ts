@@ -153,7 +153,7 @@ function mainContentMarkup() {
               <button class="category-tab ${activeCategory === category ? 'active' : ''}" data-category="${category}">${category}</button>
             `).join('')}
           </div>
-          <span class="result-count">${shown.length} PIECES</span>
+          <span class="result-count">${products.filter(product => (activeCategory === 'All pieces' || product.category === activeCategory) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())).length} PIECES</span>
         </div>
         <div class="product-grid overview-grid">
           ${[...new Map(products.filter(product =>
