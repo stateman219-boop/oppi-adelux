@@ -286,7 +286,6 @@ function render() {
       </section>
     </main>
 
-    <p class="image-credit">Agbada reference photograph: Ayobami99 / Wikimedia Commons · CC BY-SA 4.0</p>
 
     <footer class="footer">
       <a class="wordmark" href="#">
