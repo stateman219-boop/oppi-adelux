@@ -80,7 +80,7 @@ function productCard(product: Product, preview = false) {
     ? `data-view-more="${product.category}" aria-label="View more ${product.category}"`
     : `data-add="${product.id}" aria-label="Add ${product.name} to cart"`;
   return `
-    <article class="product-card">
+    <article class="product-card ${preview ? "product-card-preview" : ""}" ${preview ? `data-open-category="${product.category}" tabindex="0" role="link" aria-label="Open the full ${product.category} collection"` : ""}>
       <div class="product-image">
         <img src="${product.image}" alt="${product.name}" loading="lazy">
         <span class="image-label">ADELUX / OBJECT ${String(product.id).padStart(2, '0')}</span>
@@ -415,16 +415,37 @@ function bindEvents() {
   document.querySelectorAll<HTMLButtonElement>('[data-category]')
     .forEach(button => {
       button.addEventListener('click', () => {
-        activeCategory = button.dataset.category || 'All pieces';
-        render();
-        if (activeCategory !== 'All pieces') {
-          document.querySelector('#category-' + activeCategory.toLowerCase().replace(/[^a-z0-9]+/g, '-'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const category = button.dataset.category || 'All pieces';
+        if (category === 'All pieces') {
+          activeCategory = 'All pieces';
+          render();
+        } else {
+          const slug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          window.location.href = '/adelux/?category=' + encodeURIComponent(slug);
         }
       });
     });
 
   document.querySelectorAll<HTMLButtonElement>('[data-add]')
     .forEach(button => button.addEventListener('click', () => addToBag(Number(button.dataset.add))));
+
+  document.querySelectorAll<HTMLElement>('[data-open-category]').forEach(card => {
+    const openCategory = () => {
+      const category = card.dataset.openCategory || '';
+      const slug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      window.location.href = '/adelux/?category=' + encodeURIComponent(slug);
+    };
+    card.addEventListener('click', event => {
+      if ((event.target as HTMLElement).closest('button')) return;
+      openCategory();
+    });
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openCategory();
+      }
+    });
+  });
 
   document.querySelectorAll<HTMLButtonElement>('[data-view-more]')
     .forEach(button => button.addEventListener('click', () => {
