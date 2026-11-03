@@ -83,99 +83,29 @@ function productCard(product: Product, preview = false) {
     </article>`;
 }
 
-function render() {
-  const categories = [
-    'All pieces',
-    'Shirts & Tops',
-    'Denim',
-    'Sportswear',
-    'Casualwear',
-    'Dresses',
-    'Accessories',
-    'Traditional Wear',
-    'Kids (5–12)',
-  ];
+function categoryPageMarkup(category: string) {
+  const categoryProducts = products.filter(product => product.category === category);
+  return `
+    <section class="category-page">
+      <div class="category-page-top">
+        <a class="category-back" href="/adelux/">← BACK TO ADELUX</a>
+        <p class="eyebrow">THE ADELUX EDIT</p>
+        <h1>${category}</h1>
+        <p class="category-page-intro">Explore every piece in this collection. Select your favourites and add them to your bag.</p>
+        <span class="category-page-count">${categoryProducts.length} ${categoryProducts.length === 1 ? 'PIECE' : 'PIECES'}</span>
+      </div>
+      <div class="product-grid category-page-grid">
+        ${categoryProducts.map(product => productCard(product)).join('')}
+      </div>
+    </section>`;
+}
 
-  const shown = products.filter(product =>
-    (activeCategory === 'All pieces' ||
-      product.category === activeCategory) &&
-    (
-      product.name + ' ' +
-      product.category + ' ' +
-      product.color + ' ' + product.note
-    ).toLowerCase().includes(searchTerm.toLowerCase())
+function mainContentMarkup() {
+  const requestedSlug = new URLSearchParams(window.location.search).get('category');
+  const category = products.map(product => product.category).find(name =>
+    name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === requestedSlug
   );
-
-  app.innerHTML = `
-    <div class="announcement">
-      ADELUX COLLECTIONS · UNLEASH YOUR ELEGANCE
-    </div>
-
-    <header class="site-header">
-      <button class="menu-trigger" id="menu-trigger"
-        aria-label="Open menu" aria-expanded="${menuOpen}" aria-controls="menu-drawer">
-        <span></span><span></span>
-      </button>
-
-      <nav class="desktop-nav">
-        <a href="#collection">Shop</a>
-        <a href="#story">Our point of view</a>
-      </nav>
-
-      <div class="wordmark brand-cycle" aria-label="ADELUX Collections and Oppi Graphics">
-        <a class="brand-name is-active" data-brand="adelux" href="/adelux/" aria-label="ADELUX Collections"><img src="/adelux-logo.png.png" alt="ADELUX Collections" class="brand-logo brand-logo-adelux"></a>
-        <a class="brand-name" data-brand="oppi" href="/" aria-label="OPPIGRAPHIX"><img src="/oppi-logo.png.png" alt="OPPIGRAPHIX" class="brand-logo brand-logo-oppi"></a>
-      </div>
-
-      <div class="header-actions">
-        <button id="account-toggle" class="text-action">Sign up / Sign in</button>
-        <button id="bag-toggle" class="bag-button">
-          Bag
-          <span class="bag-count">
-            ${bag.reduce((total, item) =>
-              total + item.quantity, 0)}
-          </span>
-        </button>
-      </div>
-    </header>
-
-    <div class="menu-backdrop ${menuOpen ? 'is-open' : ''}" id="menu-backdrop" aria-hidden="${!menuOpen}"></div>
-    <aside class="menu-drawer ${menuOpen ? 'is-open' : ''}" id="menu-drawer" aria-hidden="${!menuOpen}">
-      <div class="drawer-head">
-        <a class="wordmark" href="#">ADELUX <span>COLLECTIONS</span></a>
-        <button id="menu-close" class="drawer-close" aria-label="Close menu">Close</button>
-      </div>
-      <nav class="drawer-nav" aria-label="Main menu">
-        <button id="shop-collection-toggle" class="shop-collection-toggle" aria-expanded="${shopCategoriesOpen}" aria-controls="shop-subcategories">Shop our collection <span class="shop-chevron">${shopCategoriesOpen ? '−' : '＋'}</span></button>
-        <div class="drawer-subcategories ${shopCategoriesOpen ? 'is-open' : ''}" id="shop-subcategories" aria-label="Shop categories" ${shopCategoriesOpen ? '' : 'hidden'}>
-          <button data-shop-category="Shirts & Tops">Shirts & tops</button>
-          <button data-shop-category="Denim">Baggy jeans</button>
-          <button data-shop-category="Sportswear">Jerseys</button>
-          <button data-shop-category="Casualwear">Joggers</button>
-          <button data-shop-category="Casualwear">Hoodies</button>
-          <button data-shop-category="Dresses">Cotton dresses</button>
-          <button data-shop-category="Accessories">Shoes</button>
-          <button data-shop-category="Accessories">Bags</button>
-          <button data-shop-category="Accessories">Jewelry</button>
-          <button data-shop-category="Traditional Wear">Agbada designs</button>
-          <button data-shop-category="Kids (5–12)">Kids clothing · Ages 5–12</button>
-        </div>
-        <a href="#story" data-menu-link>Our point of view</a>
-        <button id="drawer-search">Search the collection</button>
-        <button id="drawer-bag">Shopping bag <span>${bag.reduce((total, item) => total + item.quantity, 0)}</span></button>
-      </nav>
-      <p class="drawer-note">Unleash your elegance.<br>Designed for everyone. Made to stay.</p>
-    </aside>
-
-    <div class="search-row" id="search-row">
-      <label for="site-search">SEARCH THE COLLECTION</label>
-      <input id="site-search"
-        placeholder="Try coat or knitwear"
-        value="${searchTerm.replace(/"/g, '&quot;')}">
-      <button id="clear-search" aria-label="Clear search">Clear</button>
-    </div>
-
-    <main>
+  return category ? categoryPageMarkup(category) : `
       <section class="hero">
         <img class="hero-image"
           src="https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/adelux-hero.png"
@@ -284,6 +214,103 @@ function render() {
           <p>Clothing for everyone.</p>
         </div>
       </section>
+`;
+}
+
+function render() {
+  const categories = [
+    'All pieces',
+    'Shirts & Tops',
+    'Denim',
+    'Sportswear',
+    'Casualwear',
+    'Dresses',
+    'Accessories',
+    'Traditional Wear',
+    'Kids (5–12)',
+  ];
+
+  const shown = products.filter(product =>
+    (activeCategory === 'All pieces' ||
+      product.category === activeCategory) &&
+    (
+      product.name + ' ' +
+      product.category + ' ' +
+      product.color + ' ' + product.note
+    ).toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  app.innerHTML = `
+    <div class="announcement">
+      ADELUX COLLECTIONS · UNLEASH YOUR ELEGANCE
+    </div>
+
+    <header class="site-header">
+      <button class="menu-trigger" id="menu-trigger"
+        aria-label="Open menu" aria-expanded="${menuOpen}" aria-controls="menu-drawer">
+        <span></span><span></span>
+      </button>
+
+      <nav class="desktop-nav">
+        <a href="#collection">Shop</a>
+        <a href="#story">Our point of view</a>
+      </nav>
+
+      <div class="wordmark brand-cycle" aria-label="ADELUX Collections and Oppi Graphics">
+        <a class="brand-name is-active" data-brand="adelux" href="/adelux/" aria-label="ADELUX Collections"><img src="/adelux-logo.png.png" alt="ADELUX Collections" class="brand-logo brand-logo-adelux"></a>
+        <a class="brand-name" data-brand="oppi" href="/" aria-label="OPPIGRAPHIX"><img src="/oppi-logo.png.png" alt="OPPIGRAPHIX" class="brand-logo brand-logo-oppi"></a>
+      </div>
+
+      <div class="header-actions">
+        <button id="account-toggle" class="text-action">Sign up / Sign in</button>
+        <button id="bag-toggle" class="bag-button">
+          Bag
+          <span class="bag-count">
+            ${bag.reduce((total, item) =>
+              total + item.quantity, 0)}
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <div class="menu-backdrop ${menuOpen ? 'is-open' : ''}" id="menu-backdrop" aria-hidden="${!menuOpen}"></div>
+    <aside class="menu-drawer ${menuOpen ? 'is-open' : ''}" id="menu-drawer" aria-hidden="${!menuOpen}">
+      <div class="drawer-head">
+        <a class="wordmark" href="#">ADELUX <span>COLLECTIONS</span></a>
+        <button id="menu-close" class="drawer-close" aria-label="Close menu">Close</button>
+      </div>
+      <nav class="drawer-nav" aria-label="Main menu">
+        <button id="shop-collection-toggle" class="shop-collection-toggle" aria-expanded="${shopCategoriesOpen}" aria-controls="shop-subcategories">Shop our collection <span class="shop-chevron">${shopCategoriesOpen ? '−' : '＋'}</span></button>
+        <div class="drawer-subcategories ${shopCategoriesOpen ? 'is-open' : ''}" id="shop-subcategories" aria-label="Shop categories" ${shopCategoriesOpen ? '' : 'hidden'}>
+          <button data-shop-category="Shirts & Tops">Shirts & tops</button>
+          <button data-shop-category="Denim">Baggy jeans</button>
+          <button data-shop-category="Sportswear">Jerseys</button>
+          <button data-shop-category="Casualwear">Joggers</button>
+          <button data-shop-category="Casualwear">Hoodies</button>
+          <button data-shop-category="Dresses">Cotton dresses</button>
+          <button data-shop-category="Accessories">Shoes</button>
+          <button data-shop-category="Accessories">Bags</button>
+          <button data-shop-category="Accessories">Jewelry</button>
+          <button data-shop-category="Traditional Wear">Agbada designs</button>
+          <button data-shop-category="Kids (5–12)">Kids clothing · Ages 5–12</button>
+        </div>
+        <a href="#story" data-menu-link>Our point of view</a>
+        <button id="drawer-search">Search the collection</button>
+        <button id="drawer-bag">Shopping bag <span>${bag.reduce((total, item) => total + item.quantity, 0)}</span></button>
+      </nav>
+      <p class="drawer-note">Unleash your elegance.<br>Designed for everyone. Made to stay.</p>
+    </aside>
+
+    <div class="search-row" id="search-row">
+      <label for="site-search">SEARCH THE COLLECTION</label>
+      <input id="site-search"
+        placeholder="Try coat or knitwear"
+        value="${searchTerm.replace(/"/g, '&quot;')}">
+      <button id="clear-search" aria-label="Clear search">Clear</button>
+    </div>
+
+    <main>
+${mainContentMarkup()}
     </main>
 
 
@@ -421,9 +448,8 @@ function bindEvents() {
   document.querySelectorAll<HTMLButtonElement>('[data-view-more]')
     .forEach(button => button.addEventListener('click', () => {
       const category = button.dataset.viewMore || '';
-      activeCategory = 'All pieces';
-      const target = document.querySelector('#category-' + category.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const slug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      window.location.href = '/adelux/?category=' + encodeURIComponent(slug);
     }));
 
   document.querySelector('#account-toggle')?.addEventListener('click',accountOpen);document.querySelector('#account-close')?.addEventListener('click',accountClose);document.querySelector('#account-backdrop')?.addEventListener('click',e=>{if(e.target===e.currentTarget)accountClose()});document.querySelector('#account-signin-tab')?.addEventListener('click',()=>accountModeSet('signin'));document.querySelector('#account-signup-tab')?.addEventListener('click',()=>accountModeSet('signup'));document.querySelector('#account-signout')?.addEventListener('click',()=>{localStorage.removeItem(accountKey);accountClose()});document.querySelector<HTMLFormElement>('#account-form')?.addEventListener('submit',async e=>{e.preventDefault();const email=(document.querySelector<HTMLInputElement>('#account-email')!).value.trim().toLowerCase(),pass=(document.querySelector<HTMLInputElement>('#account-password')!).value,name=(document.querySelector<HTMLInputElement>('#account-name')!).value.trim(),hash=await passwordHash(pass),a=getAccount();if(accountMode==='signup'){if(a){showToast('A local account already exists');return}localStorage.setItem(accountKey,JSON.stringify({name:name||email.split('@')[0],email,passwordHash:hash,orders:[]}));showToast('Account created')}else if(!a||a.email!==email||a.passwordHash!==hash){showToast('Email or password incorrect');return}else showToast('Signed in');accountOpen()});
@@ -469,11 +495,9 @@ function bindEvents() {
     if (chevron) chevron.textContent = shopCategoriesOpen ? '−' : '＋';
   });
   document.querySelectorAll<HTMLButtonElement>('[data-shop-category]').forEach(button => button.addEventListener('click', () => {
-    activeCategory = button.dataset.shopCategory || 'All pieces';
-    searchTerm = '';
-    render();
-    setMenuOpen(false);
-    document.querySelector('#collection')?.scrollIntoView({ behavior: 'smooth' });
+    const category = button.dataset.shopCategory || '';
+    const slug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    window.location.href = '/adelux/?category=' + encodeURIComponent(slug);
   }));
 
   document.querySelector('#drawer-search')?.addEventListener('click', () => {
