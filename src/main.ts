@@ -73,7 +73,7 @@ const products: Product[] = [
   { id: 25, name: 'Agbada Design 19', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5817.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
 ];
 
-const visibleCategories = ['Shirts & Tops', 'Sportswear', 'Dresses', 'Traditional Wear'];
+const visibleCategories = ['Shirts & Tops', 'Sportswear', 'Dresses', 'Traditional Wear', 'Kids'];
 
 const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
 
@@ -294,6 +294,7 @@ function render() {
           <button data-shop-category="Sportswear">Jerseys</button>
           <button data-shop-category="Dresses">Dresses</button>
           <button data-shop-category="Traditional Wear">Agbada designs</button>
+          <button data-shop-category="Kids">Kids</button>
         </div>
         <a href="/adelux/#story" data-menu-link>Our point of view</a>
         <button id="drawer-search">Search the collection</button>
