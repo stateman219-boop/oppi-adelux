@@ -1392,3 +1392,16 @@ body.cart-open{overflow:hidden}
   .category-section-heading { margin-bottom: 20px; }
   .category-section-heading h2 { font-size: 27px; }
 }
+
+
+/* Dedicated ADELUX category pages */
+.category-page{padding:clamp(48px,7vw,100px) var(--pad) 90px;min-height:65vh}
+.category-page-top{max-width:760px;margin:0 auto 42px;text-align:center}
+.category-back{display:inline-block;margin-bottom:42px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.16em;text-decoration:none}
+.category-back:hover{color:var(--red)}
+.category-page-top .eyebrow{margin-bottom:14px}
+.category-page-top h1{font-size:clamp(42px,7vw,88px);line-height:.98;letter-spacing:-.065em;margin:0 0 18px}
+.category-page-intro{max-width:520px;margin:0 auto 18px;color:var(--muted);font-size:13px;line-height:1.8}
+.category-page-count{font-size:10px;letter-spacing:.15em;font-weight:700}
+.category-page-grid{max-width:1440px;margin:0 auto}
+@media(max-width:700px){.category-page{padding:34px 18px 64px}.category-back{margin-bottom:34px}.category-page-top{margin-bottom:28px}.category-page-top h1{font-size:clamp(38px,11vw,58px)}.category-page-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.category-page-grid .product-image{aspect-ratio:.72}.category-page-grid .product-meta{gap:8px;align-items:flex-start;flex-direction:column}.category-page-grid .price{margin-top:0}}
