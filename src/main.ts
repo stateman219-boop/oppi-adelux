@@ -16,7 +16,6 @@ const products: Product[] = [
   { id: 2, name: 'Baggy Jeans', category: 'Denim', price: 12000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85', note: 'Relaxed denim styles.' },
   { id: 3, name: 'Jerseys', category: 'Sportswear', price: 8000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85', note: 'Sport-inspired everyday wear.' },
   { id: 4, name: 'Joggers & Hoodies', category: 'Casualwear', price: 15000, color: 'Unisex', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85', note: 'Comfortable casual pieces.' },
-  { id: 5, name: 'Cotton Dresses', category: 'Dresses', price: 18000, color: 'For her', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=900&q=85', note: 'Easy cotton dresses.' },
   { id: 26, name: 'Dress Design 01', category: 'Dresses', price: 18000, color: 'For her', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images%202/IMG_5821.jpeg', note: 'ADELUX dress collection.' },
   { id: 27, name: 'Dress Design 02', category: 'Dresses', price: 18000, color: 'For her', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images%202/IMG_5822.jpeg', note: 'ADELUX dress collection.' },
   { id: 28, name: 'Dress Design 03', category: 'Dresses', price: 18000, color: 'For her', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images%202/IMG_5823.jpeg', note: 'ADELUX dress collection.' },
@@ -88,7 +87,7 @@ function productCard(product: Product, preview = false) {
           : `<button class="quick-add" ${action}>ADD TO CART <span>＋</span></button>`}
       </div>
       <div class="product-meta">
-        <div><p class="product-name">${product.name}</p><p class="product-color">${product.color} · Unisex</p></div>
+        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}</div>
         <p class="price">${money(product.price)}</p>
       </div>
     </article>`;
@@ -99,7 +98,7 @@ function categoryPageMarkup(category: string) {
   return `
     <section class="category-page">
       <div class="category-page-top">
-        <a class="category-back" href="/adelux/">← BACK TO ADELUX</a>
+        <a class="category-back" href="/adelux/">BACK TO ADELUX</a>
         <p class="eyebrow">THE ADELUX EDIT</p>
         <h1>${category}</h1>
         <p class="category-page-intro">Explore every piece in this collection. Select your favourites and add them to your bag.</p>
