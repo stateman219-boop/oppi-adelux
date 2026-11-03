@@ -1405,3 +1405,10 @@ body.cart-open{overflow:hidden}
 .category-page-count{font-size:10px;letter-spacing:.15em;font-weight:700}
 .category-page-grid{max-width:1440px;margin:0 auto}
 @media(max-width:700px){.category-page{padding:34px 18px 64px}.category-back{margin-bottom:34px}.category-page-top{margin-bottom:28px}.category-page-top h1{font-size:clamp(38px,11vw,58px)}.category-page-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.category-page-grid .product-image{aspect-ratio:.72}.category-page-grid .product-meta{gap:8px;align-items:flex-start;flex-direction:column}.category-page-grid .price{margin-top:0}}
+
+
+/* Campaign copy colours requested for the ADELUX seasonal banner */
+.campaign .campaign-eyebrow { color: #000000 !important; }
+.campaign .campaign-heading { color: #ffffff !important; }
+.campaign .campaign-heading em { color: #e00000 !important; }
+.campaign .campaign-link { color: #ffffff !important; border-color: #ffffff !important; }
