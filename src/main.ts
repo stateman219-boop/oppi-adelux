@@ -253,7 +253,7 @@ function render() {
 
       <nav class="desktop-nav">
         <a href="#collection">Shop</a>
-        <a href="#story">Our point of view</a>
+        <a href="/adelux/#story">Our point of view</a>
       </nav>
 
       <div class="wordmark brand-cycle" aria-label="ADELUX Collections and Oppi Graphics">
@@ -294,7 +294,7 @@ function render() {
           <button data-shop-category="Traditional Wear">Agbada designs</button>
           <button data-shop-category="Kids (5–12)">Kids clothing · Ages 5–12</button>
         </div>
-        <a href="#story" data-menu-link>Our point of view</a>
+        <a href="/adelux/#story" data-menu-link>Our point of view</a>
         <button id="drawer-search">Search the collection</button>
         <button id="drawer-bag">Shopping bag <span>${bag.reduce((total, item) => total + item.quantity, 0)}</span></button>
       </nav>
