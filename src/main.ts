@@ -84,7 +84,7 @@ function productCard(product: Product, preview = false) {
         <img src="${product.image}" alt="${product.name}" loading="lazy">
         <span class="image-label">ADELUX / OBJECT ${String(product.id).padStart(2, '0')}</span>
         ${preview
-          ? `<button class="quick-add" ${action}>VIEW MORE <span>↗</span></button>`
+          ? `<button class="quick-add" ${action}>VIEW MORE</button>`
           : `<button class="quick-add" ${action}>ADD TO CART <span>＋</span></button>`}
       </div>
       <div class="product-meta">
