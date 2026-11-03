@@ -169,9 +169,9 @@ function mainContentMarkup() {
           src="https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/SECOND%20FRAME.png"
           alt="ADELUX campaign">
         <div class="campaign-overlay">
-          <p class="eyebrow">BEYOND THE SEASON</p>
-          <h2>Wear what<br><em>remains.</em></h2>
-          <a class="light-link" href="#collection">
+          <p class="eyebrow campaign-eyebrow">BEYOND THE SEASON</p>
+          <h2 class="campaign-heading">Wear what<br><em>remains.</em></h2>
+          <a class="light-link campaign-link" href="#collection">
             Explore the edit
           </a>
         </div>
