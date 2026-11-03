@@ -49,6 +49,8 @@ const products: Product[] = [
   { id: 25, name: 'Agbada Design 19', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5817.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
 ];
 
+const visibleCategories = ['Shirts & Tops', 'Sportswear', 'Dresses', 'Traditional Wear'];
+
 const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
 
 let activeCategory = 'All pieces';
@@ -159,14 +161,15 @@ function mainContentMarkup() {
         </div>
         <div class="collection-tools">
           <div class="category-tabs">
-            ${['All pieces', ...new Set(products.map(product => product.category))].map(category => `
+            ${['All pieces', ...visibleCategories].map(category => `
               <button class="category-tab ${activeCategory === category ? 'active' : ''}" data-category="${category}">${category}</button>
             `).join('')}
           </div>
-          <span class="result-count">${products.filter(product => (activeCategory === 'All pieces' || product.category === activeCategory) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())).length} PIECES</span>
+          <span class="result-count">${products.filter(product => visibleCategories.includes(product.category) && (activeCategory === 'All pieces' || product.category === activeCategory) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())).length} PIECES</span>
         </div>
         <div class="product-grid overview-grid">
           ${[...new Map(products.filter(product =>
+            visibleCategories.includes(product.category) &&
             (activeCategory === 'All pieces' || product.category === activeCategory) &&
             (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())
           ).map(product => [product.category, product])).values()].map(product => productCard(product, true)).join('') ||
@@ -208,19 +211,10 @@ function mainContentMarkup() {
 }
 
 function render() {
-  const categories = [
-    'All pieces',
-    'Shirts & Tops',
-    'Denim',
-    'Sportswear',
-    'Casualwear',
-    'Dresses',
-    'Accessories',
-    'Traditional Wear',
-    'Kids (5–12)',
-  ];
+  const categories = ['All pieces', ...visibleCategories];
 
   const shown = products.filter(product =>
+    visibleCategories.includes(product.category) &&
     (activeCategory === 'All pieces' ||
       product.category === activeCategory) &&
     (
@@ -272,17 +266,10 @@ function render() {
       <nav class="drawer-nav" aria-label="Main menu">
         <button id="shop-collection-toggle" class="shop-collection-toggle" aria-expanded="${shopCategoriesOpen}" aria-controls="shop-subcategories">Shop our collection <span class="shop-chevron">${shopCategoriesOpen ? '−' : '＋'}</span></button>
         <div class="drawer-subcategories ${shopCategoriesOpen ? 'is-open' : ''}" id="shop-subcategories" aria-label="Shop categories" ${shopCategoriesOpen ? '' : 'hidden'}>
-          <button data-shop-category="Shirts & Tops">Shirts & tops</button>
-          <button data-shop-category="Denim">Baggy jeans</button>
+          <button data-shop-category="Shirts & Tops">Shirts &amp; tops</button>
           <button data-shop-category="Sportswear">Jerseys</button>
-          <button data-shop-category="Casualwear">Joggers</button>
-          <button data-shop-category="Casualwear">Hoodies</button>
-          <button data-shop-category="Dresses">Cotton dresses</button>
-          <button data-shop-category="Accessories">Shoes</button>
-          <button data-shop-category="Accessories">Bags</button>
-          <button data-shop-category="Accessories">Jewelry</button>
+          <button data-shop-category="Dresses">Dresses</button>
           <button data-shop-category="Traditional Wear">Agbada designs</button>
-          <button data-shop-category="Kids (5–12)">Kids clothing · Ages 5–12</button>
         </div>
         <a href="/adelux/#story" data-menu-link>Our point of view</a>
         <button id="drawer-search">Search the collection</button>
