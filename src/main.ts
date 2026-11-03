@@ -63,27 +63,21 @@ let shopCategoriesOpen = false;
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 
-function productCard(product: Product) {
+function productCard(product: Product, preview = false) {
+  const action = preview
+    ? `data-view-more="${product.category}" aria-label="View more ${product.category}"`
+    : `data-add="${product.id}" aria-label="Add ${product.name} to cart"`;
   return `
     <article class="product-card">
-      <button class="product-image"
-        data-view="${product.id}"
-        aria-label="Enquire about ${product.name}">
-        <img src="${product.image}"
-          alt="${product.name}" loading="lazy">
-        <span class="image-label">
-          ADELUX / OBJECT ${String(product.id).padStart(2, '0')}
-        </span>
-        <span class="quick-add">
-          Add to cart
-        </span>
-      </button>
-
+      <div class="product-image">
+        <img src="${product.image}" alt="${product.name}" loading="lazy">
+        <span class="image-label">ADELUX / OBJECT ${String(product.id).padStart(2, '0')}</span>
+        ${preview
+          ? `<button class="quick-add" ${action}>VIEW MORE <span>↗</span></button>`
+          : `<button class="quick-add" ${action}>ADD TO CART <span>＋</span></button>`}
+      </div>
       <div class="product-meta">
-        <div>
-          <p class="product-name">${product.name}</p>
-          <p class="product-color">${product.color} · Unisex</p>
-        </div>
+        <div><p class="product-name">${product.name}</p><p class="product-color">${product.color} · Unisex</p></div>
         <p class="price">${money(product.price)}</p>
       </div>
     </article>`;
@@ -220,37 +214,46 @@ function render() {
 
       <section class="collection-section" id="collection">
         <div class="section-heading">
-          <div>
-            <p class="eyebrow">THE CURRENT EDIT</p>
-            <h2>AVAILABLE <em>PRODUCTS</em></h2>
-          </div>
-          <p class="section-aside">
-            Premium quality and everyday style,<br>for all ages.
-          </p>
+          <div><p class="eyebrow">THE CURRENT EDIT</p><h2>AVAILABLE <em>PRODUCTS</em></h2></div>
+          <p class="section-aside">Explore each collection.<br>Choose your favourites from the full edit.</p>
         </div>
-
         <div class="collection-tools">
           <div class="category-tabs">
-            ${categories.map(category => `
-              <button
-                class="category-tab ${
-                  activeCategory === category ? 'active' : ''
-                }"
-                data-category="${category}">
-                ${category}
-              </button>
+            ${['All pieces', ...new Set(products.map(product => product.category))].map(category => `
+              <button class="category-tab ${activeCategory === category ? 'active' : ''}" data-category="${category}">${category}</button>
             `).join('')}
           </div>
           <span class="result-count">${shown.length} PIECES</span>
         </div>
-
-        <div class="product-grid">
-          ${shown.length
-            ? shown.map(productCard).join('')
-            : `<p class="no-results">${activeCategory === 'Kids (5–12)' ? 'The ADELUX Kids edit for ages 5–12 is coming soon. Check back for children’s styles.' : 'Nothing in this edit yet.'}</p>`}
+        <div class="product-grid overview-grid">
+          ${[...new Map(products.filter(product =>
+            (activeCategory === 'All pieces' || product.category === activeCategory) &&
+            (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())
+          ).map(product => [product.category, product])).values()].map(product => productCard(product, true)).join('') ||
+            '<p class="no-results">No collections match your search.</p>'}
         </div>
       </section>
 
+      <div class="category-collections">
+        ${[...new Set(products.map(product => product.category))]
+          .filter(category => activeCategory === 'All pieces' || category === activeCategory)
+          .map(category => {
+            const categoryProducts = products.filter(product =>
+              product.category === category &&
+              (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            return `
+              <section class="category-section" id="category-${category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}">
+                <div class="category-section-heading">
+                  <div><p class="eyebrow">THE ADELUX EDIT</p><h2>${category}</h2></div>
+                  <span>${categoryProducts.length} PIECES</span>
+                </div>
+                <div class="product-grid">
+                  ${categoryProducts.length ? categoryProducts.map(product => productCard(product)).join('') : '<p class="no-results">No products match your search in this section.</p>'}
+                </div>
+              </section>`;
+          }).join('')}
+      </div>
       <section class="campaign">
         <img
           src="https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/SECOND%20FRAME.png"
@@ -407,15 +410,22 @@ function bindEvents() {
       button.addEventListener('click', () => {
         activeCategory = button.dataset.category || 'All pieces';
         render();
+        if (activeCategory !== 'All pieces') {
+          document.querySelector('#category-' + activeCategory.toLowerCase().replace(/[^a-z0-9]+/g, '-'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
 
-  document.querySelectorAll<HTMLButtonElement>('[data-view]')
-    .forEach(button => {
-      button.addEventListener('click', () => {
-        addToBag(Number(button.dataset.view));
-      });
-    });
+  document.querySelectorAll<HTMLButtonElement>('[data-add]')
+    .forEach(button => button.addEventListener('click', () => addToBag(Number(button.dataset.add))));
+
+  document.querySelectorAll<HTMLButtonElement>('[data-view-more]')
+    .forEach(button => button.addEventListener('click', () => {
+      const category = button.dataset.viewMore || '';
+      activeCategory = 'All pieces';
+      const target = document.querySelector('#category-' + category.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
 
   document.querySelector('#account-toggle')?.addEventListener('click',accountOpen);document.querySelector('#account-close')?.addEventListener('click',accountClose);document.querySelector('#account-backdrop')?.addEventListener('click',e=>{if(e.target===e.currentTarget)accountClose()});document.querySelector('#account-signin-tab')?.addEventListener('click',()=>accountModeSet('signin'));document.querySelector('#account-signup-tab')?.addEventListener('click',()=>accountModeSet('signup'));document.querySelector('#account-signout')?.addEventListener('click',()=>{localStorage.removeItem(accountKey);accountClose()});document.querySelector<HTMLFormElement>('#account-form')?.addEventListener('submit',async e=>{e.preventDefault();const email=(document.querySelector<HTMLInputElement>('#account-email')!).value.trim().toLowerCase(),pass=(document.querySelector<HTMLInputElement>('#account-password')!).value,name=(document.querySelector<HTMLInputElement>('#account-name')!).value.trim(),hash=await passwordHash(pass),a=getAccount();if(accountMode==='signup'){if(a){showToast('A local account already exists');return}localStorage.setItem(accountKey,JSON.stringify({name:name||email.split('@')[0],email,passwordHash:hash,orders:[]}));showToast('Account created')}else if(!a||a.email!==email||a.passwordHash!==hash){showToast('Email or password incorrect');return}else showToast('Signed in');accountOpen()});
 
