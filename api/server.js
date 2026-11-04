@@ -139,10 +139,12 @@ app.get("/api/payments/verify/:reference", async (req, res) => {
     const orderNumber = typeof transaction.metadata?.order_number === "string" ? transaction.metadata.order_number : "";
     const expectedAmount = orderItems.reduce((sum, item) => sum + Number(item?.lineTotalKobo || 0), 0);
     const amountMatchesOrder = Number.isSafeInteger(expectedAmount) && expectedAmount === Number(transaction.amount);
-    const verified = transaction.status === "success" && transaction.currency === currency && amountMatchesOrder;
+    let verified = transaction.status === "success" && transaction.currency === currency && amountMatchesOrder;
     if (verified && orderNumber) {
       await ensureSchema();
-      await pool.query("UPDATE adelux_orders SET payment_status='paid', fulfilment_status=CASE WHEN fulfilment_status='awaiting_payment' THEN 'order_received' ELSE fulfilment_status END, status_history=CASE WHEN fulfilment_status='awaiting_payment' THEN status_history || $1::jsonb ELSE status_history END, updated_at=NOW() WHERE order_number=$2 AND payment_reference=$3", [JSON.stringify([{ status: "order_received", label: "Order received", day: 1, at: new Date().toISOString() }]), orderNumber, reference]);
+      const savedOrder = await pool.query("SELECT total_kobo FROM adelux_orders WHERE order_number=$1 AND payment_reference=$2", [orderNumber, reference]);
+      verified = savedOrder.rowCount === 1 && Number(savedOrder.rows[0].total_kobo) === Number(transaction.amount);
+      if (verified) await pool.query("UPDATE adelux_orders SET payment_status=$1, fulfilment_status=CASE WHEN fulfilment_status=$2 THEN $3 ELSE fulfilment_status END, status_history=CASE WHEN fulfilment_status=$4 THEN status_history || $5::jsonb ELSE status_history END, updated_at=NOW() WHERE order_number=$6 AND payment_reference=$7", ["paid", "awaiting_payment", "order_received", "awaiting_payment", JSON.stringify([{ status: "order_received", label: "Order received", day: 1, at: new Date().toISOString() }]), orderNumber, reference]);
     }
     res.json({
       verified,
