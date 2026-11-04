@@ -23,7 +23,7 @@ app.use(cors({
     return callback(new Error("Origin not allowed."));
   },
   methods: ["GET", "POST", "PATCH"],
-  allowedHeaders: ["Content-Type"]
+  allowedHeaders: ["Content-Type", "x-order-admin-token"]
 }));
 
 const secret = process.env.PAYSTACK_SECRET_KEY;
@@ -182,6 +182,9 @@ app.patch("/api/orders/:orderNumber/status", async (req, res) => {
     const current = await pool.query("SELECT status_history, payment_status FROM adelux_orders WHERE order_number=$1", [orderNumber]);
     if (!current.rowCount) return res.status(404).json({ error: "Order not found." });
     if (current.rows[0].payment_status !== "paid") return res.status(409).json({ error: "Only paid orders can move through fulfilment." });
+    const sequence = ["order_received", "packaged", "sent_to_store", "ready_for_pickup", "customer_called", "collected"];
+    const currentStatus = (Array.isArray(current.rows[0].status_history) ? current.rows[0].status_history : []).slice(-1)[0]?.status || "order_received";
+    if (sequence.indexOf(req.body.status) !== sequence.indexOf(currentStatus) + 1) return res.status(409).json({ error: "Move orders through the five-day process in sequence." });
     const entry = { status: req.body.status, day: next.day, label: next.label, at: new Date().toISOString() };
     const history = [...(Array.isArray(current.rows[0].status_history) ? current.rows[0].status_history : []), entry];
     await pool.query("UPDATE adelux_orders SET fulfilment_status=$1, status_history=$2, updated_at=NOW() WHERE order_number=$3", [req.body.status, JSON.stringify(history), orderNumber]);
