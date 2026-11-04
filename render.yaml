@@ -9,6 +9,10 @@ services:
     envVars:
       - key: PAYSTACK_SECRET_KEY
         sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: ORDER_ADMIN_TOKEN
+        sync: false
       - key: FRONTEND_ORIGIN
         value: https://oppigraphix.com
       - key: PAYSTACK_CALLBACK_URL
