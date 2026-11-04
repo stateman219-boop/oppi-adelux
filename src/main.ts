@@ -317,6 +317,7 @@ function render() {
       <div class="header-actions">
         <button id="search-toggle" class="text-action" aria-expanded="${searchOpen}">Search</button>
         <button id="saved-toggle" class="text-action">Saved (${wishlist.length})</button>
+        <button id="header-track-toggle" class="text-action">Track order</button>
         <button id="bag-toggle" class="bag-button">
           Bag
           <span class="bag-count">
@@ -657,7 +658,9 @@ function bindEvents() {
   document.querySelector('#checkout-close')?.addEventListener('click', closeCheckout);
   document.querySelector('#checkout-backdrop')?.addEventListener('click', e=>{if(e.target===e.currentTarget)closeCheckout()});
   document.querySelector<HTMLFormElement>('#checkout-form')?.addEventListener('submit', startPaystackCheckout);
-  document.querySelector('#track-order-open')?.addEventListener('click',()=>{setCartOpen(false);document.querySelector('#track-backdrop')?.classList.add('is-open');document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','false');document.body.classList.add('track-open')});
+  const openTrack = () => { setCartOpen(false); setMenuOpen(false); document.querySelector('#track-backdrop')?.classList.add('is-open'); document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','false'); document.body.classList.add('track-open'); };
+  document.querySelector('#track-order-open')?.addEventListener('click',openTrack);
+  document.querySelector('#header-track-toggle')?.addEventListener('click',openTrack);
   document.querySelector('#track-close')?.addEventListener('click',()=>{document.querySelector('#track-backdrop')?.classList.remove('is-open');document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','true');document.body.classList.remove('track-open')});
   document.querySelector('#track-backdrop')?.addEventListener('click',e=>{if(e.target===e.currentTarget){document.querySelector('#track-backdrop')?.classList.remove('is-open');document.body.classList.remove('track-open')}});
   document.querySelector<HTMLFormElement>('#track-form')?.addEventListener('submit',trackOrder);
@@ -665,6 +668,7 @@ function bindEvents() {
 }
 
 render();
+if (new URLSearchParams(window.location.search).get('track') === '1') { document.querySelector('#track-backdrop')?.classList.add('is-open'); document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','false'); document.body.classList.add('track-open'); }
 
 let activeBrand = 'adelux';
 window.setInterval(() => {
