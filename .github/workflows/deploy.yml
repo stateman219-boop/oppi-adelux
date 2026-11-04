@@ -36,6 +36,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Check TypeScript and payment API syntax
+        run: |
+          npx tsc --noEmit
+          node --check api/server.js
+
       - name: Sync new ADELUX product images
         run: node scripts/sync-products.mjs
 
