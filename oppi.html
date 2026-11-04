@@ -672,5 +672,37 @@ main{width:100%;overflow:clip}
 .lg-popup-frame:before,.lg-popup-frame:after{display:none!important}
 @media(max-width:620px){.lg-popup{grid-template-columns:1fr!important}.lg-popup-frame{min-height:260px!important;height:260px!important}.lg-frame-foot{padding:13px 8px!important;font-size:9px!important}}
 </style>
+
+<style id="contact-apple-clear-liquid-glass-final">
+/* Final override: Apple-inspired clear glass, 95% transparent */
+section.section.contact#contact .contactbox{
+  background:rgba(255,255,255,.05)!important;
+  background-image:none!important;
+  -webkit-backdrop-filter:blur(2px) saturate(180%)!important;
+  backdrop-filter:blur(2px) saturate(180%)!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  outline:0!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 28px rgba(0,0,0,.08)!important;
+}
+section.section.contact#contact .contactbox:before,
+section.section.contact#contact .contactbox:after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+section.section.contact#contact .contactbox .eyebrow,
+section.section.contact#contact .contactbox a,
+section.section.contact#contact .contactbox>p:last-child{
+  text-shadow:0 1px 2px rgba(255,255,255,.5)!important;
+}
+@media(max-width:700px){
+  section.section.contact#contact .contactbox{
+    background:rgba(255,255,255,.05)!important;
+    -webkit-backdrop-filter:blur(2px) saturate(180%)!important;
+    backdrop-filter:blur(2px) saturate(180%)!important;
+  }
+}
+</style>
+
 </body>
 </html>
