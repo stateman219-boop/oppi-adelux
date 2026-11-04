@@ -10,9 +10,11 @@ services:
       - key: PAYSTACK_SECRET_KEY
         sync: false
       - key: FRONTEND_ORIGIN
-        value: https://stateman219-boop.github.io
+        value: https://oppigraphix.com
       - key: PAYSTACK_CALLBACK_URL
-        value: https://stateman219-boop.github.io/oppi-adelux/payment-result.html
+        value: https://oppigraphix.com/adelux/payment-result.html
+      - key: FRONTEND_ORIGINS
+        value: https://oppigraphix.com,https://stateman219-boop.github.io
       - key: SHIRTS_PRICE_KOBO
         value: "0"
       - key: JERSEYS_PRICE_KOBO
