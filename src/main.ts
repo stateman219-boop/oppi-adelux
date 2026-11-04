@@ -95,11 +95,6 @@ let activeCategory = 'All pieces';
 let searchTerm = '';
 let searchOpen = false;
 let sortOrder: 'featured' | 'price-low' | 'price-high' | 'name' | 'newest' = 'featured';
-let sizeFilter = '';
-let colourFilter = '';
-let minPriceFilter = '';
-let maxPriceFilter = '';
-function advancedFilterMarkup() { return `<div class="advanced-filters"><label>Size preference<select id="filter-size"><option value="">All sizes</option>${['XS','S','M','L','XL','XXL','Made to measure'].map(size=>`<option value="${size}" ${sizeFilter===size?'selected':''}>${size}</option>`).join('')}</select></label><label>Colour / style keyword<input id="filter-colour" type="search" value="${colourFilter.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="e.g. black, white"></label><label>Min price (₦)<input id="filter-min-price" type="number" min="0" inputmode="numeric" value="${minPriceFilter}" placeholder="Any"></label><label>Max price (₦)<input id="filter-max-price" type="number" min="0" inputmode="numeric" value="${maxPriceFilter}" placeholder="Any"></label><button type="button" class="clear-advanced-filters" id="clear-advanced-filters">Clear filters</button></div>`; }
 let wishlistOnly = false;
 function loadWishlist(): number[] { try { const saved = JSON.parse(localStorage.getItem('adelux-wishlist-v1') || '[]'); return Array.isArray(saved) ? saved.filter((id: unknown) => typeof id === 'number' && products.some(product => product.id === id)) : []; } catch { return []; } }
 let wishlist = loadWishlist();
@@ -110,7 +105,7 @@ function recentViewedMarkup() { const items = recentlyViewed.map(id => products.
 function saveWishlist() { try { localStorage.setItem('adelux-wishlist-v1', JSON.stringify(wishlist)); } catch { /* Wishlist remains available for this visit. */ } }
 function toggleWishlist(id: number) { wishlist = wishlist.includes(id) ? wishlist.filter(item => item !== id) : [...wishlist, id]; saveWishlist(); render(); }
 function filteredProducts(category?: string): Product[] {
-  let result = products.filter(product => visibleCategories.includes(product.category) && (!category || product.category === category) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase()) && (!wishlistOnly || wishlist.includes(product.id)) && (!colourFilter || (product.name + ' ' + product.color + ' ' + product.note).toLowerCase().includes(colourFilter.toLowerCase())) && (!minPriceFilter || product.price >= Number(minPriceFilter)) && (!maxPriceFilter || product.price <= Number(maxPriceFilter)) && (!sizeFilter || (product.category === 'Traditional Wear' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).includes(sizeFilter)));
+  let result = products.filter(product => visibleCategories.includes(product.category) && (!category || product.category === category) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase()) && (!wishlistOnly || wishlist.includes(product.id)));
   if (sortOrder === 'price-low') result = result.slice().sort((a, b) => (a.price || Number.MAX_SAFE_INTEGER) - (b.price || Number.MAX_SAFE_INTEGER));
   if (sortOrder === 'price-high') result = result.slice().sort((a, b) => b.price - a.price);
   if (sortOrder === 'name') result = result.slice().sort((a, b) => a.name.localeCompare(b.name));
@@ -173,8 +168,7 @@ function categoryPageMarkup(category: string) {
       </nav>
       <div class="collection-filter-row">
         <button class="saved-filter ${wishlistOnly ? 'is-active' : ''}" data-wishlist-filter aria-pressed="${wishlistOnly}">Saved pieces (${wishlist.length})</button>
-        <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option><option value="newest" ${(sortOrder as string) === 'newest' ? 'selected' : ''}>Newest added</option></select></label>
-        ${advancedFilterMarkup()}
+
       </div>
       <div class="product-grid category-page-grid">
         ${categoryProducts.length ? categoryProducts.map(product => productCard(product)).join('') : '<p class="no-results">' + (wishlistOnly ? 'No saved pieces in this collection yet.' : category === 'Kids' ? 'The Kids collection is being prepared. New pieces will appear here soon.' : 'No products match your search.') + '</p>'}
@@ -239,8 +233,7 @@ function mainContentMarkup() {
         </div>
         <div class="collection-filter-row">
           <button class="saved-filter ${wishlistOnly ? 'is-active' : ''}" data-wishlist-filter aria-pressed="${wishlistOnly}">Saved pieces (${wishlist.length})</button>
-          <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option><option value="newest" ${(sortOrder as string) === 'newest' ? 'selected' : ''}>Newest added</option></select></label>
-          ${advancedFilterMarkup()}
+
         </div>
         <div class="product-grid overview-grid">
           ${[...new Map(filteredProducts(activeCategory === 'All pieces' ? undefined : activeCategory).map(product => [product.category, product])).values()].map(product => productCard(product, true)).join('') ||
@@ -668,8 +661,7 @@ function bindEvents() {
   document.querySelector('#track-close')?.addEventListener('click',()=>{document.querySelector('#track-backdrop')?.classList.remove('is-open');document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','true');document.body.classList.remove('track-open')});
   document.querySelector('#track-backdrop')?.addEventListener('click',e=>{if(e.target===e.currentTarget){document.querySelector('#track-backdrop')?.classList.remove('is-open');document.body.classList.remove('track-open')}});
   document.querySelector<HTMLFormElement>('#track-form')?.addEventListener('submit',trackOrder);
-  document.querySelectorAll<HTMLInputElement | HTMLSelectElement>('#filter-size,#filter-colour,#filter-min-price,#filter-max-price').forEach(input=>input.addEventListener('change',()=>{sizeFilter=(document.querySelector<HTMLSelectElement>('#filter-size')?.value||'');colourFilter=(document.querySelector<HTMLInputElement>('#filter-colour')?.value||'').trim();minPriceFilter=document.querySelector<HTMLInputElement>('#filter-min-price')?.value||'';maxPriceFilter=document.querySelector<HTMLInputElement>('#filter-max-price')?.value||'';render()}));
-  document.querySelector('#clear-advanced-filters')?.addEventListener('click',()=>{sizeFilter='';colourFilter='';minPriceFilter='';maxPriceFilter='';render()});
+
 }
 
 render();
