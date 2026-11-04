@@ -334,7 +334,7 @@ img{image-rendering:auto}
     <p>Give everyday pieces a personal signature. Discover custom monogram details for clothing, workwear, gifts and more — thoughtfully designed and professionally finished.</p>
     <a class="monogram-feature-link" href="#contact">Enquire about monograms</a>
   </div>
-  <div class="monogram-feature-image"><img src="/Untitled%20design.jpeg?v=monogram-20261104" alt="Monogram work by OPPIGRAPHIX" loading="lazy"></div>
+  <div class="monogram-feature-image"><img src="https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/Untitled%20design.jpeg" alt="Monogram work by OPPIGRAPHIX" loading="eager" fetchpriority="high" decoding="async"></div>
 </div>
 </section>
 
@@ -854,36 +854,36 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 </style>
 
 <style id="home-for-monogram-feature">
-/* Full-frame brighter monogram photo with copy overlaid on the left */
+/* Landscape monogram feature: the supplied photo fills the complete frame */
 #services .monogram-feature{
   position:relative;isolation:isolate;display:flex;align-items:center;justify-content:flex-start;
-  width:min(100%,1040px);min-height:clamp(430px,48vw,610px);
-  overflow:hidden;margin:34px auto 0;padding:clamp(22px,4vw,46px);
-  border:1px solid rgba(255,255,255,.28);border-radius:26px;
+  width:min(100%,1200px);aspect-ratio:16/9;min-height:0;height:auto;
+  overflow:hidden;margin:34px auto 0;padding:clamp(18px,3vw,38px);
+  border:1px solid rgba(255,255,255,.28);border-radius:24px;
   background:#171719;color:#fff;box-shadow:0 18px 42px rgba(0,0,0,.18);
 }
 #services .monogram-feature:before{
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.55) 35%,rgba(0,0,0,.12) 72%,rgba(0,0,0,.04) 100%);
+  background:linear-gradient(90deg,rgba(0,0,0,.68) 0%,rgba(0,0,0,.43) 34%,rgba(0,0,0,.08) 72%,transparent 100%);
 }
 #services .monogram-feature-copy{
-  position:relative;z-index:2;width:min(48%,480px);max-width:480px;margin:0;
-  padding:clamp(20px,3vw,32px);text-align:left;
-  border:1px solid rgba(255,255,255,.13);border-radius:18px;
-  background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
+  position:relative;z-index:2;width:min(46%,480px);max-width:480px;margin:0;
+  padding:clamp(16px,2.6vw,30px);text-align:left;
+  border:1px solid rgba(255,255,255,.15);border-radius:16px;
+  background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   box-shadow:0 12px 34px rgba(0,0,0,.22);
 }
-#services .monogram-feature-copy>p:not(.eyebrow){max-width:420px;margin:0 0 20px!important;color:rgba(255,255,255,.97)!important;font-size:clamp(14px,1.25vw,16px)!important;line-height:1.8!important}
-#services .monogram-feature-link{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.13);color:#fff!important;font-size:12px;font-weight:700;letter-spacing:.02em;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);transition:transform .25s ease,background .25s ease}
+#services .monogram-feature-copy>p:not(.eyebrow){max-width:420px;margin:0 0 16px!important;color:#fff!important;font-size:clamp(12px,1.15vw,16px)!important;line-height:1.65!important}
+#services .monogram-feature-link{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.13);color:#fff!important;font-size:12px;font-weight:700;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .25s ease,background .25s ease}
 #services .monogram-feature-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.24)}
-#services .monogram-feature-image{position:absolute;inset:0;z-index:0;width:100%;height:100%;min-width:0;overflow:hidden;border:0;border-radius:0;background:transparent;box-shadow:none}
-#services .monogram-feature-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;filter:brightness(1.22) contrast(1.06) saturate(1.06);transform:translate(1%,1%) scale(1.035);transform-origin:center}
+#services .monogram-feature-image{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:hidden;border:0;border-radius:0;background:transparent}
+#services .monogram-feature-image img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;opacity:1!important;filter:none!important;transform:none!important}
 @media(max-width:700px){
- #services .monogram-feature{min-height:560px;padding:18px;border-radius:20px;margin-top:26px;align-items:center}
- #services .monogram-feature:before{background:linear-gradient(90deg,rgba(0,0,0,.68) 0%,rgba(0,0,0,.38) 65%,rgba(0,0,0,.1) 100%)}
- #services .monogram-feature-copy{width:min(82%,430px);max-width:430px;padding:20px 18px;border-radius:15px;background:rgba(0,0,0,.68)}
- #services .monogram-feature-copy>p:not(.eyebrow){font-size:14px!important}
- #services .monogram-feature-image img{object-position:center;transform:scale(1.05)}
+ #services .monogram-feature{width:100%;aspect-ratio:16/9;min-height:0;margin-top:24px;padding:12px;border-radius:16px}
+ #services .monogram-feature:before{background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.34) 60%,rgba(0,0,0,.05))}
+ #services .monogram-feature-copy{width:min(58%,360px);max-width:360px;padding:12px;border-radius:12px;background:rgba(0,0,0,.68)}
+ #services .monogram-feature-copy>p:not(.eyebrow){font-size:11px!important;line-height:1.45!important;margin-bottom:9px!important}
+ #services .monogram-feature-link{padding:8px 11px;font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){#services .monogram-feature-link{transition:none}}
 </style>
