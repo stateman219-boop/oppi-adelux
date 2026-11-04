@@ -419,7 +419,7 @@ function openProductDetails(id: number) {
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('detail-open');
   document.querySelector('#detail-close')?.addEventListener('click', closeProductDetails);
-  modal.addEventListener('click', event => { if (event.target === modal) closeProductDetails(); }, { once: true });
+  modal.onclick = event => { if (event.target === modal) closeProductDetails(); };
   document.querySelector('#detail-add')?.addEventListener('click', () => {
     const size = (document.querySelector<HTMLInputElement | HTMLSelectElement>('#detail-size')?.value || '').trim();
     const colorChoice = (document.querySelector<HTMLInputElement>('#detail-color')?.value || '').trim() || 'Confirm with ADELUX';
