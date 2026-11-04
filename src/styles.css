@@ -1457,3 +1457,25 @@ body.cart-open{overflow:hidden}
 @media (max-width: 600px) {
   .whatsapp-float { width: 54px; height: 54px; min-height: 54px; padding: 0; }
 }
+
+/* Simple category navigation on individual collection pages */
+.category-page { padding-top: 28px; }
+.category-page-tabs {
+  max-width: 1440px;
+  margin: 0 auto 34px;
+  padding: 10px 0 14px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px 26px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--line, rgba(0,0,0,.12));
+}
+.category-page-tabs::-webkit-scrollbar { display: none; }
+.category-page-tabs .category-tab { flex: 0 0 auto; }
+@media(max-width:700px) {
+  .category-page { padding: 18px 14px 64px; }
+  .category-page-tabs { margin-bottom: 22px; gap: 8px 20px; }
+}
