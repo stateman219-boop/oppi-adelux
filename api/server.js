@@ -5,6 +5,7 @@ import { randomBytes } from "node:crypto";
 const { Pool } = pg;
 const pool = process.env.DATABASE_URL ? new Pool({ connectionString: process.env.DATABASE_URL, ssl: process.env.DATABASE_SSL === "false" ? false : { rejectUnauthorized: false } }) : null;
 let schemaReady;
+const normalizePhone = value => { const digits = String(value || "").replace(/[^0-9]/g, ""); if (digits.startsWith("234") && digits.length === 13) return "0" + digits.slice(3); if (digits.length === 10) return "0" + digits; return digits; };
 async function ensureSchema() {
   if (!pool) throw new Error("Order tracking database is not configured. Set DATABASE_URL in Render.");
   if (!schemaReady) schemaReady = pool.query("CREATE TABLE IF NOT EXISTS adelux_orders (id BIGSERIAL PRIMARY KEY, order_number VARCHAR(20) UNIQUE NOT NULL, payment_reference VARCHAR(100) UNIQUE, customer_name VARCHAR(120) NOT NULL, email VARCHAR(254) NOT NULL, phone VARCHAR(30) NOT NULL, collection_location VARCHAR(160) NOT NULL DEFAULT 'ADELUX Area 10 store, Abuja', customer_note TEXT NOT NULL DEFAULT '', items JSONB NOT NULL, total_kobo BIGINT NOT NULL, payment_status VARCHAR(24) NOT NULL DEFAULT 'pending', fulfilment_status VARCHAR(32) NOT NULL DEFAULT 'awaiting_payment', status_history JSONB NOT NULL DEFAULT '[]'::jsonb, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())");
@@ -169,7 +170,7 @@ app.get("/api/orders/track", async (req, res) => {
     if (!/^AD[A-F0-9]{10}$/.test(orderNumber) || phone.length < 10) return res.status(400).json({ error: "Enter the order number and mobile number used at checkout." });
     const result = await pool.query("SELECT order_number, customer_name, phone, collection_location, items, total_kobo, payment_status, fulfilment_status, status_history, created_at, updated_at FROM adelux_orders WHERE order_number=$1", [orderNumber]);
     const order = result.rows[0];
-    if (!order || String(order.phone).replace(/[^0-9]/g, "") !== phone) return res.status(404).json({ error: "We could not find an order matching those details." });
+    if (!order || normalizePhone(order.phone) !== normalizePhone(phone)) return res.status(404).json({ error: "We could not find an order matching those details." });
     res.json({ orderNumber: order.order_number, customerName: order.customer_name, collectionLocation: order.collection_location, items: order.items, totalKobo: Number(order.total_kobo), paymentStatus: order.payment_status, status: order.fulfilment_status, history: order.status_history, createdAt: order.created_at, updatedAt: order.updated_at, timeline: [{ status: "order_received", day: 1, label: "Order received" }, { status: "packaged", day: 2, label: "Order packaged" }, { status: "sent_to_store", day: 3, label: "Sent to Area 10 store" }, { status: "ready_for_pickup", day: 4, label: "Ready for pickup" }, { status: "customer_called", day: 5, label: "Customer called to arrange pickup" }] });
   } catch (error) { res.status(503).json({ error: error.message || "Order tracking is temporarily unavailable." }); }
 });
