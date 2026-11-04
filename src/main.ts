@@ -233,7 +233,7 @@ function mainContentMarkup() {
         </div>
         <div class="collection-filter-row">
           <button class="saved-filter ${wishlistOnly ? 'is-active' : ''}" data-wishlist-filter aria-pressed="${wishlistOnly}">Saved pieces (${wishlist.length})</button>
-          <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option></select></label>
+          <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option><option value="newest" ${(sortOrder as string) === 'newest' ? 'selected' : ''}>Newest added</option></select></label>
         </div>
         <div class="product-grid overview-grid">
           ${[...new Map(filteredProducts(activeCategory === 'All pieces' ? undefined : activeCategory).map(product => [product.category, product])).values()].map(product => productCard(product, true)).join('') ||
