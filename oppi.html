@@ -305,25 +305,21 @@ img{image-rendering:auto}
 
 
 <style id="project-enquiries-liquid-glass">
-/* True see-through liquid glass: background image remains clearly visible */
+/* 95% transparent project enquiries glass: preserve a clear view of the image behind */
 #contact .contactbox{
   position:relative;isolation:isolate;overflow:hidden;
-  background:rgba(255,255,255,.008)!important;
-  -webkit-backdrop-filter:blur(9px) saturate(155%);backdrop-filter:blur(9px) saturate(155%);
+  background:rgba(255,255,255,.05)!important;
+  -webkit-backdrop-filter:blur(1px) saturate(110%)!important;
+  backdrop-filter:blur(1px) saturate(110%)!important;
   border:0!important;outline:0!important;border-radius:24px!important;
   box-shadow:none!important;
 }
-#contact .contactbox:before{
-  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.006) 50%,rgba(255,255,255,.025));
-  border:0!important;outline:0!important;
-}
-#contact .contactbox .eyebrow{color:#a90e22!important;font-weight:900!important;letter-spacing:.2em!important;text-transform:uppercase;text-shadow:0 1px 2px rgba(255,255,255,.38);}
-#contact .contactbox a{position:relative;color:#080808!important;font-size:14px!important;font-weight:850!important;letter-spacing:-.01em;text-shadow:0 1px 3px rgba(255,255,255,.5)!important;border-bottom:1px solid rgba(20,20,24,.12)!important;padding:17px 2px!important;transition:transform .25s ease,color .25s ease;}
-#contact .contactbox a:hover{color:#c5162d!important;transform:translateX(5px);}
-#contact .contactbox>p:last-child{position:relative;color:#101014!important;font-weight:750!important;font-size:13px!important;line-height:1.9!important;margin:20px 0 0!important;text-shadow:0 1px 3px rgba(255,255,255,.55)!important;}
-@media(max-width:620px){#contact .contactbox{padding:24px 20px!important;border-radius:20px!important;-webkit-backdrop-filter:blur(8px) saturate(150%);backdrop-filter:blur(8px) saturate(150%)}#contact .contactbox a{font-size:13px!important;padding:15px 1px!important}#contact .contactbox>p:last-child{font-size:12px!important}}
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#contact .contactbox{background:rgba(255,255,255,.015)!important}}
+#contact .contactbox:before{content:none!important;display:none!important}
+#contact .contactbox .eyebrow{color:#a90e22!important;font-weight:900!important;letter-spacing:.2em!important;text-transform:uppercase;text-shadow:0 1px 2px rgba(255,255,255,.55)}
+#contact .contactbox a{position:relative;color:#080808!important;font-size:14px!important;font-weight:850!important;letter-spacing:-.01em;text-shadow:0 1px 2px rgba(255,255,255,.65)!important;border-bottom:1px solid rgba(20,20,24,.12)!important;padding:17px 2px!important;transition:transform .25s ease,color .25s ease}
+#contact .contactbox a:hover{color:#c5162d!important;transform:translateX(5px)}
+#contact .contactbox>p:last-child{position:relative;color:#101014!important;font-weight:750!important;font-size:13px!important;line-height:1.9!important;margin:20px 0 0!important;text-shadow:0 1px 2px rgba(255,255,255,.7)!important}
+@media(max-width:620px){#contact .contactbox{padding:24px 20px!important;border-radius:20px!important;-webkit-backdrop-filter:blur(1px) saturate(110%)!important;backdrop-filter:blur(1px) saturate(110%)!important}#contact .contactbox a{font-size:13px!important;padding:15px 1px!important}#contact .contactbox>p:last-child{font-size:12px!important}}
 </style>
 </head>
 <body>
