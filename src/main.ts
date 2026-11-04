@@ -94,6 +94,19 @@ const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.
 let activeCategory = 'All pieces';
 let searchTerm = '';
 let searchOpen = false;
+let sortOrder: 'featured' | 'price-low' | 'price-high' | 'name' = 'featured';
+let wishlistOnly = false;
+function loadWishlist(): number[] { try { const saved = JSON.parse(localStorage.getItem('adelux-wishlist-v1') || '[]'); return Array.isArray(saved) ? saved.filter((id: unknown) => typeof id === 'number' && products.some(product => product.id === id)) : []; } catch { return []; } }
+let wishlist = loadWishlist();
+function saveWishlist() { try { localStorage.setItem('adelux-wishlist-v1', JSON.stringify(wishlist)); } catch { /* Wishlist remains available for this visit. */ } }
+function toggleWishlist(id: number) { wishlist = wishlist.includes(id) ? wishlist.filter(item => item !== id) : [...wishlist, id]; saveWishlist(); render(); }
+function filteredProducts(category?: string): Product[] {
+  let result = products.filter(product => visibleCategories.includes(product.category) && (!category || product.category === category) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase()) && (!wishlistOnly || wishlist.includes(product.id)));
+  if (sortOrder === 'price-low') result = result.slice().sort((a, b) => (a.price || Number.MAX_SAFE_INTEGER) - (b.price || Number.MAX_SAFE_INTEGER));
+  if (sortOrder === 'price-high') result = result.slice().sort((a, b) => b.price - a.price);
+  if (sortOrder === 'name') result = result.slice().sort((a, b) => a.name.localeCompare(b.name));
+  return result;
+}
 type BagLine = { lineId: number; product: Product; quantity: number };
 function loadSavedBag(): BagLine[] {
   try {
@@ -122,6 +135,7 @@ function productCard(product: Product, preview = false) {
       <div class="product-image">
         <img src="${product.image}" alt="${product.name}" loading="lazy">
         <span class="image-label">ADELUX / OBJECT ${String(product.id).padStart(2, '0')}</span>
+        <button class="wishlist-button ${wishlist.includes(product.id) ? 'is-saved' : ''}" data-wishlist="${product.id}" aria-label="${wishlist.includes(product.id) ? 'Remove from' : 'Add to'} wishlist" aria-pressed="${wishlist.includes(product.id)}">${wishlist.includes(product.id) ? '♥' : '♡'}</button>
         ${preview
           ? `<button class="quick-add" ${action}>VIEW MORE</button>`
           : `<button class="quick-add" ${action}>ADD TO CART <span>＋</span></button>`}
@@ -134,7 +148,7 @@ function productCard(product: Product, preview = false) {
 }
 
 function categoryPageMarkup(category: string) {
-  const categoryProducts = products.filter(product => product.category === category);
+  const categoryProducts = filteredProducts(category);
   return `
     <section class="category-page">
       <nav class="category-tabs category-page-tabs" aria-label="Browse ADELUX collections">
@@ -142,15 +156,19 @@ function categoryPageMarkup(category: string) {
           <button class="category-tab ${item === category ? 'active' : ''}" data-category="${item}" ${item === category ? 'aria-current="page"' : ''}>${item === 'Sportswear' ? 'Jerseys' : item}</button>
         `).join('')}
       </nav>
+      <div class="collection-filter-row">
+        <button class="saved-filter ${wishlistOnly ? 'is-active' : ''}" data-wishlist-filter aria-pressed="${wishlistOnly}">Saved pieces (${wishlist.length})</button>
+        <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option></select></label>
+      </div>
       <div class="product-grid category-page-grid">
-        ${categoryProducts.map(product => productCard(product)).join('')}
+        ${categoryProducts.length ? categoryProducts.map(product => productCard(product)).join('') : '<p class="no-results">' + (wishlistOnly ? 'No saved pieces in this collection yet.' : category === 'Kids' ? 'The Kids collection is being prepared. New pieces will appear here soon.' : 'No products match your search.') + '</p>'}
       </div>
     </section>`;
 }
 
 function mainContentMarkup() {
   const requestedSlug = new URLSearchParams(window.location.search).get('category');
-  const category = products.map(product => product.category).find(name =>
+  const category = requestedSlug === 'kids' ? 'Kids' : products.map(product => product.category).find(name =>
     name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === requestedSlug
   );
   return category ? categoryPageMarkup(category) : `
@@ -198,17 +216,17 @@ function mainContentMarkup() {
         <div class="collection-tools">
           <div class="category-tabs">
             ${['All pieces', ...visibleCategories].map(category => `
-              <button class="category-tab ${activeCategory === category ? 'active' : ''}" data-category="${category}">${category}</button>
+              <button class="category-tab ${activeCategory === category ? 'active' : ''}" data-category="${category}">${category === 'Sportswear' ? 'Jerseys' : category}</button>
             `).join('')}
           </div>
-          <span class="result-count">${products.filter(product => visibleCategories.includes(product.category) && (activeCategory === 'All pieces' || product.category === activeCategory) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())).length} PIECES</span>
+          <span class="result-count">${filteredProducts(activeCategory === 'All pieces' ? undefined : activeCategory).length} PIECES</span>
+        </div>
+        <div class="collection-filter-row">
+          <button class="saved-filter ${wishlistOnly ? 'is-active' : ''}" data-wishlist-filter aria-pressed="${wishlistOnly}">Saved pieces (${wishlist.length})</button>
+          <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option></select></label>
         </div>
         <div class="product-grid overview-grid">
-          ${[...new Map(products.filter(product =>
-            visibleCategories.includes(product.category) &&
-            (activeCategory === 'All pieces' || product.category === activeCategory) &&
-            (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase())
-          ).map(product => [product.category, product])).values()].map(product => productCard(product, true)).join('') ||
+          ${[...new Map(filteredProducts(activeCategory === 'All pieces' ? undefined : activeCategory).map(product => [product.category, product])).values()].map(product => productCard(product, true)).join('') ||
             '<p class="no-results">No collections match your search.</p>'}
         </div>
       </section>
@@ -282,7 +300,8 @@ function render() {
       </div>
 
       <div class="header-actions">
-        <button id="account-toggle" class="text-action">Sign up / Sign in</button>
+        <button id="search-toggle" class="text-action" aria-expanded="${searchOpen}">Search</button>
+        <button id="account-toggle" class="text-action">Account</button>
         <button id="bag-toggle" class="bag-button">
           Bag
           <span class="bag-count">
@@ -315,7 +334,7 @@ function render() {
       <p class="drawer-note">Unleash your elegance.<br>Designed for everyone. Made to stay.</p>
     </aside>
 
-    <div class="search-row" id="search-row">
+    <div class="search-row ${searchOpen ? 'is-visible' : ''}" id="search-row">
       <label for="site-search">SEARCH THE COLLECTION</label>
       <input id="site-search"
         placeholder="Try coat or knitwear"
@@ -464,6 +483,11 @@ function bindEvents() {
 
   document.querySelectorAll<HTMLButtonElement>('[data-add]')
     .forEach(button => button.addEventListener('click', () => addToBag(Number(button.dataset.add))));
+  document.querySelectorAll<HTMLButtonElement>('[data-wishlist]')
+    .forEach(button => button.addEventListener('click', event => { event.stopPropagation(); toggleWishlist(Number(button.dataset.wishlist)); }));
+  document.querySelectorAll<HTMLButtonElement>('[data-wishlist-filter]')
+    .forEach(button => button.addEventListener('click', () => { wishlistOnly = !wishlistOnly; render(); }));
+  document.querySelector<HTMLSelectElement>('#sort-products')?.addEventListener('change', event => { sortOrder = (event.target as HTMLSelectElement).value as typeof sortOrder; render(); });
 
   document.querySelectorAll<HTMLElement>('[data-open-category]').forEach(card => {
     const openCategory = () => {
@@ -538,11 +562,9 @@ function bindEvents() {
     window.location.href = '/adelux/?category=' + encodeURIComponent(slug);
   }));
 
-  document.querySelector('#drawer-search')?.addEventListener('click', () => {
-    setMenuOpen(false);
-    document.querySelector('#search-row')?.classList.add('is-visible');
-    document.querySelector<HTMLInputElement>('#site-search')?.focus();
-  });
+  const openSearch = () => { searchOpen = true; setMenuOpen(false); render(); document.querySelector<HTMLInputElement>('#site-search')?.focus(); };
+  document.querySelector('#search-toggle')?.addEventListener('click', () => { searchOpen = !searchOpen; render(); if (searchOpen) document.querySelector<HTMLInputElement>('#site-search')?.focus(); });
+  document.querySelector('#drawer-search')?.addEventListener('click', openSearch);
 
   document.querySelector('#drawer-bag')?.addEventListener('click', () => { setMenuOpen(false); setCartOpen(true); });
   document.querySelector('#cart-close')?.addEventListener('click', () => setCartOpen(false));
