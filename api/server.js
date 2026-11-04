@@ -20,7 +20,7 @@ const secret = process.env.PAYSTACK_SECRET_KEY;
 const currency = "NGN";
 
 // The server is the source of truth for every product price (integer kobo).
-// Shirts & Tops remain unavailable for online payment until SHIRTS_PRICE_KOBO is set.
+// Provisional Shirts & Tops price: ₦15,000 (1,500,000 kobo); update via Render when final prices are confirmed.
 const configuredKobo = (key, fallback) => {
   const raw = process.env[key];
   return raw === undefined || raw.trim() === "" ? fallback : Number(raw);
@@ -29,7 +29,7 @@ const addProducts = (ids, name, price) => Object.fromEntries(
   ids.map((id, index) => [id, { name: `${name} ${String(index + 1).padStart(2, "0")}`, price }])
 );
 const catalog = {
-  ...addProducts([1, ...Array.from({ length: 14 }, (_, i) => 37 + i), 71, 72, 73, 74], "Shirt Design", configuredKobo("SHIRTS_PRICE_KOBO", 0)),
+  ...addProducts([1, ...Array.from({ length: 14 }, (_, i) => 37 + i), 71, 72, 73, 74], "Shirt Design", configuredKobo("SHIRTS_PRICE_KOBO", 1500000)),
   ...addProducts([3, ...Array.from({ length: 10 }, (_, i) => 51 + i)], "Jersey Design", configuredKobo("JERSEYS_PRICE_KOBO", 2500000)),
   ...addProducts(Array.from({ length: 19 }, (_, i) => 7 + i).concat(Array.from({ length: 8 }, (_, i) => 61 + i)), "Agbada Design", configuredKobo("AGBADA_PRICE_KOBO", 2000000)),
   ...addProducts(Array.from({ length: 11 }, (_, i) => 26 + i).concat([69, 70]), "Dress Design", configuredKobo("DRESSES_PRICE_KOBO", 1800000)),
