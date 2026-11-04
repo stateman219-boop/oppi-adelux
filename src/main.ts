@@ -348,6 +348,7 @@ function render() {
         <a href="/adelux/#story" data-menu-link>Our point of view</a>
         <button id="drawer-search">Search the collection</button>
         <button id="drawer-bag">Shopping bag <span>${bag.reduce((total, item) => total + item.quantity, 0)}</span></button>
+        <button id="drawer-track-order">Track my order</button>
       </nav>
       <p class="drawer-note">Unleash your elegance.<br>Designed for everyone. Made to stay.</p>
     </aside>
@@ -663,6 +664,7 @@ function bindEvents() {
   const openTrack = () => { setCartOpen(false); setMenuOpen(false); document.querySelector('#track-backdrop')?.classList.add('is-open'); document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','false'); document.body.classList.add('track-open'); };
   document.querySelector('#track-order-open')?.addEventListener('click',openTrack);
   document.querySelector('#header-track-toggle')?.addEventListener('click',openTrack);
+  document.querySelector('#drawer-track-order')?.addEventListener('click',openTrack);
   document.querySelector('#track-close')?.addEventListener('click',()=>{document.querySelector('#track-backdrop')?.classList.remove('is-open');document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','true');document.body.classList.remove('track-open')});
   document.querySelector('#track-backdrop')?.addEventListener('click',e=>{if(e.target===e.currentTarget){document.querySelector('#track-backdrop')?.classList.remove('is-open');document.body.classList.remove('track-open')}});
   document.querySelector<HTMLFormElement>('#track-form')?.addEventListener('submit',trackOrder);
