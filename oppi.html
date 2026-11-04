@@ -868,12 +868,11 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 }
 #services .monogram-feature-copy{
   position:relative;z-index:2;width:min(46%,480px);max-width:480px;margin:0;
-  padding:clamp(16px,2.6vw,30px);text-align:left;
-  border:1px solid rgba(255,255,255,.15);border-radius:16px;
-  background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  box-shadow:0 12px 34px rgba(0,0,0,.22);
+  padding:0;text-align:left;
+  border:0;border-radius:0;background:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;
 }
-#services .monogram-feature-copy>p:not(.eyebrow){max-width:420px;margin:0 0 16px!important;color:#fff!important;font-size:clamp(12px,1.15vw,16px)!important;line-height:1.65!important}
+#services .monogram-feature-copy>p:not(.eyebrow){max-width:420px;margin:0 0 16px!important;color:#fff!important;font-size:clamp(14px,1.15vw,16px)!important;font-weight:750!important;line-height:1.65!important}
 #services .monogram-feature-link{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.13);color:#fff!important;font-size:12px;font-weight:700;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .25s ease,background .25s ease}
 #services .monogram-feature-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.24)}
 #services .monogram-feature-image{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:hidden;border:0;border-radius:0;background:transparent}
@@ -881,8 +880,8 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 @media(max-width:700px){
  #services .monogram-feature{width:100%;aspect-ratio:16/9;min-height:0;margin-top:24px;padding:12px;border-radius:16px}
  #services .monogram-feature:before{background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.34) 60%,rgba(0,0,0,.05))}
- #services .monogram-feature-copy{width:min(58%,360px);max-width:360px;padding:12px;border-radius:12px;background:rgba(0,0,0,.68)}
- #services .monogram-feature-copy>p:not(.eyebrow){font-size:11px!important;line-height:1.45!important;margin-bottom:9px!important}
+ #services .monogram-feature-copy{width:min(58%,360px);max-width:360px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+ #services .monogram-feature-copy>p:not(.eyebrow){font-size:7px!important;font-weight:500!important;line-height:1.4!important;margin-bottom:7px!important}
  #services .monogram-feature-link{padding:8px 11px;font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){#services .monogram-feature-link{transition:none}}
