@@ -64,7 +64,9 @@ app.post("/api/payments/initialize", async (req, res) => {
       return res.status(409).json({ error: "Product prices must be configured before checkout." });
     }
     amount += product.price * quantity;
-    orderLines.push({ productId: id, name: product.name, quantity, unitPriceKobo: product.price, lineTotalKobo: product.price * quantity });
+    const size = typeof line?.size === 'string' ? line.size.trim().slice(0, 40) : '';
+    const color = typeof line?.color === 'string' ? line.color.trim().slice(0, 40) : '';
+    orderLines.push({ productId: id, name: product.name, quantity, size, color, unitPriceKobo: product.price, lineTotalKobo: product.price * quantity });
   }
   if (!Number.isSafeInteger(amount) || amount <= 0 || amount > 1000000000) {
     return res.status(400).json({ error: "Order total is invalid." });
