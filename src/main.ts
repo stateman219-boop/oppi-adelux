@@ -129,7 +129,9 @@ const app = document.querySelector<HTMLDivElement>('#app')!;
 function productCard(product: Product, preview = false) {
   const action = preview
     ? `data-view-more="${product.category}" aria-label="View more ${product.category}"`
-    : `data-add="${product.id}" aria-label="Add ${product.name} to cart"`;
+    : product.price === 0
+      ? `data-enquire="${product.id}" aria-label="Ask for the price of ${product.name}"`
+      : `data-add="${product.id}" aria-label="Add ${product.name} to cart"`;
   return `
     <article class="product-card ${preview ? "product-card-preview" : ""}" ${preview ? `data-open-category="${product.category}" tabindex="0" role="link" aria-label="Open the full ${product.category} collection"` : ""}>
       <div class="product-image">
@@ -138,7 +140,9 @@ function productCard(product: Product, preview = false) {
         <button class="wishlist-button ${wishlist.includes(product.id) ? 'is-saved' : ''}" data-wishlist="${product.id}" aria-label="${wishlist.includes(product.id) ? 'Remove from' : 'Add to'} wishlist" aria-pressed="${wishlist.includes(product.id)}">${wishlist.includes(product.id) ? '♥' : '♡'}</button>
         ${preview
           ? `<button class="quick-add" ${action}>VIEW MORE</button>`
-          : `<button class="quick-add" ${action}>ADD TO CART <span>＋</span></button>`}
+          : product.price === 0
+            ? `<button class="quick-add enquire-add" ${action}>REQUEST PRICE <span>↗</span></button>`
+            : `<button class="quick-add" ${action}>ADD TO BAG <span>＋</span></button>`}
       </div>
       <div class="product-meta">
         <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}</div>
@@ -483,6 +487,11 @@ function bindEvents() {
 
   document.querySelectorAll<HTMLButtonElement>('[data-add]')
     .forEach(button => button.addEventListener('click', () => addToBag(Number(button.dataset.add))));
+  document.querySelectorAll<HTMLButtonElement>('[data-enquire]')
+    .forEach(button => button.addEventListener('click', () => {
+      const product = products.find(item => item.id === Number(button.dataset.enquire));
+      if (product) window.location.href = 'https://wa.me/2348184952775?text=' + encodeURIComponent('Hello ADELUX, please share the price and availability for ' + product.name + '.');
+    }));
   document.querySelectorAll<HTMLButtonElement>('[data-wishlist]')
     .forEach(button => button.addEventListener('click', event => { event.stopPropagation(); toggleWishlist(Number(button.dataset.wishlist)); }));
   document.querySelectorAll<HTMLButtonElement>('[data-wishlist-filter]')
