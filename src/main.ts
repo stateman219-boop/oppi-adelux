@@ -105,16 +105,17 @@ function filteredProducts(category?: string): Product[] {
   if (sortOrder === 'price-low') result = result.slice().sort((a, b) => (a.price || Number.MAX_SAFE_INTEGER) - (b.price || Number.MAX_SAFE_INTEGER));
   if (sortOrder === 'price-high') result = result.slice().sort((a, b) => b.price - a.price);
   if (sortOrder === 'name') result = result.slice().sort((a, b) => a.name.localeCompare(b.name));
+  if ((sortOrder as string) === 'newest') result = result.slice().sort((a, b) => b.id - a.id);
   return result;
 }
-type BagLine = { lineId: number; product: Product; quantity: number };
+type BagLine = { lineId: number; product: Product; quantity: number; size: string; colorChoice: string };
 function loadSavedBag(): BagLine[] {
   try {
-    const saved = JSON.parse(localStorage.getItem('adelux-bag-v1') || '[]') as { productId: number; quantity: number; lineId: number }[];
+    const saved = JSON.parse(localStorage.getItem('adelux-bag-v1') || '[]') as { productId: number; quantity: number; lineId: number; size?: string; colorChoice?: string }[];
     return saved.flatMap(line => {
       const product = products.find(item => item.id === line.productId);
       return product && Number.isFinite(line.quantity) && line.quantity > 0
-        ? [{ lineId: line.lineId || line.productId, product, quantity: Math.floor(line.quantity) }]
+        ? [{ lineId: line.lineId || line.productId, product, quantity: Math.floor(line.quantity), size: line.size || 'Not selected', colorChoice: line.colorChoice || 'Not specified' }]
         : [];
     });
   } catch { return []; }
@@ -131,7 +132,7 @@ function productCard(product: Product, preview = false) {
     ? `data-view-more="${product.category}" aria-label="View more ${product.category}"`
     : product.price === 0
       ? `data-enquire="${product.id}" aria-label="Ask for the price of ${product.name}"`
-      : `data-add="${product.id}" aria-label="Add ${product.name} to cart"`;
+      : `data-details="${product.id}" aria-label="Choose options for ${product.name}"`;
   return `
     <article class="product-card ${preview ? "product-card-preview" : ""}" ${preview ? `data-open-category="${product.category}" tabindex="0" role="link" aria-label="Open the full ${product.category} collection"` : ""}>
       <div class="product-image">
@@ -142,10 +143,10 @@ function productCard(product: Product, preview = false) {
           ? `<button class="quick-add" ${action}>VIEW MORE</button>`
           : product.price === 0
             ? `<button class="quick-add enquire-add" ${action}>REQUEST PRICE <span>↗</span></button>`
-            : `<button class="quick-add" ${action}>ADD TO BAG <span>＋</span></button>`}
+            : `<button class="quick-add" ${action}>SELECT OPTIONS <span>＋</span></button>`}
       </div>
       <div class="product-meta">
-        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}</div>
+        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}<button class="product-details-link" data-details="${product.id}">View details</button></div>
         <p class="price">${money(product.price)}</p>
       </div>
     </article>`;
@@ -162,7 +163,7 @@ function categoryPageMarkup(category: string) {
       </nav>
       <div class="collection-filter-row">
         <button class="saved-filter ${wishlistOnly ? 'is-active' : ''}" data-wishlist-filter aria-pressed="${wishlistOnly}">Saved pieces (${wishlist.length})</button>
-        <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option></select></label>
+        <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option><option value="newest" ${(sortOrder as string) === 'newest' ? 'selected' : ''}>Newest added</option></select></label>
       </div>
       <div class="product-grid category-page-grid">
         ${categoryProducts.length ? categoryProducts.map(product => productCard(product)).join('') : '<p class="no-results">' + (wishlistOnly ? 'No saved pieces in this collection yet.' : category === 'Kids' ? 'The Kids collection is being prepared. New pieces will appear here soon.' : 'No products match your search.') + '</p>'}
@@ -362,9 +363,10 @@ ${mainContentMarkup()}
     <div class="cart-backdrop ${bagOpen ? 'is-open' : ''}" id="cart-backdrop" aria-hidden="${!bagOpen}"></div>
     <aside class="cart-drawer ${bagOpen ? 'is-open' : ''}" id="cart-drawer" aria-hidden="${!bagOpen}" aria-label="Shopping cart">
       <div class="cart-head"><div><p class="eyebrow">YOUR SELECTION</p><h2>Shopping cart <span>(${bag.reduce((n, item) => n + item.quantity, 0)})</span></h2></div><button id="cart-close" aria-label="Close cart">Close</button></div>
-      <div class="cart-items">${bag.length ? bag.map(({lineId, product, quantity}) => `<article class="cart-item"><img src="${product.image}" alt="${product.name}"><div class="cart-item-info"><p class="cart-item-name">${product.name}</p><p class="cart-item-color">${product.color}</p><p class="cart-item-price">${money(product.price)}</p><div class="cart-quantity"><button data-qty="${lineId}" data-change="-1" aria-label="Decrease quantity">Decrease</button><span>${quantity}</span><button data-qty="${lineId}" data-change="1" aria-label="Increase quantity">Increase</button><button class="cart-remove" data-remove="${lineId}">Remove</button></div></div></article>`).join('') : '<p class="cart-empty">Your cart is empty.<br>Find something considered.</p>'}</div>
+      <div class="cart-items">${bag.length ? bag.map(({lineId, product, quantity}) => `<article class="cart-item"><img src="${product.image}" alt="${product.name}"><div class="cart-item-info"><p class="cart-item-name">${product.name}</p><p class="cart-item-color">${product.color} · Size: ${item.size} · Colour: ${item.colorChoice}</p><p class="cart-item-price">${money(product.price)}</p><div class="cart-quantity"><button data-qty="${lineId}" data-change="-1" aria-label="Decrease quantity">Decrease</button><span>${quantity}</span><button data-qty="${lineId}" data-change="1" aria-label="Increase quantity">Increase</button><button class="cart-remove" data-remove="${lineId}">Remove</button></div></div></article>`).join('') : '<p class="cart-empty">Your cart is empty.<br>Find something considered.</p>'}</div>
       <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><strong>${money(bag.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}</strong></div><p>Enter your email at checkout. Payment will be processed securely by Paystack.</p><button class="cart-checkout" id="cart-checkout" ${bag.length ? '' : 'disabled'}>Proceed to payment</button></div>
     </aside>
+    <div class="product-detail-backdrop" id="product-detail-backdrop" aria-hidden="true"></div>
     <a class="whatsapp-float" href="https://wa.me/2348184952775?text=Hello%20ADELUX%2C%20I%20would%20like%20more%20information%20about%20your%20collection." target="_blank" rel="noopener noreferrer" aria-label="Chat with ADELUX on WhatsApp for more information" title="Chat with us on WhatsApp">
       <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.02 3C8.86 3 3.04 8.78 3.04 15.9c0 2.27.6 4.49 1.75 6.45L3 29l6.85-1.78a13.1 13.1 0 0 0 6.17 1.55h.01c7.16 0 12.98-5.78 12.98-12.9A12.82 12.82 0 0 0 16.02 3Zm0 23.58h-.01a10.9 10.9 0 0 1-5.55-1.51l-.4-.24-4.07 1.06 1.09-3.94-.26-.41a10.65 10.65 0 0 1-1.67-5.64c0-5.99 4.9-10.86 10.88-10.86 2.9 0 5.63 1.13 7.68 3.18a10.75 10.75 0 0 1 3.19 7.67c0 5.99-4.9 10.85-10.88 10.85Zm5.97-8.13c-.33-.16-1.94-.96-2.24-1.07-.3-.11-.52-.16-.74.16-.22.33-.85 1.07-1.04 1.29-.19.22-.38.25-.71.08-.33-.16-1.4-.51-2.67-1.63-.99-.87-1.66-1.94-1.85-2.27-.19-.33-.02-.5.14-.66.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.06-.41-.03-.57-.08-.16-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.15 1.12-1.15 2.73s1.18 3.17 1.34 3.39c.16.22 2.32 3.54 5.62 4.96.79.34 1.4.54 1.88.69.79.25 1.51.22 2.08.13.63-.09 1.94-.79 2.21-1.56.27-.77.27-1.43.19-1.56-.08-.14-.3-.22-.63-.38Z"/></svg>
       
@@ -394,16 +396,39 @@ function setMenuOpen(open: boolean) {
   document.body.classList.toggle("menu-open", open);
 }
 
-function addToBag(id: number) {
+let selectedProduct: Product | null = null;
+function openProductDetails(id: number) {
+  const product = products.find(item => item.id === id);
+  if (!product) return;
+  selectedProduct = product;
+  const modal = document.querySelector<HTMLDivElement>('#product-detail-backdrop');
+  if (!modal) return;
+  modal.innerHTML = `<section class="product-detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title"><button class="detail-close" id="detail-close" aria-label="Close details">×</button><div class="detail-image-wrap"><img src="${product.image}" alt="${product.name}"></div><div class="detail-copy"><p class="eyebrow">ADELUX COLLECTIONS · ${product.category === 'Sportswear' ? 'JERSEYS' : product.category.toUpperCase()}</p><h2 id="detail-title">${product.name}</h2><p class="detail-price">${money(product.price)}</p><p class="detail-description">${product.note}</p><label class="detail-field">Select size<select id="detail-size" required><option value="">Choose your size</option>${(product.category === 'Traditional Wear' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).map(x=>`<option value="${x}">${x}</option>`).join('')}</select></label><label class="detail-field">Preferred colour <input id="detail-color" maxlength="40" placeholder="Enter preferred colour"><small>We will confirm colour availability before production.</small></label><button class="detail-add" id="detail-add">ADD TO BAG</button><p class="detail-note">Size and colour preferences stay attached to this item in your bag.</p></div></section>`;
+  modal.classList.add('is-open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('detail-open');
+  document.querySelector('#detail-close')?.addEventListener('click', closeProductDetails);
+  modal.addEventListener('click', event => { if (event.target === modal) closeProductDetails(); }, { once: true });
+  document.querySelector('#detail-add')?.addEventListener('click', () => {
+    const size = (document.querySelector<HTMLInputElement | HTMLSelectElement>('#detail-size')?.value || '').trim();
+    const colorChoice = (document.querySelector<HTMLInputElement>('#detail-color')?.value || '').trim() || 'Confirm with ADELUX';
+    if (!size) { showToast('Please select a size first'); return; }
+    addToBag(id, size, colorChoice);
+    closeProductDetails();
+  });
+}
+function closeProductDetails() { document.querySelector('#product-detail-backdrop')?.classList.remove('is-open'); document.querySelector('#product-detail-backdrop')?.setAttribute('aria-hidden', 'true'); document.body.classList.remove('detail-open'); selectedProduct = null; }
+
+function addToBag(id: number, size = 'Not selected', colorChoice = 'Not specified') {
   const product = products.find(item => item.id === id);
   if (!product) return;
 
-  const existing = bag.find(item => item.product.id === id);
+  const existing = bag.find(item => item.product.id === id && item.size === size && item.colorChoice === colorChoice);
 
   if (existing) {
     existing.quantity++;
   } else {
-    bag.push({ lineId: Date.now() + Math.floor(Math.random() * 1000), product, quantity: 1 });
+    bag.push({ lineId: Date.now() + Math.floor(Math.random() * 1000), product, quantity: 1, size, colorChoice });
   }
 
   saveBag();
@@ -413,7 +438,7 @@ function addToBag(id: number) {
 
 function saveBag() {
   try {
-    localStorage.setItem('adelux-bag-v1', JSON.stringify(bag.map(({ lineId, product, quantity }) => ({ lineId, productId: product.id, quantity }))));
+    localStorage.setItem('adelux-bag-v1', JSON.stringify(bag.map(({ lineId, product, quantity, size, colorChoice }) => ({ lineId, productId: product.id, quantity, size, colorChoice }))));
   } catch { /* Keep the bag available for this visit if storage is unavailable. */ }
 }
 
@@ -435,7 +460,7 @@ async function startPaystackCheckout() {
     const response = await fetch(PAYMENTS_API_URL + '/api/payments/initialize', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.trim().toLowerCase(), items: bag.map(({ product, quantity }) => ({ productId: product.id, quantity })) }),
+      body: JSON.stringify({ email: email.trim().toLowerCase(), items: bag.map(({ product, quantity, size, colorChoice }) => ({ productId: product.id, quantity, size, color: colorChoice })) }),
       signal: controller.signal
     });
     const raw = await response.text();
@@ -485,8 +510,8 @@ function bindEvents() {
       });
     });
 
-  document.querySelectorAll<HTMLButtonElement>('[data-add]')
-    .forEach(button => button.addEventListener('click', () => addToBag(Number(button.dataset.add))));
+  document.querySelectorAll<HTMLButtonElement>('[data-details]')
+    .forEach(button => button.addEventListener('click', () => openProductDetails(Number(button.dataset.details))));
   document.querySelectorAll<HTMLButtonElement>('[data-enquire]')
     .forEach(button => button.addEventListener('click', () => {
       const product = products.find(item => item.id === Number(button.dataset.enquire));
