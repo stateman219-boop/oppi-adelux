@@ -99,7 +99,7 @@ let sizeFilter = '';
 let colourFilter = '';
 let minPriceFilter = '';
 let maxPriceFilter = '';
-function advancedFilterMarkup() { return `<div class="advanced-filters"><label>Size preference<select id="filter-size"><option value="">All sizes</option>${['XS','S','M','L','XL','XXL','Made to measure'].map(size=>`<option value="${size}" ${sizeFilter===size?'selected':''}>${size}</option>`).join('')}</select></label><label>Colour preference<input id="filter-colour" type="search" value="${colourFilter.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="e.g. black, white"></label><label>Min price (₦)<input id="filter-min-price" type="number" min="0" inputmode="numeric" value="${minPriceFilter}" placeholder="Any"></label><label>Max price (₦)<input id="filter-max-price" type="number" min="0" inputmode="numeric" value="${maxPriceFilter}" placeholder="Any"></label></div>`; }
+function advancedFilterMarkup() { return `<div class="advanced-filters"><label>Size preference<select id="filter-size"><option value="">All sizes</option>${['XS','S','M','L','XL','XXL','Made to measure'].map(size=>`<option value="${size}" ${sizeFilter===size?'selected':''}>${size}</option>`).join('')}</select></label><label>Colour / style keyword<input id="filter-colour" type="search" value="${colourFilter.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="e.g. black, white"></label><label>Min price (₦)<input id="filter-min-price" type="number" min="0" inputmode="numeric" value="${minPriceFilter}" placeholder="Any"></label><label>Max price (₦)<input id="filter-max-price" type="number" min="0" inputmode="numeric" value="${maxPriceFilter}" placeholder="Any"></label><button type="button" class="clear-advanced-filters" id="clear-advanced-filters">Clear filters</button></div>`; }
 let wishlistOnly = false;
 function loadWishlist(): number[] { try { const saved = JSON.parse(localStorage.getItem('adelux-wishlist-v1') || '[]'); return Array.isArray(saved) ? saved.filter((id: unknown) => typeof id === 'number' && products.some(product => product.id === id)) : []; } catch { return []; } }
 let wishlist = loadWishlist();
@@ -669,6 +669,7 @@ function bindEvents() {
   document.querySelector('#track-backdrop')?.addEventListener('click',e=>{if(e.target===e.currentTarget){document.querySelector('#track-backdrop')?.classList.remove('is-open');document.body.classList.remove('track-open')}});
   document.querySelector<HTMLFormElement>('#track-form')?.addEventListener('submit',trackOrder);
   document.querySelectorAll<HTMLInputElement | HTMLSelectElement>('#filter-size,#filter-colour,#filter-min-price,#filter-max-price').forEach(input=>input.addEventListener('change',()=>{sizeFilter=(document.querySelector<HTMLSelectElement>('#filter-size')?.value||'');colourFilter=(document.querySelector<HTMLInputElement>('#filter-colour')?.value||'').trim();minPriceFilter=document.querySelector<HTMLInputElement>('#filter-min-price')?.value||'';maxPriceFilter=document.querySelector<HTMLInputElement>('#filter-max-price')?.value||'';render()}));
+  document.querySelector('#clear-advanced-filters')?.addEventListener('click',()=>{sizeFilter='';colourFilter='';minPriceFilter='';maxPriceFilter='';render()});
 }
 
 render();
