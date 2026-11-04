@@ -94,7 +94,12 @@ const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.
 let activeCategory = 'All pieces';
 let searchTerm = '';
 let searchOpen = false;
-let sortOrder: 'featured' | 'price-low' | 'price-high' | 'name' = 'featured';
+let sortOrder: 'featured' | 'price-low' | 'price-high' | 'name' | 'newest' = 'featured';
+let sizeFilter = '';
+let colourFilter = '';
+let minPriceFilter = '';
+let maxPriceFilter = '';
+function advancedFilterMarkup() { return `<div class="advanced-filters"><label>Size preference<select id="filter-size"><option value="">All sizes</option>${['XS','S','M','L','XL','XXL','Made to measure'].map(size=>`<option value="${size}" ${sizeFilter===size?'selected':''}>${size}</option>`).join('')}</select></label><label>Colour preference<input id="filter-colour" type="search" value="${colourFilter.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" placeholder="e.g. black, white"></label><label>Min price (₦)<input id="filter-min-price" type="number" min="0" inputmode="numeric" value="${minPriceFilter}" placeholder="Any"></label><label>Max price (₦)<input id="filter-max-price" type="number" min="0" inputmode="numeric" value="${maxPriceFilter}" placeholder="Any"></label></div>`; }
 let wishlistOnly = false;
 function loadWishlist(): number[] { try { const saved = JSON.parse(localStorage.getItem('adelux-wishlist-v1') || '[]'); return Array.isArray(saved) ? saved.filter((id: unknown) => typeof id === 'number' && products.some(product => product.id === id)) : []; } catch { return []; } }
 let wishlist = loadWishlist();
@@ -105,7 +110,7 @@ function recentViewedMarkup() { const items = recentlyViewed.map(id => products.
 function saveWishlist() { try { localStorage.setItem('adelux-wishlist-v1', JSON.stringify(wishlist)); } catch { /* Wishlist remains available for this visit. */ } }
 function toggleWishlist(id: number) { wishlist = wishlist.includes(id) ? wishlist.filter(item => item !== id) : [...wishlist, id]; saveWishlist(); render(); }
 function filteredProducts(category?: string): Product[] {
-  let result = products.filter(product => visibleCategories.includes(product.category) && (!category || product.category === category) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase()) && (!wishlistOnly || wishlist.includes(product.id)));
+  let result = products.filter(product => visibleCategories.includes(product.category) && (!category || product.category === category) && (product.name + ' ' + product.category + ' ' + product.color + ' ' + product.note).toLowerCase().includes(searchTerm.toLowerCase()) && (!wishlistOnly || wishlist.includes(product.id)) && (!colourFilter || (product.name + ' ' + product.color + ' ' + product.note).toLowerCase().includes(colourFilter.toLowerCase())) && (!minPriceFilter || product.price >= Number(minPriceFilter)) && (!maxPriceFilter || product.price <= Number(maxPriceFilter)) && (!sizeFilter || (product.category === 'Traditional Wear' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).includes(sizeFilter)));
   if (sortOrder === 'price-low') result = result.slice().sort((a, b) => (a.price || Number.MAX_SAFE_INTEGER) - (b.price || Number.MAX_SAFE_INTEGER));
   if (sortOrder === 'price-high') result = result.slice().sort((a, b) => b.price - a.price);
   if (sortOrder === 'name') result = result.slice().sort((a, b) => a.name.localeCompare(b.name));
@@ -370,9 +375,11 @@ ${mainContentMarkup()}
     <aside class="cart-drawer ${bagOpen ? 'is-open' : ''}" id="cart-drawer" aria-hidden="${!bagOpen}" aria-label="Shopping cart">
       <div class="cart-head"><div><p class="eyebrow">YOUR SELECTION</p><h2>Shopping cart <span>(${bag.reduce((n, item) => n + item.quantity, 0)})</span></h2></div><button id="cart-close" aria-label="Close cart">Close</button></div>
       <div class="cart-items">${bag.length ? bag.map(({lineId, product, quantity, size, colorChoice}) => `<article class="cart-item"><img src="${product.image}" alt="${product.name}"><div class="cart-item-info"><p class="cart-item-name">${product.name}</p><p class="cart-item-color">${product.color} · Size: ${size} · Colour: ${colorChoice}</p><p class="cart-item-price">${money(product.price)}</p><div class="cart-quantity"><button data-qty="${lineId}" data-change="-1" aria-label="Decrease quantity">Decrease</button><span>${quantity}</span><button data-qty="${lineId}" data-change="1" aria-label="Increase quantity">Increase</button><button class="cart-remove" data-remove="${lineId}">Remove</button></div></div></article>`).join('') : '<p class="cart-empty">Your cart is empty.<br>Find something considered.</p>'}</div>
-      <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><strong>${money(bag.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}</strong></div><p>Enter your email at checkout. Payment will be processed securely by Paystack.</p><button class="cart-checkout" id="cart-checkout" ${bag.length ? '' : 'disabled'}>Proceed to payment</button></div>
+      <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><strong>${money(bag.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}</strong></div><p>Secure payment by Paystack. Collection is from the ADELUX Area 10 store, Abuja.</p><button class="cart-checkout" id="cart-checkout" ${bag.length ? '' : 'disabled'}>Continue to checkout</button><button class="track-order-link" id="track-order-open">Already ordered? Track your order</button></div>
     </aside>
     <div class="product-detail-backdrop" id="product-detail-backdrop" aria-hidden="true"></div>
+    <div class="checkout-backdrop" id="checkout-backdrop" aria-hidden="true"><section class="checkout-panel" role="dialog" aria-modal="true" aria-labelledby="checkout-title"><button class="checkout-close" id="checkout-close" type="button">×</button><p class="eyebrow">ADELUX COLLECTIONS · CHECKOUT</p><h2 id="checkout-title">Your details,<br><em>then checkout.</em></h2><p class="checkout-intro">Complete your contact details. Orders are prepared over five days and collected from our Area 10 store in Abuja.</p><form id="checkout-form"><label>Full name<input name="name" autocomplete="name" required minlength="2" placeholder="Your full name"></label><label>Mobile number<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required minlength="10" placeholder="e.g. 08012345678"></label><label>Email address<input name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label><label>Additional instructions <span>(optional)</span><textarea name="note" rows="3" maxlength="500" placeholder="Any notes for the ADELUX team"></textarea></label><div class="collection-confirm"><strong>Collection point</strong><span>ADELUX Area 10 store, Abuja</span><small>We will call the mobile number above on Day 5 to arrange pickup.</small></div><button class="checkout-pay" id="checkout-pay" type="submit">Continue to secure payment</button></form></section></div>
+    <div class="track-backdrop" id="track-backdrop" aria-hidden="true"><section class="track-panel" role="dialog" aria-modal="true" aria-labelledby="track-title"><button class="checkout-close" id="track-close" type="button">×</button><p class="eyebrow">ADELUX ORDER CARE</p><h2 id="track-title">Track your order.</h2><form id="track-form"><label>Order number<input name="orderNumber" required placeholder="e.g. AD12AB34CD56"></label><label>Mobile number used at checkout<input name="phone" type="tel" inputmode="tel" required placeholder="Your checkout mobile number"></label><button class="checkout-pay" type="submit">Check order progress</button></form><div id="track-result" aria-live="polite"></div></section></div>
     <a class="whatsapp-float" href="https://wa.me/2348184952775?text=Hello%20ADELUX%2C%20I%20would%20like%20more%20information%20about%20your%20collection." target="_blank" rel="noopener noreferrer" aria-label="Chat with ADELUX on WhatsApp for more information" title="Chat with us on WhatsApp">
       <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.02 3C8.86 3 3.04 8.78 3.04 15.9c0 2.27.6 4.49 1.75 6.45L3 29l6.85-1.78a13.1 13.1 0 0 0 6.17 1.55h.01c7.16 0 12.98-5.78 12.98-12.9A12.82 12.82 0 0 0 16.02 3Zm0 23.58h-.01a10.9 10.9 0 0 1-5.55-1.51l-.4-.24-4.07 1.06 1.09-3.94-.26-.41a10.65 10.65 0 0 1-1.67-5.64c0-5.99 4.9-10.86 10.88-10.86 2.9 0 5.63 1.13 7.68 3.18a10.75 10.75 0 0 1 3.19 7.67c0 5.99-4.9 10.85-10.88 10.85Zm5.97-8.13c-.33-.16-1.94-.96-2.24-1.07-.3-.11-.52-.16-.74.16-.22.33-.85 1.07-1.04 1.29-.19.22-.38.25-.71.08-.33-.16-1.4-.51-2.67-1.63-.99-.87-1.66-1.94-1.85-2.27-.19-.33-.02-.5.14-.66.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.06-.41-.03-.57-.08-.16-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.15 1.12-1.15 2.73s1.18 3.17 1.34 3.39c.16.22 2.32 3.54 5.62 4.96.79.34 1.4.54 1.88.69.79.25 1.51.22 2.08.13.63-.09 1.94-.79 2.21-1.56.27-.77.27-1.43.19-1.56-.08-.14-.3-.22-.63-.38Z"/></svg>
       
@@ -414,7 +421,7 @@ function openProductDetails(id: number) {
   else document.querySelector('main')?.insertAdjacentHTML('beforeend', recentMarkup);
   const modal = document.querySelector<HTMLDivElement>('#product-detail-backdrop');
   if (!modal) return;
-  modal.innerHTML = `<section class="product-detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title"><button class="detail-close" id="detail-close" aria-label="Close details">×</button><div class="detail-image-wrap"><img src="${product.image}" alt="${product.name}"></div><div class="detail-copy"><p class="eyebrow">ADELUX COLLECTIONS · ${product.category === 'Sportswear' ? 'JERSEYS' : product.category.toUpperCase()}</p><h2 id="detail-title">${product.name}</h2><p class="detail-price">${money(product.price)}</p><p class="detail-description">${product.note}</p><label class="detail-field">Select size<select id="detail-size" required><option value="">Choose your size</option>${(product.category === 'Traditional Wear' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).map(x=>`<option value="${x}">${x}</option>`).join('')}</select></label><label class="detail-field">Preferred colour <input id="detail-color" maxlength="40" placeholder="Enter preferred colour"><small>We will confirm colour availability before production.</small></label><button class="detail-add" id="detail-add">ADD TO BAG</button><p class="detail-note">Size and colour preferences stay attached to this item in your bag.</p><div class="complete-look"><p class="eyebrow">STYLE IT WITH</p><h3>Complete the look</h3><div class="complete-look-grid">${(product.category === 'Dresses' ? [products.find(p=>p.id===6), products.find(p=>p.id===2)] : [products.find(p=>p.id===2), products.find(p=>p.id===6)]).filter((p): p is Product => Boolean(p)).map(p=>`<button class="complete-look-item" data-details="${p.id}"><img src="${p.image}" alt="${p.name}"><span>${p.name}</span><strong>${money(p.price)}</strong></button>`).join('')}</div></div></div></section>`;
+  modal.innerHTML = `<section class="product-detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title"><button class="detail-close" id="detail-close" aria-label="Close details">×</button><div class="detail-image-wrap"><img src="${product.image}" alt="${product.name}"></div><div class="detail-copy"><p class="eyebrow">ADELUX COLLECTIONS · ${product.category === 'Sportswear' ? 'JERSEYS' : product.category.toUpperCase()}</p><h2 id="detail-title">${product.name}</h2><p class="detail-price">${money(product.price)}</p><p class="detail-description">${product.note}</p><label class="detail-field">Select size<select id="detail-size" required><option value="">Choose your size</option>${(product.category === 'Traditional Wear' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).map(x=>`<option value="${x}">${x}</option>`).join('')}</select></label><label class="detail-field">Preferred colour <input id="detail-color" maxlength="40" placeholder="Enter preferred colour"><small>We will confirm colour availability before production.</small></label><button class="detail-add" id="detail-add">ADD TO BAG</button><p class="detail-note">Size and colour preferences stay attached to this item in your bag. Final colour availability is confirmed by ADELUX.</p><details class="size-guide"><summary>View size guide</summary><div class="size-guide-content">${product.category === 'Traditional Wear' ? '<p>Traditional pieces are best measured individually. Prepare chest, shoulder, sleeve, top length, waist, hip and trouser length measurements. Select “Made to measure” and our team will confirm details.</p>' : product.category === 'Dresses' ? '<p>Indicative body measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr><tr><td>XS</td><td>80–84</td><td>60–64</td><td>86–90</td></tr><tr><td>S</td><td>85–89</td><td>65–69</td><td>91–95</td></tr><tr><td>M</td><td>90–94</td><td>70–74</td><td>96–100</td></tr><tr><td>L</td><td>95–101</td><td>75–81</td><td>101–107</td></tr><tr><td>XL</td><td>102–108</td><td>82–88</td><td>108–114</td></tr><tr><td>XXL</td><td>109–116</td><td>89–96</td><td>115–122</td></tr></table>' : '<p>Indicative chest measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Chest</th></tr><tr><td>XS</td><td>86–91</td></tr><tr><td>S</td><td>92–97</td></tr><tr><td>M</td><td>98–103</td></tr><tr><td>L</td><td>104–109</td></tr><tr><td>XL</td><td>110–117</td></tr><tr><td>XXL</td><td>118–125</td></tr></table>'}<small>Reference guide only. ADELUX’s final garment measurements and fit should be confirmed before production. Measure around the fullest part of the chest/bust without pulling the tape tight.</small></div></details><div class="complete-look"><p class="eyebrow">STYLE IT WITH</p><h3>Complete the look</h3><div class="complete-look-grid">${(product.category === 'Dresses' ? [products.find(p=>p.id===6), products.find(p=>p.id===2)] : [products.find(p=>p.id===2), products.find(p=>p.id===6)]).filter((p): p is Product => Boolean(p)).map(p=>`<button class="complete-look-item" data-details="${p.id}"><img src="${p.image}" alt="${p.name}"><span>${p.name}</span><strong>${money(p.price)}</strong></button>`).join('')}</div></div></div></section>`;
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('detail-open');
@@ -455,42 +462,67 @@ function saveBag() {
 
 const PAYMENTS_API_URL = 'https://oppi-adelux.onrender.com';
 
-async function startPaystackCheckout() {
+function openCheckout() {
   if (!bag.length) return;
-  const email = window.prompt('Enter your email address for Paystack checkout:');
-  if (!email) return;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-    showToast('Please enter a valid email address');
-    return;
-  }
-  const button = document.querySelector<HTMLButtonElement>('#cart-checkout');
-  if (button) { button.disabled = true; button.textContent = 'Connecting to payment… (Render may take up to 90 seconds)'; }
+  setCartOpen(false);
+  const modal = document.querySelector<HTMLDivElement>('#checkout-backdrop');
+  modal?.classList.add('is-open');
+  modal?.setAttribute('aria-hidden','false');
+  document.body.classList.add('checkout-open');
+}
+function closeCheckout() {
+  document.querySelector('#checkout-backdrop')?.classList.remove('is-open');
+  document.querySelector('#checkout-backdrop')?.setAttribute('aria-hidden','true');
+  document.body.classList.remove('checkout-open');
+}
+async function startPaystackCheckout(event: SubmitEvent) {
+  event.preventDefault();
+  if (!bag.length) return;
+  const form = document.querySelector<HTMLFormElement>('#checkout-form');
+  if (!form || !form.reportValidity()) return;
+  const values = new FormData(form);
+  const customer = { name: String(values.get('name')||'').trim(), phone: String(values.get('phone')||'').trim(), note: String(values.get('note')||'').trim() };
+  const email = String(values.get('email')||'').trim().toLowerCase();
+  const button = document.querySelector<HTMLButtonElement>('#checkout-pay');
+  if (button) { button.disabled = true; button.textContent = 'Connecting securely to Paystack…'; }
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 90000);
   try {
     const response = await fetch(PAYMENTS_API_URL + '/api/payments/initialize', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.trim().toLowerCase(), items: bag.map(({ product, quantity, size, colorChoice }) => ({ productId: product.id, quantity, size, color: colorChoice })) }),
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, customer, items: bag.map(({ product, quantity, size, colorChoice }) => ({ productId: product.id, quantity, size, color: colorChoice })) }),
       signal: controller.signal
     });
     const raw = await response.text();
-    let data: { authorizationUrl?: string; error?: string } = {};
-    try { data = JSON.parse(raw); } catch { throw new Error('Payment server returned an unreadable response. Check Render logs.'); }
+    let data: { authorizationUrl?: string; error?: string; orderNumber?: string } = {};
+    try { data = JSON.parse(raw); } catch { throw new Error('Payment server returned an unreadable response. Please retry.'); }
     if (!response.ok || !data.authorizationUrl) throw new Error(data.error || 'Checkout could not start (HTTP ' + response.status + ').');
-    showToast('Opening Paystack…');
+    try { sessionStorage.setItem('adelux-last-order', JSON.stringify({ orderNumber: data.orderNumber, phone: customer.phone })); } catch {}
     window.location.href = data.authorizationUrl;
   } catch (error) {
-    const message = error instanceof DOMException && error.name === 'AbortError'
-      ? 'Payment server took too long to respond. Render may be waking up; please retry once.'
-      : error instanceof TypeError
-        ? 'Could not reach the payment server. Check Render is Live and its logs.'
-        : error instanceof Error ? error.message : 'Payment service unavailable.';
+    const message = error instanceof DOMException && error.name === 'AbortError' ? 'Payment server took too long to respond. Please retry.' : error instanceof TypeError ? 'Could not reach the payment server. Please try again shortly.' : error instanceof Error ? error.message : 'Payment service unavailable.';
     showToast(message);
-    if (button) { button.disabled = false; button.textContent = 'Retry payment'; }
-  } finally {
-    window.clearTimeout(timeout);
-  }
+    if (button) { button.disabled = false; button.textContent = 'Retry secure payment'; }
+  } finally { window.clearTimeout(timeout); }
+}
+async function trackOrder(event: SubmitEvent) {
+  event.preventDefault();
+  const form = document.querySelector<HTMLFormElement>('#track-form');
+  if (!form || !form.reportValidity()) return;
+  const values = new FormData(form);
+  const orderNumber = String(values.get('orderNumber')||'').trim().toUpperCase();
+  const phone = String(values.get('phone')||'').trim();
+  const target = document.querySelector<HTMLDivElement>('#track-result');
+  if (target) target.innerHTML = '<p>Looking up your order…</p>';
+  try {
+    const response = await fetch(PAYMENTS_API_URL + '/api/orders/track?orderNumber=' + encodeURIComponent(orderNumber) + '&phone=' + encodeURIComponent(phone));
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Could not find that order.');
+    const labels = ['Order received','Order packaged','Sent to Area 10 store','Ready for pickup','Customer called to arrange pickup'];
+    const sequence = ['order_received','packaged','sent_to_store','ready_for_pickup','customer_called'];
+    const currentIndex = sequence.indexOf(data.status);
+    target!.innerHTML = '<div class="track-summary"><strong>Order ' + data.orderNumber + '</strong><span>Payment: ' + String(data.paymentStatus).toUpperCase() + '</span><p>Collection: ' + data.collectionLocation + '</p></div><ol class="order-timeline">' + labels.map((label,index)=>'<li class="' + (index <= currentIndex ? 'is-complete' : '') + '"><span class="timeline-day">DAY ' + (index+1) + '</span><strong>' + label + '</strong><small>' + (data.history?.find((entry:any)=>entry.status===sequence[index])?.at ? new Date(data.history.find((entry:any)=>entry.status===sequence[index]).at).toLocaleString('en-NG') : (index <= currentIndex ? 'In progress' : 'Pending')) + '</small></li>').join('') + '</ol><p class="track-help">On Day 5, ADELUX will call the mobile number supplied at checkout to arrange pickup.</p>';
+  } catch(error) { if (target) target.innerHTML = '<p class="track-error">' + (error instanceof Error ? error.message : 'Order tracking is unavailable.') + '</p>'; }
 }
 function showToast(message: string) {
   const toast = document.querySelector<HTMLDivElement>('#toast');
@@ -621,7 +653,15 @@ function bindEvents() {
   document.querySelectorAll<HTMLButtonElement>('[data-remove]').forEach(button => button.addEventListener('click', () => {
     bag = bag.filter(entry => entry.lineId !== Number(button.dataset.remove)); saveBag(); render(); setCartOpen(true);
   }));
-  document.querySelector('#cart-checkout')?.addEventListener('click', startPaystackCheckout);
+  document.querySelector('#cart-checkout')?.addEventListener('click', openCheckout);
+  document.querySelector('#checkout-close')?.addEventListener('click', closeCheckout);
+  document.querySelector('#checkout-backdrop')?.addEventListener('click', e=>{if(e.target===e.currentTarget)closeCheckout()});
+  document.querySelector<HTMLFormElement>('#checkout-form')?.addEventListener('submit', startPaystackCheckout);
+  document.querySelector('#track-order-open')?.addEventListener('click',()=>{setCartOpen(false);document.querySelector('#track-backdrop')?.classList.add('is-open');document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','false');document.body.classList.add('track-open')});
+  document.querySelector('#track-close')?.addEventListener('click',()=>{document.querySelector('#track-backdrop')?.classList.remove('is-open');document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','true');document.body.classList.remove('track-open')});
+  document.querySelector('#track-backdrop')?.addEventListener('click',e=>{if(e.target===e.currentTarget){document.querySelector('#track-backdrop')?.classList.remove('is-open');document.body.classList.remove('track-open')}});
+  document.querySelector<HTMLFormElement>('#track-form')?.addEventListener('submit',trackOrder);
+  document.querySelectorAll<HTMLInputElement | HTMLSelectElement>('#filter-size,#filter-colour,#filter-min-price,#filter-max-price').forEach(input=>input.addEventListener('change',()=>{sizeFilter=(document.querySelector<HTMLSelectElement>('#filter-size')?.value||'');colourFilter=(document.querySelector<HTMLInputElement>('#filter-colour')?.value||'').trim();minPriceFilter=document.querySelector<HTMLInputElement>('#filter-min-price')?.value||'';maxPriceFilter=document.querySelector<HTMLInputElement>('#filter-max-price')?.value||'';render()}));
 }
 
 render();
