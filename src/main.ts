@@ -174,6 +174,7 @@ function categoryPageMarkup(category: string) {
       <div class="collection-filter-row">
         <button class="saved-filter ${wishlistOnly ? 'is-active' : ''}" data-wishlist-filter aria-pressed="${wishlistOnly}">Saved pieces (${wishlist.length})</button>
         <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option><option value="newest" ${(sortOrder as string) === 'newest' ? 'selected' : ''}>Newest added</option></select></label>
+        ${advancedFilterMarkup()}
       </div>
       <div class="product-grid category-page-grid">
         ${categoryProducts.length ? categoryProducts.map(product => productCard(product)).join('') : '<p class="no-results">' + (wishlistOnly ? 'No saved pieces in this collection yet.' : category === 'Kids' ? 'The Kids collection is being prepared. New pieces will appear here soon.' : 'No products match your search.') + '</p>'}
@@ -239,6 +240,7 @@ function mainContentMarkup() {
         <div class="collection-filter-row">
           <button class="saved-filter ${wishlistOnly ? 'is-active' : ''}" data-wishlist-filter aria-pressed="${wishlistOnly}">Saved pieces (${wishlist.length})</button>
           <label class="sort-control">Sort by <select id="sort-products"><option value="featured" ${sortOrder === 'featured' ? 'selected' : ''}>Featured</option><option value="price-low" ${sortOrder === 'price-low' ? 'selected' : ''}>Price: low to high</option><option value="price-high" ${sortOrder === 'price-high' ? 'selected' : ''}>Price: high to low</option><option value="name" ${sortOrder === 'name' ? 'selected' : ''}>Name</option><option value="newest" ${(sortOrder as string) === 'newest' ? 'selected' : ''}>Newest added</option></select></label>
+          ${advancedFilterMarkup()}
         </div>
         <div class="product-grid overview-grid">
           ${[...new Map(filteredProducts(activeCategory === 'All pieces' ? undefined : activeCategory).map(product => [product.category, product])).values()].map(product => productCard(product, true)).join('') ||
