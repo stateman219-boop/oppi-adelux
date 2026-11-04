@@ -58,6 +58,7 @@ jobs:
           cp oppi-logo.png.png dist/oppi-logo.png.png
           cp oppi-contact.jpeg dist/oppi-contact.jpeg
           cp oppi-homepage.jpeg dist/oppi-homepage.jpeg
+          cp "8428d302-3bef-4f6e-a980-0b42291bcbf9.jpeg" dist/
           cp Q*.JPG dist/
           cp "Commercial Printing.png" dist/
           cp "Corporate Branding.png" dist/
