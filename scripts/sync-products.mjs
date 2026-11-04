@@ -25,7 +25,11 @@ const knownPaths = new Set();
 function localPathFromImageUrl(value) {
   try {
     const pathname = decodeURIComponent(new URL(value).pathname).replace(/^\/+/, "");
-    const absolute = path.resolve(root, pathname);
+    const repoPrefix = "stateman219-boop/oppi-adelux/main/";
+    const marker = pathname.indexOf(repoPrefix);
+    if (marker < 0) return null;
+    const relativePath = pathname.slice(marker + repoPrefix.length);
+    const absolute = path.resolve(root, relativePath);
     if (!absolute.startsWith(root + path.sep)) return null;
     return absolute;
   } catch { return null; }
