@@ -130,6 +130,7 @@ let menuOpen = false;
 let shopCategoriesOpen = false;
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
+app.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-details]'); if (button) openProductDetails(Number(button.dataset.details)); });
 
 function productCard(product: Product, preview = false) {
   const action = preview
@@ -520,7 +521,6 @@ function bindEvents() {
       });
     });
 
-  app.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-details]'); if (button) openProductDetails(Number(button.dataset.details)); });
   document.querySelectorAll<HTMLButtonElement>('[data-enquire]')
     .forEach(button => button.addEventListener('click', () => {
       const product = products.find(item => item.id === Number(button.dataset.enquire));
