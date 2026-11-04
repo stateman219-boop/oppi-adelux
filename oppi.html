@@ -303,6 +303,24 @@ img{image-rendering:auto}
 </style>
 
 
+
+<style id="project-enquiries-liquid-glass">
+/* Ultra-clear liquid-glass treatment for the Project Enquiries panel */
+#contact .contactbox{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(135deg,rgba(255,255,255,.25),rgba(255,255,255,.10) 48%,rgba(255,255,255,.19))!important;
+  -webkit-backdrop-filter:blur(30px) saturate(190%);backdrop-filter:blur(30px) saturate(190%);
+  border:1px solid rgba(255,255,255,.72)!important;border-radius:24px!important;
+  box-shadow:0 22px 60px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(255,255,255,.22)!important;
+}
+#contact .contactbox:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 8% 0%,rgba(255,255,255,.55),transparent 42%),linear-gradient(115deg,rgba(255,255,255,.12),transparent 55%);}
+#contact .contactbox .eyebrow{color:#a90e22!important;font-weight:900!important;letter-spacing:.2em!important;text-transform:uppercase;text-shadow:0 1px 0 rgba(255,255,255,.8);}
+#contact .contactbox a{position:relative;color:#111!important;font-size:14px!important;font-weight:800!important;letter-spacing:-.01em;text-shadow:0 1px 0 rgba(255,255,255,.8);border-bottom:1px solid rgba(20,20,24,.16)!important;padding:17px 2px!important;transition:transform .25s ease,color .25s ease,text-shadow .25s ease;}
+#contact .contactbox a:hover{color:#c5162d!important;transform:translateX(5px);text-shadow:0 0 18px rgba(255,255,255,.95);}
+#contact .contactbox>p:last-child{position:relative;color:#17171a!important;font-weight:700!important;font-size:13px!important;line-height:1.9!important;margin:20px 0 0!important;text-shadow:0 1px 0 rgba(255,255,255,.85);}
+@media(max-width:620px){#contact .contactbox{padding:24px 20px!important;border-radius:20px!important;-webkit-backdrop-filter:blur(26px) saturate(185%);backdrop-filter:blur(26px) saturate(185%)}#contact .contactbox a{font-size:13px!important;padding:15px 1px!important}#contact .contactbox>p:last-child{font-size:12px!important}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){#contact .contactbox{background:rgba(255,255,255,.9)!important}}
+</style>
 </head>
 <body>
 
