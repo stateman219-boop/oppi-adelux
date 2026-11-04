@@ -335,7 +335,7 @@ img{image-rendering:auto}
     <p>Give everyday pieces a personal signature. Discover custom monogram details for clothing, workwear, gifts and more — thoughtfully designed and professionally finished.</p>
     <a class="monogram-feature-link" href="#contact">Enquire about monograms <span aria-hidden="true">↗</span></a>
   </div>
-  <div class="monogram-feature-mark" aria-hidden="true"><span>M</span><small>MADE PERSONAL</small></div>
+  <div class="monogram-feature-image"><img src="/8428d302-3bef-4f6e-a980-0b42291bcbf9.jpeg" alt="Monogram work by OPPIGRAPHIX" loading="lazy"></div>
 </div>
 <div class="services"><article class="service"><span class="num">01 / Corporate</span><h3>Corporate Publications</h3><p>Corporate publications, annual reports, company profiles, brochures, books, magazines, catalogs, school yearbooks, bulletins, journals and accounts.</p></article><article class="service"><span class="num">02 / Print</span><h3>Commercial Printing</h3><p>Commercial printing, letterheaded paper, business cards, flyers, posters, examination sheets, exercise books, diaries, wedding programmes, calendars and stationery.</p></article><article class="service"><span class="num">03 / Large Format</span><h3>Signage & Display</h3><p>Signage, billboards, banners, roll-up displays, flex and SAV, vehicle branding and promotional display materials.</p></article><article class="service"><span class="num">04 / Branding</span><h3>Corporate Branding</h3><p>Corporate gifts, souvenirs, branded stationery, carrier bags and branded promotional materials.</p></article><article class="service"><span class="num">05 / Creative</span><h3>Design & Publishing</h3><p>Creative design, layout, pre-press preparation and publishing support for print-ready projects.</p></article><article class="service"><span class="num">06 / Custom</span><h3>Souvenirs & More</h3><p>Books, calendars, corporate gifts, souvenirs and custom print materials for organizations, schools, businesses, ceremonies and events.</p></article></div></section>
 
@@ -883,4 +883,19 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
  #services .monogram-feature-mark span{font-size:88px}
 }
 @media(prefers-reduced-motion:reduce){#services .monogram-feature-link{transition:none}}
+
+/* Monogram feature: use the supplied portfolio photograph */
+#services .monogram-feature-image{
+  justify-self:stretch;min-width:0;overflow:hidden;aspect-ratio:4/3;
+  border:1px solid rgba(255,255,255,.42);border-radius:20px;
+  background:rgba(255,255,255,.06);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 16px 38px rgba(0,0,0,.22);
+}
+#services .monogram-feature-image img{
+  display:block;width:100%;height:100%;object-fit:contain;object-position:center;
+  opacity:1;filter:none;
+}
+@media(max-width:700px){
+  #services .monogram-feature-image{width:100%;aspect-ratio:4/3;border-radius:16px}
+}
 </style>
