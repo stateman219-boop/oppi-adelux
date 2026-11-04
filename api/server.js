@@ -3,8 +3,15 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json({ limit: "20kb" }));
+const allowedOrigins = new Set(
+  (process.env.FRONTEND_ORIGINS || process.env.FRONTEND_ORIGIN || "https://oppigraphix.com,https://stateman219-boop.github.io")
+    .split(",").map(origin => origin.trim()).filter(Boolean)
+);
 app.use(cors({
-  origin: process.env.FRONTEND_ORIGIN || "https://stateman219-boop.github.io",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.has(origin)) return callback(null, true);
+    return callback(new Error("Origin not allowed."));
+  },
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"]
 }));
@@ -19,7 +26,7 @@ const configuredKobo = (key, fallback) => {
   return raw === undefined || raw.trim() === "" ? fallback : Number(raw);
 };
 const addProducts = (ids, name, price) => Object.fromEntries(
-  ids.map(id => [id, { name: `${name} ${String(id).padStart(2, "0")}`, price }])
+  ids.map((id, index) => [id, { name: `${name} ${String(index + 1).padStart(2, "0")}`, price }])
 );
 const catalog = {
   ...addProducts([1, ...Array.from({ length: 14 }, (_, i) => 37 + i), 71, 72, 73, 74], "Shirt Design", configuredKobo("SHIRTS_PRICE_KOBO", 0)),
@@ -106,13 +113,17 @@ app.get("/api/payments/verify/:reference", async (req, res) => {
     const data = await response.json();
     if (!response.ok || !data.status || !data.data) return res.status(502).json({ error: "Could not verify payment." });
     const transaction = data.data;
+    const orderItems = Array.isArray(transaction.metadata?.order_items) ? transaction.metadata.order_items : [];
+    const expectedAmount = orderItems.reduce((sum, item) => sum + Number(item?.lineTotalKobo || 0), 0);
+    const amountMatchesOrder = Number.isSafeInteger(expectedAmount) && expectedAmount === Number(transaction.amount);
     res.json({
-      verified: transaction.status === "success" && transaction.currency === currency,
+      verified: transaction.status === "success" && transaction.currency === currency && amountMatchesOrder,
       status: transaction.status,
       amount: transaction.amount,
       currency: transaction.currency,
       reference: transaction.reference,
-      orderItems: Array.isArray(transaction.metadata?.order_items) ? transaction.metadata.order_items : []
+      amountMatchesOrder,
+      orderItems
     });
   } catch {
     res.status(502).json({ error: "Payment verification is temporarily unavailable." });
