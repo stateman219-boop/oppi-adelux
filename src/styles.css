@@ -1650,3 +1650,32 @@ body.cart-open{overflow:hidden}
 @media(max-width:600px){#header-track-toggle{display:none}.advanced-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .clear-advanced-filters{align-self:end;min-height:38px;padding:0 14px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#555;font-size:10px;cursor:pointer}.clear-advanced-filters:hover{border-color:#111;color:#111}
+
+/* Header spacing refinement: keep the logo link clear and bring actions closer */
+.site-header .header-actions {
+  gap: 12px;
+  min-width: 0;
+  position: relative;
+  z-index: 4;
+}
+.site-header .brand-cycle {
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
+}
+.site-header .brand-cycle .brand-name,
+.site-header .brand-cycle .brand-logo {
+  pointer-events: auto;
+}
+@media (max-width: 600px) {
+  .site-header .header-actions {
+    gap: 7px;
+  }
+  .site-header .header-actions .text-action,
+  .site-header .header-actions .bag-button {
+    white-space: nowrap;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 9px;
+  }
+}
