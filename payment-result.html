@@ -22,6 +22,7 @@
 </main>
 <script>
 (async()=>{
+ const escapeHtml=value=>String(value??'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]));
  const params=new URLSearchParams(location.search);
  const ref=params.get('reference')||params.get('trxref');
  const heading=document.getElementById('heading'),message=document.getElementById('message'),status=document.getElementById('status'),reference=document.getElementById('reference'),orderNumberEl=document.getElementById('order-number'),trackLink=document.getElementById('track-order'),orderSummary=document.getElementById('order-summary');
@@ -35,7 +36,7 @@
    heading.textContent='Payment confirmed';message.textContent='Paystack has confirmed this transaction. Keep your order number and payment reference.';status.textContent='PAID · '+(data.currency||'NGN')+' '+(Number(data.amount||0)/100).toLocaleString('en-NG');
    if(data.orderNumber){orderNumberEl.textContent='Order number: '+data.orderNumber;trackLink.hidden=false;}
    const summaryItems=Array.isArray(data.orderItems)?data.orderItems:[];
-   orderSummary.hidden=false;orderSummary.innerHTML='<strong>Order summary</strong>'+summaryItems.map(item=>'<p>'+String(item.name||'ADELUX item')+' × '+String(item.quantity||1)+' · Size: '+String(item.size||'Not selected')+' · Colour: '+String(item.color||'Not specified')+' — ₦'+(Number(item.lineTotalKobo||0)/100).toLocaleString('en-NG')+'</p>').join('');
+   orderSummary.hidden=false;orderSummary.innerHTML='<strong>Order summary</strong>'+summaryItems.map(item=>'<p>'+escapeHtml(item.name||'ADELUX item')+' × '+escapeHtml(item.quantity||1)+' · Size: '+escapeHtml(item.size||'Not selected')+' · Colour: '+escapeHtml(item.color||'Not specified')+' — ₦'(Number(item.lineTotalKobo||0)/100).toLocaleString('en-NG')+'</p>').join('');
    try{localStorage.removeItem('adelux-bag-v1');}catch{}
    const orderItems=Array.isArray(data.orderItems)?data.orderItems:[];
    const orderLines=orderItems.map(item=>'• '+String(item.name||'ADELUX item')+' × '+String(item.quantity||1)+' · Size: '+String(item.size||'Not selected')+' · Colour: '+String(item.color||'Not specified')+' — ₦'+(Number(item.lineTotalKobo||0)/100).toLocaleString('en-NG')).join('\n');
