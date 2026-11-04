@@ -331,8 +331,6 @@ img{image-rendering:auto}
 <div class="services"><article class="service"><span class="num">01 / Corporate</span><h3>Corporate Publications</h3><p>Corporate publications, annual reports, company profiles, brochures, books, magazines, catalogs, school yearbooks, bulletins, journals and accounts.</p></article><article class="service"><span class="num">02 / Print</span><h3>Commercial Printing</h3><p>Commercial printing, letterheaded paper, business cards, flyers, posters, examination sheets, exercise books, diaries, wedding programmes, calendars and stationery.</p></article><article class="service"><span class="num">03 / Large Format</span><h3>Signage & Display</h3><p>Signage, billboards, banners, roll-up displays, flex and SAV, vehicle branding and promotional display materials.</p></article><article class="service"><span class="num">04 / Branding</span><h3>Corporate Branding</h3><p>Corporate gifts, souvenirs, branded stationery, carrier bags and branded promotional materials.</p></article><article class="service"><span class="num">05 / Creative</span><h3>Design & Publishing</h3><p>Creative design, layout, pre-press preparation and publishing support for print-ready projects.</p></article><article class="service"><span class="num">06 / Custom</span><h3>Souvenirs & More</h3><p>Books, calendars, corporate gifts, souvenirs and custom print materials for organizations, schools, businesses, ceremonies and events.</p></article></div>
 <div class="monogram-feature" aria-label="The Home for Monogram">
   <div class="monogram-feature-copy">
-    <p class="eyebrow">Personalised details · Made to stand out</p>
-    <h3>THE HOME FOR<br><span>MONOGRAM</span></h3>
     <p>Give everyday pieces a personal signature. Discover custom monogram details for clothing, workwear, gifts and more — thoughtfully designed and professionally finished.</p>
     <a class="monogram-feature-link" href="#contact">Enquire about monograms</a>
   </div>
@@ -856,33 +854,35 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 </style>
 
 <style id="home-for-monogram-feature">
-/* Centered monogram feature placed directly beneath service 06 */
+/* Bright full-bleed monogram image with copy anchored at lower left */
 #services .monogram-feature{
-  position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;text-align:center;
+  position:relative;isolation:isolate;display:flex;align-items:flex-end;justify-content:flex-start;
   width:min(100%,1040px);min-height:clamp(430px,48vw,610px);
-  overflow:hidden;margin:34px auto 0;padding:clamp(30px,6vw,76px);
-  border:1px solid rgba(255,255,255,.32);border-radius:26px;
+  overflow:hidden;margin:34px auto 0;padding:clamp(22px,4vw,46px);
+  border:1px solid rgba(255,255,255,.28);border-radius:26px;
   background:#171719;color:#fff;box-shadow:0 18px 42px rgba(0,0,0,.18);
 }
 #services .monogram-feature:before{
   content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(0deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.58) 48%,rgba(0,0,0,.18) 100%);
+  background:linear-gradient(90deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,0) 58%),linear-gradient(0deg,rgba(0,0,0,.16),transparent 45%);
 }
-#services .monogram-feature-copy{position:relative;z-index:1;width:min(100%,700px);max-width:700px;margin:auto}
-#services .monogram-feature .eyebrow{color:#ff5262!important;margin-bottom:16px!important}
-#services .monogram-feature h3{font-size:clamp(36px,5.2vw,68px)!important;line-height:.98!important;letter-spacing:-.045em!important;margin:0 0 18px!important;color:#fff!important}
-#services .monogram-feature h3 span{color:#ff5262!important}
-#services .monogram-feature-copy>p:not(.eyebrow){max-width:590px;margin:0 auto 25px!important;color:rgba(255,255,255,.94)!important;font-size:clamp(14px,1.3vw,16px)!important;line-height:1.8!important}
-#services .monogram-feature-link{display:inline-flex;align-items:center;justify-content:center;padding:13px 19px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.13);color:#fff!important;font-size:12px;font-weight:700;letter-spacing:.02em;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);transition:transform .25s ease,background .25s ease}
+#services .monogram-feature-copy{
+  position:relative;z-index:1;width:min(100%,480px);max-width:480px;margin:0;
+  padding:clamp(20px,3vw,32px);text-align:left;
+  border:1px solid rgba(255,255,255,.13);border-radius:18px;
+  background:rgba(0,0,0,.66);-webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
+  box-shadow:0 12px 34px rgba(0,0,0,.22);
+}
+#services .monogram-feature-copy>p:not(.eyebrow){max-width:420px;margin:0 0 20px!important;color:rgba(255,255,255,.96)!important;font-size:clamp(14px,1.25vw,16px)!important;line-height:1.8!important}
+#services .monogram-feature-link{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.13);color:#fff!important;font-size:12px;font-weight:700;letter-spacing:.02em;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);transition:transform .25s ease,background .25s ease}
 #services .monogram-feature-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.24)}
 #services .monogram-feature-image{position:absolute;inset:0;z-index:-2;width:100%;height:100%;min-width:0;overflow:hidden;border:0;border-radius:0;background:transparent;box-shadow:none}
-#services .monogram-feature-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;filter:none}
+#services .monogram-feature-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:65% 58%;opacity:1;filter:brightness(1.2) contrast(1.06) saturate(1.05);transform:translate(2%,2%) scale(1.04);transform-origin:center}
 @media(max-width:700px){
- #services .monogram-feature{min-height:560px;padding:27px 22px;border-radius:20px;margin-top:26px}
- #services .monogram-feature:before{background:linear-gradient(0deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,.62) 58%,rgba(0,0,0,.2) 100%)}
- #services .monogram-feature h3{font-size:clamp(36px,10vw,52px)!important}
+ #services .monogram-feature{min-height:560px;padding:18px;border-radius:20px;margin-top:26px}
+ #services .monogram-feature-copy{width:100%;max-width:none;padding:20px 18px;border-radius:15px;background:rgba(0,0,0,.7)}
  #services .monogram-feature-copy>p:not(.eyebrow){font-size:14px!important}
- #services .monogram-feature-image img{object-position:center}
+ #services .monogram-feature-image img{object-position:65% 58%;transform:translate(2%,2%) scale(1.06)}
 }
 @media(prefers-reduced-motion:reduce){#services .monogram-feature-link{transition:none}}
 </style>
