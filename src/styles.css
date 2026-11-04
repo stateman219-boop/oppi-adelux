@@ -1679,3 +1679,17 @@ body.cart-open{overflow:hidden}
     font-size: 9px;
   }
 }
+
+/* ADELUX navigation typography: clean, familiar sans-serif */
+.site-header .desktop-nav,
+.site-header .desktop-nav a,
+.site-header .header-actions,
+.site-header .header-actions button,
+.site-header .menu-trigger,
+.site-header .drawer-nav,
+.site-header .drawer-nav a,
+.site-header .drawer-nav button,
+.site-header .brand-cycle .brand-name {
+  font-family: Arial, Calibri, sans-serif !important;
+  font-style: normal;
+}
