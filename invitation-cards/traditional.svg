@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+<defs><linearGradient id="paper" x2="1" y2="1"><stop stop-color="#f3e4c6"/><stop offset="1" stop-color="#ffffff"/></linearGradient><filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-opacity=".18"/></filter></defs>
+<rect width="1200" height="900" fill="#e8e6e1"/><rect x="230" y="80" width="740" height="740" rx="10" fill="url(#paper)" filter="url(#shadow)"/>
+<rect x="258" y="108" width="684" height="684" rx="4" fill="none" stroke="#a96c2d" stroke-width="3"/>
+<rect x="278" y="128" width="644" height="644" rx="2" fill="none" stroke="#a96c2d" stroke-opacity=".45" stroke-width="1.5"/>
+<g fill="none" stroke="#a96c2d" stroke-width="3" opacity=".85">
+
+
+
+<path d="M280 160l40-30 40 30-40 30zM840 160l40-30 40 30-40 30zM280 740l40-30 40 30-40 30zM840 740l40-30 40 30-40 30z"/><path d="M300 300h600M300 600h600" stroke-dasharray="8 12"/>
+
+</g>
+<g text-anchor="middle" fill="#242424">
+<text x="600" y="330" font-family="Arial,sans-serif" font-size="22" letter-spacing="8" fill="#a96c2d">TWO FAMILIES · ONE CELEBRATION</text>
+<text x="600" y="440" font-family="Georgia,serif" font-size="66" letter-spacing="2">TRADITIONAL</text>
+<text x="600" y="525" font-family="Georgia,serif" font-size="42" font-style="italic" fill="#a96c2d">A DAY OF CULTURE</text>
+<path d="M430 570h340" stroke="#a96c2d" stroke-width="2"/>
+<text x="600" y="625" font-family="Arial,sans-serif" font-size="18" letter-spacing="3">HONOURING LOVE & HERITAGE</text>
+<text x="600" y="690" font-family="Arial,sans-serif" font-size="15" letter-spacing="4" fill="#a96c2d">DATE · TIME · VENUE</text>
+</g></svg>
