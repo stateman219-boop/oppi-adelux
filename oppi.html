@@ -328,6 +328,7 @@ img{image-rendering:auto}
 <main>
 <section class="hero hero-photo" id="home"><div class="hero-image"><img src="/oppi-homepage.jpeg" alt="OPPIGRAPHIX printing and branding work" fetchpriority="high"></div><div class="hero-intro"><div class="hero-copy"><p class="eyebrow">Creativity · Originality · Professional print</p><h1>Ideas into<br><span>impressions.</span></h1><p class="lead">OPPIGRAPHIX LTD, launched in 2013 (RC 1264334), is a corporate imaging, printing, branding, design and publishing company. We bring creative ideas and professional print expertise together to serve businesses, institutions and events.</p><div class="buttons"><a class="btn primary" href="#contact">Request a quote</a><a class="btn" href="#work">View recent works</a></div></div></section>
 <section class="section" id="services"><div class="sectionhead"><div><p class="eyebrow">What we do</p><h2>Creative work.<br>Print that delivers.</h2></div><p>From pre-press to press and post-press, our team supports corporate, commercial and personal print needs.</p></div>
+<div class="services"><article class="service"><span class="num">01 / Corporate</span><h3>Corporate Publications</h3><p>Corporate publications, annual reports, company profiles, brochures, books, magazines, catalogs, school yearbooks, bulletins, journals and accounts.</p></article><article class="service"><span class="num">02 / Print</span><h3>Commercial Printing</h3><p>Commercial printing, letterheaded paper, business cards, flyers, posters, examination sheets, exercise books, diaries, wedding programmes, calendars and stationery.</p></article><article class="service"><span class="num">03 / Large Format</span><h3>Signage & Display</h3><p>Signage, billboards, banners, roll-up displays, flex and SAV, vehicle branding and promotional display materials.</p></article><article class="service"><span class="num">04 / Branding</span><h3>Corporate Branding</h3><p>Corporate gifts, souvenirs, branded stationery, carrier bags and branded promotional materials.</p></article><article class="service"><span class="num">05 / Creative</span><h3>Design & Publishing</h3><p>Creative design, layout, pre-press preparation and publishing support for print-ready projects.</p></article><article class="service"><span class="num">06 / Custom</span><h3>Souvenirs & More</h3><p>Books, calendars, corporate gifts, souvenirs and custom print materials for organizations, schools, businesses, ceremonies and events.</p></article></div>
 <div class="monogram-feature" aria-label="The Home for Monogram">
   <div class="monogram-feature-copy">
     <p class="eyebrow">Personalised details · Made to stand out</p>
@@ -337,7 +338,7 @@ img{image-rendering:auto}
   </div>
   <div class="monogram-feature-image"><img src="/8428d302-3bef-4f6e-a980-0b42291bcbf9.jpeg" alt="Monogram work by OPPIGRAPHIX" loading="lazy"></div>
 </div>
-<div class="services"><article class="service"><span class="num">01 / Corporate</span><h3>Corporate Publications</h3><p>Corporate publications, annual reports, company profiles, brochures, books, magazines, catalogs, school yearbooks, bulletins, journals and accounts.</p></article><article class="service"><span class="num">02 / Print</span><h3>Commercial Printing</h3><p>Commercial printing, letterheaded paper, business cards, flyers, posters, examination sheets, exercise books, diaries, wedding programmes, calendars and stationery.</p></article><article class="service"><span class="num">03 / Large Format</span><h3>Signage & Display</h3><p>Signage, billboards, banners, roll-up displays, flex and SAV, vehicle branding and promotional display materials.</p></article><article class="service"><span class="num">04 / Branding</span><h3>Corporate Branding</h3><p>Corporate gifts, souvenirs, branded stationery, carrier bags and branded promotional materials.</p></article><article class="service"><span class="num">05 / Creative</span><h3>Design & Publishing</h3><p>Creative design, layout, pre-press preparation and publishing support for print-ready projects.</p></article><article class="service"><span class="num">06 / Custom</span><h3>Souvenirs & More</h3><p>Books, calendars, corporate gifts, souvenirs and custom print materials for organizations, schools, businesses, ceremonies and events.</p></article></div></section>
+</section>
 
 
 
@@ -855,30 +856,30 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 </style>
 
 <style id="home-for-monogram-feature">
-/* Full-bleed monogram photograph with the complete copy layered over it */
+/* Centered monogram feature placed directly beneath service 06 */
 #services .monogram-feature{
-  position:relative;isolation:isolate;display:flex;align-items:center;min-height:clamp(430px,48vw,610px);
-  overflow:hidden;margin:0 0 28px;padding:clamp(30px,6vw,76px);
+  position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;text-align:center;
+  width:min(100%,1040px);min-height:clamp(430px,48vw,610px);
+  overflow:hidden;margin:34px auto 0;padding:clamp(30px,6vw,76px);
   border:1px solid rgba(255,255,255,.32);border-radius:26px;
   background:#171719;color:#fff;box-shadow:0 18px 42px rgba(0,0,0,.18);
 }
 #services .monogram-feature:before{
   content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.67) 38%,rgba(0,0,0,.25) 72%,rgba(0,0,0,.12) 100%);
+  background:linear-gradient(0deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.58) 48%,rgba(0,0,0,.18) 100%);
 }
-#services .monogram-feature-copy{position:relative;z-index:1;width:min(100%,700px);max-width:700px}
+#services .monogram-feature-copy{position:relative;z-index:1;width:min(100%,700px);max-width:700px;margin:auto}
 #services .monogram-feature .eyebrow{color:#ff5262!important;margin-bottom:16px!important}
 #services .monogram-feature h3{font-size:clamp(36px,5.2vw,68px)!important;line-height:.98!important;letter-spacing:-.045em!important;margin:0 0 18px!important;color:#fff!important}
 #services .monogram-feature h3 span{color:#ff5262!important}
-#services .monogram-feature-copy>p:not(.eyebrow){max-width:590px;color:rgba(255,255,255,.94)!important;font-size:clamp(14px,1.3vw,16px)!important;line-height:1.8!important;margin:0 0 25px!important}
-#services .monogram-feature-link{display:inline-flex;align-items:center;gap:18px;padding:13px 19px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.13);color:#fff!important;font-size:12px;font-weight:700;letter-spacing:.02em;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);transition:transform .25s ease,background .25s ease}
-#services .monogram-feature-link span{font-size:17px;line-height:1}
+#services .monogram-feature-copy>p:not(.eyebrow){max-width:590px;margin:0 auto 25px!important;color:rgba(255,255,255,.94)!important;font-size:clamp(14px,1.3vw,16px)!important;line-height:1.8!important}
+#services .monogram-feature-link{display:inline-flex;align-items:center;justify-content:center;padding:13px 19px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.13);color:#fff!important;font-size:12px;font-weight:700;letter-spacing:.02em;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);transition:transform .25s ease,background .25s ease}
 #services .monogram-feature-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.24)}
 #services .monogram-feature-image{position:absolute;inset:0;z-index:-2;width:100%;height:100%;min-width:0;overflow:hidden;border:0;border-radius:0;background:transparent;box-shadow:none}
 #services .monogram-feature-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;filter:none}
 @media(max-width:700px){
- #services .monogram-feature{min-height:560px;align-items:flex-end;padding:27px 22px;border-radius:20px;margin-bottom:22px}
- #services .monogram-feature:before{background:linear-gradient(0deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.72) 48%,rgba(0,0,0,.16) 100%)}
+ #services .monogram-feature{min-height:560px;padding:27px 22px;border-radius:20px;margin-top:26px}
+ #services .monogram-feature:before{background:linear-gradient(0deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,.62) 58%,rgba(0,0,0,.2) 100%)}
  #services .monogram-feature h3{font-size:clamp(36px,10vw,52px)!important}
  #services .monogram-feature-copy>p:not(.eyebrow){font-size:14px!important}
  #services .monogram-feature-image img{object-position:center}
