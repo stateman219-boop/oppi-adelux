@@ -16,7 +16,7 @@ services:
       - key: FRONTEND_ORIGINS
         value: https://oppigraphix.com,https://stateman219-boop.github.io
       - key: SHIRTS_PRICE_KOBO
-        value: "0"
+        value: "1500000"
       - key: JERSEYS_PRICE_KOBO
         value: "2500000"
       - key: AGBADA_PRICE_KOBO
