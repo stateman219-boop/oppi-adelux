@@ -53,6 +53,7 @@ app.get("/health", (_req, res) => res.json({ ok: true }));
 
 app.post("/api/payments/initialize", async (req, res) => {
   if (!secret) return res.status(503).json({ error: "Payments are not configured yet." });
+  if (!pool) return res.status(503).json({ error: "Secure checkout is being configured. Please contact ADELUX on WhatsApp for assistance." });
   const email = typeof req.body?.email === "string" ? req.body.email.trim().toLowerCase() : "";
   const customerName = typeof req.body?.customer?.name === "string" ? req.body.customer.name.trim().slice(0,120) : "";
   const phone = typeof req.body?.customer?.phone === "string" ? req.body.customer.phone.trim().slice(0,30) : "";
