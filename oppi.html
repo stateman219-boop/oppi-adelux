@@ -786,3 +786,60 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 @media(max-width:700px){#work .recent-work-track{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}#work .recent-work-track .portfolio-image img{height:132px!important}}
 @media(prefers-reduced-motion:reduce){#work .recent-work-track,#work .recent-work-track img{transition:none!important}}
 </style>
+
+<style id="hero-liquid-glass-buttons">
+/* Refined Liquid Glass treatment for the two hero actions only */
+.hero-photo .buttons a.btn[href="#contact"],
+.hero-photo .buttons a.btn[href="#work"]{
+  position:relative!important;
+  isolation:isolate!important;
+  min-height:50px!important;
+  padding:13px 23px!important;
+  border:1px solid rgba(255,255,255,.68)!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.23)!important;
+  color:#111!important;
+  -webkit-backdrop-filter:blur(24px) saturate(175%)!important;
+  backdrop-filter:blur(24px) saturate(175%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.82),inset 0 -1px 0 rgba(255,255,255,.16),0 8px 24px rgba(0,0,0,.11)!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.35)!important;
+  transition:transform .28s ease,background .28s ease,border-color .28s ease,box-shadow .28s ease!important;
+}
+.hero-photo .buttons a.btn[href="#contact"]{
+  background:rgba(20,20,22,.78)!important;
+  color:#fff!important;
+  border-color:rgba(255,255,255,.58)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(255,255,255,.08),0 9px 26px rgba(0,0,0,.2)!important;
+}
+.hero-photo .buttons a.btn[href="#work"]{
+  background:rgba(255,255,255,.32)!important;
+  color:#111!important;
+}
+.hero-photo .buttons a.btn[href="#contact"]:before,
+.hero-photo .buttons a.btn[href="#work"]:before{
+  content:""!important;
+  position:absolute!important;
+  inset:1px!important;
+  z-index:-1!important;
+  border-radius:inherit!important;
+  background:linear-gradient(112deg,rgba(255,255,255,.28),transparent 38%,rgba(255,255,255,.08) 72%,transparent)!important;
+  opacity:1!important;
+  pointer-events:none!important;
+}
+.hero-photo .buttons a.btn[href="#contact"]:hover,
+.hero-photo .buttons a.btn[href="#work"]:hover{
+  transform:translateY(-3px)!important;
+  border-color:rgba(255,255,255,.95)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 13px 30px rgba(0,0,0,.17)!important;
+}
+.hero-photo .buttons a.btn[href="#contact"]:active,
+.hero-photo .buttons a.btn[href="#work"]:active{transform:scale(.975)!important}
+@media(max-width:700px){
+  .hero-photo .buttons a.btn[href="#contact"],
+  .hero-photo .buttons a.btn[href="#work"]{min-height:48px!important;padding:12px 18px!important}
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .hero-photo .buttons a.btn[href="#contact"]{background:#171719!important}
+  .hero-photo .buttons a.btn[href="#work"]{background:rgba(255,255,255,.92)!important}
+}
+</style>
