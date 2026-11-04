@@ -31,7 +31,7 @@
   if(data.verified===true){
    heading.textContent='Payment confirmed';message.textContent='Paystack has confirmed this transaction. Keep your payment reference for your records.';status.textContent='PAID · '+(data.currency||'NGN')+' '+(Number(data.amount||0)/100).toLocaleString('en-NG');
    const orderItems=Array.isArray(data.orderItems)?data.orderItems:[];
-   const orderLines=orderItems.map(item=>'• '+String(item.name||'ADELUX item')+' × '+String(item.quantity||1)+' — ₦'+(Number(item.lineTotalKobo||0)/100).toLocaleString('en-NG')).join('\n');
+   const orderLines=orderItems.map(item=>'• '+String(item.name||'ADELUX item')+' × '+String(item.quantity||1)+' · Size: '+String(item.size||'Not selected')+' · Colour: '+String(item.color||'Not specified')+' — ₦'+(Number(item.lineTotalKobo||0)/100).toLocaleString('en-NG')).join('\n');
    const orderMessage='Hello ADELUX, my payment has been confirmed.\nPayment reference: '+ref+'\n'+(orderLines?'My order:\n'+orderLines:'Please help me confirm my order details.')+'\nPlease confirm the next steps for my order.';
    const whatsapp=document.getElementById('whatsapp-order');
    whatsapp.href='https://wa.me/2348184952775?text='+encodeURIComponent(orderMessage);
