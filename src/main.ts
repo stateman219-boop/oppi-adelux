@@ -101,7 +101,7 @@ let wishlist = loadWishlist();
 function loadRecentlyViewed(): number[] { try { const saved = JSON.parse(localStorage.getItem('adelux-recent-v1') || '[]'); return Array.isArray(saved) ? saved.filter((id: unknown) => typeof id === 'number' && products.some(product => product.id === id)).slice(0, 6) : []; } catch { return []; } }
 let recentlyViewed = loadRecentlyViewed();
 function saveRecentlyViewed(id: number) { recentlyViewed = [id, ...recentlyViewed.filter(item => item !== id)].slice(0, 6); try { localStorage.setItem('adelux-recent-v1', JSON.stringify(recentlyViewed)); } catch { /* Recent items remain available for this visit. */ } }
-function recentViewedMarkup() { const items = recentlyViewed.map(id => products.find(product => product.id === id)).filter((p): p is Product => Boolean(p)); return items.length ? `<section class="recently-viewed"><p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p><h2>Recently viewed</h2><div class="recently-viewed-grid">${items.map(product => `<button class="recent-view-card" data-details="${product.id}"><img src="${product.image}" alt="${product.name}" loading="lazy"><span>${product.name}</span><strong>${money(product.price)}</strong></button>`).join('')}</div></section>` : ''; }
+function recentViewedMarkup() { const items = recentlyViewed.map(id => products.find(product => product.id === id)).filter((p): p is Product => Boolean(p)); return `<section id="recently-viewed" class="recently-viewed" ${items.length ? '' : 'hidden'}><p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p><h2>Recently viewed</h2><div class="recently-viewed-grid">${items.map(product => `<button class="recent-view-card" data-details="${product.id}"><img src="${product.image}" alt="${product.name}" loading="lazy"><span>${product.name}</span><strong>${money(product.price)}</strong></button>`).join('')}</div></section>`; }
 function saveWishlist() { try { localStorage.setItem('adelux-wishlist-v1', JSON.stringify(wishlist)); } catch { /* Wishlist remains available for this visit. */ } }
 function toggleWishlist(id: number) { wishlist = wishlist.includes(id) ? wishlist.filter(item => item !== id) : [...wishlist, id]; saveWishlist(); render(); }
 function filteredProducts(category?: string): Product[] {
@@ -407,6 +407,10 @@ function openProductDetails(id: number) {
   if (!product) return;
   selectedProduct = product;
   saveRecentlyViewed(id);
+  const recentMarkup = recentViewedMarkup();
+  const recentSection = document.querySelector('#recently-viewed');
+  if (recentSection) recentSection.outerHTML = recentMarkup;
+  else document.querySelector('main')?.insertAdjacentHTML('beforeend', recentMarkup);
   const modal = document.querySelector<HTMLDivElement>('#product-detail-backdrop');
   if (!modal) return;
   modal.innerHTML = `<section class="product-detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title"><button class="detail-close" id="detail-close" aria-label="Close details">×</button><div class="detail-image-wrap"><img src="${product.image}" alt="${product.name}"></div><div class="detail-copy"><p class="eyebrow">ADELUX COLLECTIONS · ${product.category === 'Sportswear' ? 'JERSEYS' : product.category.toUpperCase()}</p><h2 id="detail-title">${product.name}</h2><p class="detail-price">${money(product.price)}</p><p class="detail-description">${product.note}</p><label class="detail-field">Select size<select id="detail-size" required><option value="">Choose your size</option>${(product.category === 'Traditional Wear' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).map(x=>`<option value="${x}">${x}</option>`).join('')}</select></label><label class="detail-field">Preferred colour <input id="detail-color" maxlength="40" placeholder="Enter preferred colour"><small>We will confirm colour availability before production.</small></label><button class="detail-add" id="detail-add">ADD TO BAG</button><p class="detail-note">Size and colour preferences stay attached to this item in your bag.</p><div class="complete-look"><p class="eyebrow">STYLE IT WITH</p><h3>Complete the look</h3><div class="complete-look-grid">${(product.category === 'Dresses' ? [products.find(p=>p.id===6), products.find(p=>p.id===2)] : [products.find(p=>p.id===2), products.find(p=>p.id===6)]).filter((p): p is Product => Boolean(p)).map(p=>`<button class="complete-look-item" data-details="${p.id}"><img src="${p.image}" alt="${p.name}"><span>${p.name}</span><strong>${money(p.price)}</strong></button>`).join('')}</div></div></div></section>`;
@@ -516,8 +520,7 @@ function bindEvents() {
       });
     });
 
-  document.querySelectorAll<HTMLButtonElement>('[data-details]')
-    .forEach(button => button.addEventListener('click', () => openProductDetails(Number(button.dataset.details))));
+  app.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-details]'); if (button) openProductDetails(Number(button.dataset.details)); });
   document.querySelectorAll<HTMLButtonElement>('[data-enquire]')
     .forEach(button => button.addEventListener('click', () => {
       const product = products.find(item => item.id === Number(button.dataset.enquire));
