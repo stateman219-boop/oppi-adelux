@@ -171,6 +171,14 @@ app.get("/api/orders/track", async (req, res) => {
     res.json({ orderNumber: order.order_number, customerName: order.customer_name, collectionLocation: order.collection_location, items: order.items, totalKobo: Number(order.total_kobo), paymentStatus: order.payment_status, status: order.fulfilment_status, history: order.status_history, createdAt: order.created_at, updatedAt: order.updated_at, timeline: [{ status: "order_received", day: 1, label: "Order received" }, { status: "packaged", day: 2, label: "Order packaged" }, { status: "sent_to_store", day: 3, label: "Sent to Area 10 store" }, { status: "ready_for_pickup", day: 4, label: "Ready for pickup" }, { status: "customer_called", day: 5, label: "Customer called to arrange pickup" }] });
   } catch (error) { res.status(503).json({ error: error.message || "Order tracking is temporarily unavailable." }); }
 });
+app.get("/api/admin/orders", async (req, res) => {
+  if (!process.env.ORDER_ADMIN_TOKEN || req.get("x-order-admin-token") !== process.env.ORDER_ADMIN_TOKEN) return res.status(401).json({ error: "Not authorised." });
+  try {
+    await ensureSchema();
+    const result = await pool.query("SELECT order_number, customer_name, email, phone, items, total_kobo, payment_status, fulfilment_status, status_history, created_at FROM adelux_orders ORDER BY created_at DESC LIMIT 100");
+    res.json({ orders: result.rows.map(order => ({ ...order, total_kobo: Number(order.total_kobo) })) });
+  } catch (error) { res.status(503).json({ error: error.message || "Could not load orders." }); }
+});
 app.patch("/api/orders/:orderNumber/status", async (req, res) => {
   if (!process.env.ORDER_ADMIN_TOKEN || req.get("x-order-admin-token") !== process.env.ORDER_ADMIN_TOKEN) return res.status(401).json({ error: "Not authorised." });
   const allowed = { order_received: { day: 1, label: "Order received" }, packaged: { day: 2, label: "Order packaged" }, sent_to_store: { day: 3, label: "Sent to Area 10 store" }, ready_for_pickup: { day: 4, label: "Ready for pickup" }, customer_called: { day: 5, label: "Customer called to arrange pickup" }, collected: { day: 5, label: "Collected by customer" } };
