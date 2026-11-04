@@ -335,7 +335,7 @@ function render() {
           <button data-shop-category="Shirts & Tops">Shirts &amp; tops</button>
           <button data-shop-category="Sportswear">Jerseys</button>
           <button data-shop-category="Dresses">Dresses</button>
-          <button data-shop-category="Traditional Wear">Agbada designs</button>
+          <button data-shop-category="Traditional Wear">Native monogramming</button>
           <button data-shop-category="Kids">Kids</button>
         </div>
         <a href="/adelux/#story" data-menu-link>Our point of view</a>
