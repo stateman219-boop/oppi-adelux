@@ -334,7 +334,7 @@ img{image-rendering:auto}
     <p>Give everyday pieces a personal signature. Discover custom monogram details for clothing, workwear, gifts and more — thoughtfully designed and professionally finished.</p>
     <a class="monogram-feature-link" href="#contact">Enquire about monograms</a>
   </div>
-  <div class="monogram-feature-image"><img src="/8428d302-3bef-4f6e-a980-0b42291bcbf9.jpeg" alt="Monogram work by OPPIGRAPHIX" loading="lazy"></div>
+  <div class="monogram-feature-image"><img src="/Untitled%20design.jpeg" alt="Monogram work by OPPIGRAPHIX" loading="lazy"></div>
 </div>
 </section>
 
@@ -854,9 +854,9 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 </style>
 
 <style id="home-for-monogram-feature">
-/* Bright full-bleed monogram image with copy anchored at lower left */
+/* Full-frame brighter monogram photo with copy overlaid on the left */
 #services .monogram-feature{
-  position:relative;isolation:isolate;display:flex;align-items:flex-end;justify-content:flex-start;
+  position:relative;isolation:isolate;display:flex;align-items:center;justify-content:flex-start;
   width:min(100%,1040px);min-height:clamp(430px,48vw,610px);
   overflow:hidden;margin:34px auto 0;padding:clamp(22px,4vw,46px);
   border:1px solid rgba(255,255,255,.28);border-radius:26px;
@@ -864,25 +864,26 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 }
 #services .monogram-feature:before{
   content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,0) 58%),linear-gradient(0deg,rgba(0,0,0,.16),transparent 45%);
+  background:linear-gradient(90deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.55) 35%,rgba(0,0,0,.12) 72%,rgba(0,0,0,.04) 100%);
 }
 #services .monogram-feature-copy{
-  position:relative;z-index:1;width:min(100%,480px);max-width:480px;margin:0;
+  position:relative;z-index:1;width:min(48%,480px);max-width:480px;margin:0;
   padding:clamp(20px,3vw,32px);text-align:left;
   border:1px solid rgba(255,255,255,.13);border-radius:18px;
-  background:rgba(0,0,0,.66);-webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
+  background:rgba(0,0,0,.62);-webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
   box-shadow:0 12px 34px rgba(0,0,0,.22);
 }
-#services .monogram-feature-copy>p:not(.eyebrow){max-width:420px;margin:0 0 20px!important;color:rgba(255,255,255,.96)!important;font-size:clamp(14px,1.25vw,16px)!important;line-height:1.8!important}
+#services .monogram-feature-copy>p:not(.eyebrow){max-width:420px;margin:0 0 20px!important;color:rgba(255,255,255,.97)!important;font-size:clamp(14px,1.25vw,16px)!important;line-height:1.8!important}
 #services .monogram-feature-link{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border:1px solid rgba(255,255,255,.72);border-radius:999px;background:rgba(255,255,255,.13);color:#fff!important;font-size:12px;font-weight:700;letter-spacing:.02em;text-decoration:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);transition:transform .25s ease,background .25s ease}
 #services .monogram-feature-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.24)}
 #services .monogram-feature-image{position:absolute;inset:0;z-index:-2;width:100%;height:100%;min-width:0;overflow:hidden;border:0;border-radius:0;background:transparent;box-shadow:none}
-#services .monogram-feature-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:65% 58%;opacity:1;filter:brightness(1.2) contrast(1.06) saturate(1.05);transform:translate(2%,2%) scale(1.04);transform-origin:center}
+#services .monogram-feature-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;filter:brightness(1.22) contrast(1.06) saturate(1.06);transform:translate(1%,1%) scale(1.035);transform-origin:center}
 @media(max-width:700px){
- #services .monogram-feature{min-height:560px;padding:18px;border-radius:20px;margin-top:26px}
- #services .monogram-feature-copy{width:100%;max-width:none;padding:20px 18px;border-radius:15px;background:rgba(0,0,0,.7)}
+ #services .monogram-feature{min-height:560px;padding:18px;border-radius:20px;margin-top:26px;align-items:center}
+ #services .monogram-feature:before{background:linear-gradient(90deg,rgba(0,0,0,.68) 0%,rgba(0,0,0,.38) 65%,rgba(0,0,0,.1) 100%)}
+ #services .monogram-feature-copy{width:min(82%,430px);max-width:430px;padding:20px 18px;border-radius:15px;background:rgba(0,0,0,.68)}
  #services .monogram-feature-copy>p:not(.eyebrow){font-size:14px!important}
- #services .monogram-feature-image img{object-position:65% 58%;transform:translate(2%,2%) scale(1.06)}
+ #services .monogram-feature-image img{object-position:center;transform:scale(1.05)}
 }
 @media(prefers-reduced-motion:reduce){#services .monogram-feature-link{transition:none}}
 </style>
