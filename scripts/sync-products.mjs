@@ -12,7 +12,7 @@ if (!match) throw new Error("Could not locate the ADELUX products array in src/m
 const mappings = [
   { folder: "images", category: "Traditional Wear", prefix: "Agbada Design", price: 20000, color: "Made to order", note: "Custom Agbada design · Enquire for fabric, colour and sizing." },
   { folder: "images 2", category: "Dresses", prefix: "Dress Design", price: 18000, color: "For her", note: "ADELUX dress collection." },
-  { folder: "image 3", category: "Shirts & Tops", prefix: "Shirt Design", price: 0, color: "Unisex", note: "ADELUX shirts and tops collection." },
+  { folder: "image 3", category: "Shirts & Tops", prefix: "Shirt Design", price: 15000, color: "Unisex", note: "ADELUX shirts and tops collection." },
   { folder: "image 4", category: "Sportswear", prefix: "Jersey Design", price: 25000, color: "Unisex", note: "ADELUX jersey collection." }
 ];
 
