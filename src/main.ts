@@ -137,13 +137,11 @@ function categoryPageMarkup(category: string) {
   const categoryProducts = products.filter(product => product.category === category);
   return `
     <section class="category-page">
-      <div class="category-page-top">
-        <a class="category-back" href="/adelux/">BACK TO ADELUX</a>
-        <p class="eyebrow">THE ADELUX EDIT</p>
-        <h1>${category}</h1>
-        <p class="category-page-intro">Explore every piece in this collection. Select your favourites and add them to your bag.</p>
-        <span class="category-page-count">${categoryProducts.length} ${categoryProducts.length === 1 ? 'PIECE' : 'PIECES'}</span>
-      </div>
+      <nav class="category-tabs category-page-tabs" aria-label="Browse ADELUX collections">
+        ${['All pieces', ...visibleCategories].map(item => `
+          <button class="category-tab ${item === category ? 'active' : ''}" data-category="${item}" ${item === category ? 'aria-current="page"' : ''}>${item === 'Sportswear' ? 'Jerseys' : item}</button>
+        `).join('')}
+      </nav>
       <div class="product-grid category-page-grid">
         ${categoryProducts.map(product => productCard(product)).join('')}
       </div>
@@ -456,8 +454,7 @@ function bindEvents() {
       button.addEventListener('click', () => {
         const category = button.dataset.category || 'All pieces';
         if (category === 'All pieces') {
-          activeCategory = 'All pieces';
-          render();
+          window.location.href = '/adelux/#collection';
         } else {
           const slug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
           window.location.href = '/adelux/?category=' + encodeURIComponent(slug);
