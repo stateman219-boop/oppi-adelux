@@ -80,10 +80,22 @@ app.post("/api/payments/initialize", async (req, res) => {
     if (!Number.isSafeInteger(product.price) || product.price <= 0) {
       return res.status(409).json({ error: "Product prices must be configured before checkout." });
     }
-    amount += product.price * quantity;
     const size = typeof line?.size === 'string' ? line.size.trim().slice(0, 40) : '';
     const color = typeof line?.color === 'string' ? line.color.trim().slice(0, 40) : '';
-    orderLines.push({ productId: id, name: product.name, quantity, size, color, unitPriceKobo: product.price, lineTotalKobo: product.price * quantity });
+    const namePrintingText = typeof line?.namePrintingText === 'string' ? line.namePrintingText.trim() : '';
+    let namePrintingFee = 0;
+    if (namePrintingText) {
+      const nameLength = Array.from(namePrintingText).length;
+      if (nameLength < 1 || nameLength > 15 || !/^[A-Za-z0-9 .'-]+$/.test(namePrintingText)) {
+        return res.status(400).json({ error: 'Jersey names must be 1–15 letters, numbers or simple spaces.' });
+      }
+      if (id !== 3 && !(id >= 51 && id <= 60)) return res.status(400).json({ error: 'Name printing is currently available for jerseys only.' });
+      namePrintingFee = nameLength <= 8 ? 200000 : 300000;
+    }
+    const unitPriceKobo = product.price + namePrintingFee;
+    const lineTotalKobo = unitPriceKobo * quantity;
+    amount += lineTotalKobo;
+    orderLines.push({ productId: id, name: product.name, quantity, size, color, namePrintingText, namePrintingFeeKobo: namePrintingFee, unitPriceKobo, lineTotalKobo });
   }
   if (!Number.isSafeInteger(amount) || amount <= 0 || amount > 1000000000) {
     return res.status(400).json({ error: "Order total is invalid." });
