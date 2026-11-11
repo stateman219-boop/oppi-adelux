@@ -134,9 +134,10 @@ app.addEventListener('click', event => { const button = (event.target as HTMLEle
 
 function productCard(product: Product, preview = false) {
   const isNative = product.category === 'Native Monogramming';
+  const isEnquiry = isNative || product.category === 'Kids' || product.price === 0;
   const action = preview
     ? `data-view-more="${product.category}" aria-label="View more ${product.category}"`
-    : (isNative || product.price === 0)
+    : isEnquiry
       ? `data-enquire="${product.id}" aria-label="Contact ADELUX on WhatsApp about ${product.name}"`
       : `data-details="${product.id}" aria-label="Choose options for ${product.name}"`;
   return `
@@ -147,12 +148,12 @@ function productCard(product: Product, preview = false) {
         <button class="wishlist-button ${wishlist.includes(product.id) ? 'is-saved' : ''}" data-wishlist="${product.id}" aria-label="${wishlist.includes(product.id) ? 'Remove from' : 'Add to'} wishlist" aria-pressed="${wishlist.includes(product.id)}">${wishlist.includes(product.id) ? '♥' : '♡'}</button>
         ${preview
           ? `<button class="quick-add" ${action}>VIEW MORE</button>`
-          : (isNative || product.price === 0)
+          : isEnquiry
             ? `<button class="quick-add enquire-add" ${action}>CONTACT ON WHATSAPP <span>↗</span></button>`
             : `<button class="quick-add" ${action}>SELECT OPTIONS <span>＋</span></button>`}
       </div>
       <div class="product-meta">
-        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}<button class="product-details-link" ${isNative ? `data-enquire="${product.id}"` : `data-details="${product.id}"`}>${isNative ? 'Contact on WhatsApp' : 'View details'}</button></div>
+        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}<button class="product-details-link" ${isEnquiry ? `data-enquire="${product.id}"` : `data-details="${product.id}"`}>${isEnquiry ? 'Contact on WhatsApp' : 'View details'}</button></div>
         <p class="price">${money(product.price)}</p>
       </div>
     </article>`;
@@ -555,7 +556,12 @@ function bindEvents() {
   document.querySelectorAll<HTMLButtonElement>('[data-enquire]')
     .forEach(button => button.addEventListener('click', () => {
       const product = products.find(item => item.id === Number(button.dataset.enquire));
-      if (product) window.open('https://wa.me/2348184952775?text=' + encodeURIComponent('Hello ADELUX, I would like to enquire about ' + product.name + '. Please share the available designs, sizes, fabric/colour options and final price. I understand Native Monogramming is priced between ₦15,000 and ₦20,000.'), '_blank', 'noopener,noreferrer');
+      if (product) {
+        const message = product.category === 'Native Monogramming'
+          ? 'Hello ADELUX, I would like to enquire about ' + product.name + '. Please share the available designs, sizes, fabric/colour options and final price. I understand Native Monogramming is priced between ₦15,000 and ₦20,000.'
+          : 'Hello ADELUX, I would like to enquire about ' + product.name + '. Please share the available sizes, colours and pricing.';
+        window.open('https://wa.me/2348184952775?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+      }
     }));
   document.querySelectorAll<HTMLButtonElement>('[data-wishlist]')
     .forEach(button => button.addEventListener('click', event => { event.stopPropagation(); toggleWishlist(Number(button.dataset.wishlist)); }));
