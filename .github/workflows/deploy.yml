@@ -47,6 +47,9 @@ jobs:
       - name: Build website
         run: npm run build
 
+      - name: Collect Recent Works uploads
+        run: node scripts/sync-recent-works.mjs
+
       - name: Copy standalone page and uploaded logos
         run: |
           cp oppi.html dist/index.html
@@ -59,7 +62,6 @@ jobs:
           cp oppi-contact.jpeg dist/oppi-contact.jpeg
           cp oppi-homepage.jpeg dist/oppi-homepage.jpeg
           cp "8428d302-3bef-4f6e-a980-0b42291bcbf9.jpeg" dist/
-          cp Q*.JPG dist/
           cp "Commercial Printing.png" dist/
           cp "Corporate Branding.png" dist/
           cp "Corporate Publications.png" dist/
