@@ -59,6 +59,23 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--control-red)!import
 }
 </style>
 
+
+<style id="always-accessible-floating-header">
+/* Keep the gallery navigation visible and reachable throughout scrolling. */
+header.nav{
+ position:fixed!important;top:12px!important;left:50%!important;right:auto!important;
+ transform:translateX(-50%)!important;width:min(1400px,calc(100% - 40px))!important;
+ margin:0!important;z-index:10000!important;
+}
+body{padding-top:94px!important}
+html{scroll-padding-top:112px!important}
+@media(max-width:760px){
+ header.nav{top:8px!important;width:calc(100% - 16px)!important;margin:0!important}
+ body{padding-top:76px!important}
+ html{scroll-padding-top:92px!important}
+}
+</style>
+
 </head>
 <body>
 <header class="nav">
