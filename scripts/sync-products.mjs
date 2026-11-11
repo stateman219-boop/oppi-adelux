@@ -6,8 +6,8 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourcePath = path.join(root, "src", "main.ts");
 let source = fs.readFileSync(sourcePath, "utf8");
-const match = source.match(/const products: Product\[\] = \[([\s\S]*?)\n\];/);
-if (!match) throw new Error("Could not locate the ADELUX products array in src/main.ts.");
+const match = source.match(/((?:const|let)\s+products:\s*Product\[\]\s*=\s*\[)([\s\S]*?)(\n\];)/);
+if (!match) throw new Error("Could not locate the ADELUX products array in src/main.ts (expected const or let products: Product[] = [...]).");
 
 const mappings = [
   { folder: "images", category: "Traditional Wear", prefix: "Agbada Design", price: 20000, color: "Made to order", note: "Custom Agbada design · Enquire for fabric, colour and sizing." },
@@ -16,7 +16,7 @@ const mappings = [
   { folder: "image 4", category: "Sportswear", prefix: "Jersey Design", price: 25000, color: "Unisex", note: "ADELUX jersey collection." }
 ];
 
-const body = match[1];
+const body = match[2];
 const existingIds = [...body.matchAll(/\bid:\s*(\d+)/g)].map(item => Number(item[1]));
 let nextId = Math.max(0, ...existingIds) + 1;
 const knownHashes = new Set();
@@ -71,7 +71,7 @@ for (const mapping of mappings) {
 }
 
 if (additions.length) {
-  const updated = source.replace(match[0], "const products: Product[] = [" + body + "\n" + additions.join("\n") + "\n];");
+  const updated = source.replace(match[0], match[1] + body + "\n" + additions.join("\n") + match[3]);
   fs.writeFileSync(sourcePath, updated);
 }
 console.log("ADELUX image sync complete. New products added:", additions.length);
