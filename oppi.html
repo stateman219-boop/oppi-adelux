@@ -404,7 +404,7 @@ main{width:100%;max-width:none;margin:0}
 <div class="monogram-feature" aria-label="The Home for Monogram">
   <div class="monogram-feature-copy">
     <p>Give everyday pieces a personal signature. Discover custom monogram details for clothing, workwear, gifts and more — thoughtfully designed and professionally finished.</p>
-    <a class="monogram-feature-link" href="#contact">Enquire about monograms</a>
+    <a class="monogram-feature-link" href="/adelux/?category=native-monogramming#collection">Explore Agbada Monogram in ADELUX <span aria-hidden="true">↗</span></a>
   </div>
   <div class="monogram-feature-image"><img src="https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/Untitled%20design.jpeg" alt="Monogram work by OPPIGRAPHIX" loading="eager" fetchpriority="high" decoding="async"></div>
 </div>
@@ -937,15 +937,18 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 
 
 <style id="recent-works-clean-compact-final">
-/* Compact, vivid Recent Works gallery — no counters or arrow controls */
-#work .recent-work-rotator{width:100%;max-width:1120px;margin-inline:auto;overflow:hidden}
-#work .recent-work-track{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;opacity:1!important;transition:opacity .3s ease}
-#work .recent-work-track.is-changing{opacity:.72!important}
-#work .recent-work-track .portfolio-image{display:block!important;width:100%!important;min-width:0!important;padding:0!important;margin:0!important;border:0!important;border-radius:10px!important;background:transparent!important;overflow:hidden!important;box-shadow:none!important}
-#work .recent-work-track .portfolio-image img{display:block!important;width:100%!important;height:clamp(115px,14vw,175px)!important;aspect-ratio:4/3!important;object-fit:cover!important;opacity:1!important;filter:none!important;mix-blend-mode:normal!important;border:0!important;border-radius:10px!important;box-shadow:none!important;transition:transform .35s ease!important}
+/* Larger Recent Works gallery: make each project clear at a glance */
+#work .recent-work-rotator{width:100%;max-width:none;margin-inline:0;overflow:hidden}
+#work .recent-work-track{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:clamp(16px,2vw,30px)!important;width:100%!important;max-width:none!important;opacity:1!important;transition:opacity .3s ease}
+#work .recent-work-track.is-changing{opacity:.78!important}
+#work .recent-work-track .portfolio-image{display:block!important;width:100%!important;min-width:0!important;padding:0!important;margin:0!important;border:0!important;border-radius:12px!important;background:transparent!important;overflow:hidden!important;box-shadow:none!important}
+#work .recent-work-track .portfolio-image img{display:block!important;width:100%!important;height:clamp(300px,32vw,520px)!important;aspect-ratio:4/3!important;object-fit:cover!important;opacity:1!important;filter:none!important;mix-blend-mode:normal!important;border:0!important;border-radius:12px!important;box-shadow:none!important;transition:transform .35s ease!important}
 #work .recent-work-track .portfolio-image:hover img{transform:scale(1.025)!important}
 #work .recent-work-controls{display:none!important}
-@media(max-width:700px){#work .recent-work-track{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}#work .recent-work-track .portfolio-image img{height:132px!important}}
+@media(max-width:700px){
+ #work .recent-work-track{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+ #work .recent-work-track .portfolio-image img{height:clamp(210px,62vw,340px)!important}
+}
 @media(prefers-reduced-motion:reduce){#work .recent-work-track,#work .recent-work-track img{transition:none!important}}
 </style>
 
