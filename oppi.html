@@ -412,6 +412,53 @@ main{width:100%;max-width:none;margin:0}
 @media(prefers-reduced-motion:reduce){#work .recent-work-track,#work .recent-work-track img,#work .recent-work-overlay-btn{transition:none!important}}
 </style>
 
+
+<style id="premium-liquid-glass-controls">
+/* One refined, consistent Liquid Glass language for every homepage control */
+:root{--control-ink:#111114;--control-red:#df1e32;--control-glass:rgba(255,255,255,.22);--control-edge:rgba(255,255,255,.72);--control-shadow:0 9px 26px rgba(0,0,0,.12)}
+.btn,.menu-toggle,.recent-work-overlay-btn,.monogram-feature-link,.navlinks a{
+  position:relative!important;isolation:isolate;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:46px;padding:12px 21px;
+  border:1px solid var(--control-edge)!important;border-radius:999px!important;
+  background:rgba(255,255,255,.24)!important;color:var(--control-ink)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(170%)!important;backdrop-filter:blur(24px) saturate(170%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.88),inset 0 -1px 0 rgba(255,255,255,.12),var(--control-shadow)!important;
+  text-decoration:none!important;font-weight:650;letter-spacing:.025em;
+  transition:transform .28s cubic-bezier(.2,.7,.2,1),background .28s ease,border-color .28s ease,box-shadow .28s ease!important;
+}
+.btn:before,.recent-work-overlay-btn:before,.monogram-feature-link:before{
+  content:"";position:absolute;inset:1px;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.35),transparent 45%,rgba(255,255,255,.08));
+}
+.btn.primary,.nav .btn.primary{
+  background:rgba(15,15,18,.78)!important;color:#fff!important;border-color:rgba(255,255,255,.52)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 28px rgba(0,0,0,.2)!important;
+}
+.navlinks a{min-height:38px;padding:9px 15px!important;border-color:transparent!important;background:rgba(255,255,255,.12)!important;box-shadow:none!important;font-size:10px}
+.navlinks a:hover{background:rgba(255,255,255,.36)!important;color:var(--control-red)!important}
+.menu-toggle{width:46px;height:46px;min-height:46px;padding:0!important;margin:0;border-radius:50%!important;font-size:20px!important}
+.recent-work-overlay-btn,.monogram-feature-link{color:#fff!important;background:rgba(18,18,20,.48)!important;border-color:rgba(255,255,255,.66)!important}
+.btn:hover,.menu-toggle:hover,.recent-work-overlay-btn:hover,.monogram-feature-link:hover{
+  transform:translateY(-2px)!important;border-color:rgba(255,255,255,.98)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 14px 32px rgba(0,0,0,.17)!important;
+}
+.btn:active,.menu-toggle:active,.recent-work-overlay-btn:active,.monogram-feature-link:active{transform:scale(.975)!important}
+button:focus-visible,a:focus-visible{outline:2px solid var(--control-red)!important;outline-offset:4px!important}
+@media(max-width:700px){
+ .buttons{gap:12px!important}
+ .buttons .btn{width:100%;min-height:50px}
+ .navlinks a{width:100%;justify-content:flex-start;min-height:46px;padding:13px 16px!important;border-radius:14px!important}
+ .menu-toggle{width:44px;height:44px;min-height:44px}
+ .recent-work-overlay-btn,.monogram-feature-link{min-height:44px;padding:11px 17px!important}
+}
+@media(prefers-reduced-motion:reduce){.btn,.menu-toggle,.recent-work-overlay-btn,.monogram-feature-link,.navlinks a{transition:none!important}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .btn,.menu-toggle,.recent-work-overlay-btn,.monogram-feature-link{background:rgba(255,255,255,.94)!important}
+ .btn.primary{background:#111!important;color:#fff!important}
+}
+</style>
+
 </head>
 <body>
 
