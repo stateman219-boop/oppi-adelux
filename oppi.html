@@ -1175,3 +1175,33 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
   #work .recent-work-track .portfolio-image img{height:clamp(280px,72vw,420px)!important}
 }
 </style>
+
+
+<style id="recent-works-mobile-full-screen">
+@media(max-width:700px){
+  /* Edge-to-edge Recent Works image, filling the phone viewport */
+  #work{
+    width:100vw!important;
+    max-width:none!important;
+    margin-left:calc(50% - 50vw)!important;
+    margin-right:calc(50% - 50vw)!important;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+  #work>.sectionhead{padding-left:20px!important;padding-right:20px!important}
+  #work .recent-work-rotator,#work .recent-work-frame{
+    width:100%!important;max-width:none!important;margin:0!important;
+  }
+  #work .recent-work-frame{
+    height:100svh!important;min-height:100svh!important;max-height:none!important;
+  }
+  #work .recent-work-track,
+  #work .recent-work-track .portfolio-image,
+  #work .recent-work-track .portfolio-image img{
+    display:block!important;width:100%!important;height:100%!important;
+  }
+}
+@supports not (height:100svh){
+ @media(max-width:700px){#work .recent-work-frame{height:100vh!important;min-height:100vh!important}}
+}
+</style>
