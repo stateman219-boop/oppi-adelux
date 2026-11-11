@@ -479,7 +479,7 @@ function saveBag() {
   } catch { /* Keep the bag available for this visit if storage is unavailable. */ }
 }
 
-const PAYMENTS_API_URL = 'https://oppi-adelux.onrender.com';
+const PAYMENTS_API_URL = 'https://adelux-payments-api.onrender.com';
 
 function openCheckout() {
   if (!bag.length) return;
