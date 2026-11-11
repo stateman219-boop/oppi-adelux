@@ -1811,3 +1811,29 @@ main{width:100%;max-width:none;margin:0;padding:0}
 .jersey-name-fields .detail-field{margin:14px 0 8px}
 .jersey-name-price{margin:0;font-size:12px;font-weight:700}
 .cart-item-price small{display:block;margin-top:4px;color:#777;font-size:9px;font-weight:400}
+
+
+/* Global ADELUX floating navigation: remains reachable on every section while scrolling. */
+.site-header{
+  position:fixed!important;
+  top:12px!important;
+  left:50%!important;
+  right:auto!important;
+  transform:translateX(-50%)!important;
+  width:calc(100% - 36px)!important;
+  max-width:none!important;
+  margin:0!important;
+  z-index:10000!important;
+}
+#app{padding-top:112px!important}
+html{scroll-padding-top:132px!important}
+@media(max-width:600px){
+  .site-header{
+    top:8px!important;
+    width:calc(100% - 16px)!important;
+    min-height:82px!important;
+    margin:0!important;
+  }
+  #app{padding-top:92px!important}
+  html{scroll-padding-top:108px!important}
+}
