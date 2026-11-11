@@ -1039,3 +1039,55 @@ section.section.contact#contact .contactbox a:hover{color:#ff4054!important}
 }
 @media(prefers-reduced-motion:reduce){#services .monogram-feature-link{transition:none}}
 </style>
+
+<style id="oppigraphix-desktop-full-width-premium">
+/* Desktop only: use the available screen width; preserve the existing mobile layout */
+@media (min-width:761px){
+  :root{--content:100%;--gutter:clamp(28px,3.2vw,64px)}
+  main{width:100%!important;max-width:none!important}
+  main>.section,
+  main>section.section,
+  main>.band,
+  main>section.band{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+  main>.section,
+  main>section.section{
+    padding-left:var(--gutter)!important;
+    padding-right:var(--gutter)!important;
+  }
+  #services,#work,#about,#process{
+    width:100%!important;
+    max-width:none!important;
+  }
+  #services>.services,
+  #about>.steps,
+  #process>.steps-short{
+    width:100%!important;
+    max-width:none!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:clamp(20px,2vw,34px)!important;
+  }
+  #work .recent-work-rotator{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+  }
+  #work .recent-work-track{
+    width:100%!important;
+    max-width:none!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:clamp(16px,2vw,30px)!important;
+  }
+  #work .recent-work-track .portfolio-image img{
+    width:100%!important;
+    height:clamp(250px,27vw,440px)!important;
+    aspect-ratio:4/3!important;
+    object-fit:cover!important;
+  }
+  #work .gallery-more{max-width:none!important}
+}
+</style>
