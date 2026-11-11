@@ -1710,3 +1710,24 @@ body.cart-open{overflow:hidden}
 @media(max-width:600px){
  .site-header{background:rgba(255,255,255,.05)!important;-webkit-backdrop-filter:blur(2px) saturate(180%)!important;backdrop-filter:blur(2px) saturate(180%)!important}
 }
+
+
+/* Full-viewport page layout: use the available screen width without narrow centred frames */
+html,body,#app{width:100%;max-width:100%;overflow-x:clip}
+:root{--page-padding:clamp(16px,4vw,72px)}
+.site-header{width:100%;max-width:none;margin:0;padding-left:var(--page-padding);padding-right:var(--page-padding)}
+main{width:100%;max-width:none;margin:0}
+main>section,main>div{max-width:none}
+.hero,.hero-intro,.collection,.collection-section,.category-page,.recently-viewed,.site-footer,footer{width:100%;max-width:none;margin-left:0;margin-right:0}
+.hero-intro{padding-left:var(--page-padding)!important;padding-right:var(--page-padding)!important}
+.category-page{padding-left:var(--page-padding);padding-right:var(--page-padding)}
+.category-page-top,.category-page-grid,.category-page-tabs{width:100%;max-width:none}
+@media(min-width:1000px){
+ .hero-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(28px,5vw,84px)}
+ .hero-intro .hero-copy{width:100%;max-width:none!important}
+}
+@media(max-width:700px){
+ .site-header{padding-left:16px;padding-right:16px}
+ .hero-intro,.category-page{padding-left:16px!important;padding-right:16px!important}
+}
+
