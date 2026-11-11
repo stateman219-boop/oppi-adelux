@@ -47,9 +47,6 @@ jobs:
       - name: Build website
         run: npm run build
 
-      - name: Collect Recent Works uploads
-        run: node scripts/sync-recent-works.mjs
-
       - name: Copy standalone page and uploaded logos
         run: |
           cp oppi.html dist/index.html
@@ -68,6 +65,9 @@ jobs:
           cp "Design & Publishing.png" dist/
           cp "Modern Signage and Display Showcase.png" dist/
           cp "Souvenirs & More.png" dist/
+
+      - name: Collect and embed Recent Works uploads
+        run: node scripts/sync-recent-works.mjs
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
