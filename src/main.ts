@@ -87,6 +87,15 @@ let products: Product[] = [
   { id: 74, name: 'Shirt Design 19', category: 'Shirts & Tops', price: 15000, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/ea32978a-3637-41c0-893a-5ae8df60143a.jpeg', note: 'ADELUX shirts and tops collection.' },
 ];
 
+
+// Give every product a simple numbered name, restarting the sequence in each section.
+const productNumbers = new Map<string, number>();
+products = products.map(product => {
+  const number = (productNumbers.get(product.category) || 0) + 1;
+  productNumbers.set(product.category, number);
+  return { ...product, name: `Adelux Pro ${number}` };
+});
+
 const visibleCategories = ['Shirts & Tops', 'Sportswear', 'Dresses', 'Native Monogramming', 'Kids'];
 
 const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
@@ -703,14 +712,14 @@ async function loadKidsCollection() {
     const images = files
       .filter(file => file.type === 'file' && /\.(jpe?g|png|webp|avif|gif)$/i.test(file.name))
       .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
-    const kids = images.map(file => {
+    const kids = images.map((file, index) => {
       let hash = 2166136261;
       for (const char of file.name) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
       const id = 100000 + (hash >>> 0);
       const label = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim();
       return {
         id,
-        name: label || 'Kids Wear',
+        name: `Adelux Pro ${index + 1}`,
         category: 'Kids',
         price: 0,
         color: 'Made to order',
