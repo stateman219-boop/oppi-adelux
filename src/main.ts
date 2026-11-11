@@ -158,7 +158,7 @@ function productCard(product: Product, preview = false) {
         ${preview
           ? `<button class="quick-add" ${action}>VIEW MORE</button>`
           : isEnquiry
-            ? `<button class="quick-add enquire-add" ${action}>CONTACT ON WHATSAPP <span>↗</span></button>`
+            ? `<button class="quick-add enquire-add" ${action}>CONTACT ON WHATSAPP</button>`
             : `<button class="quick-add" ${action}>SELECT OPTIONS <span>＋</span></button>`}
       </div>
       <div class="product-meta">
