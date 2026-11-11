@@ -1759,3 +1759,42 @@ main{width:100%;max-width:none;margin:0;padding:0}
  .category-page{padding-left:16px;padding-right:16px}
 }
 
+
+
+/* Native Monogramming collection introduction */
+.native-monogram-intro{
+  max-width:900px;
+  margin:0 auto 34px;
+  padding:34px clamp(18px,3vw,38px);
+  border:1px solid rgba(20,20,20,.1);
+  border-radius:22px;
+  background:rgba(255,255,255,.72);
+}
+.native-monogram-intro .eyebrow{margin:0 0 12px}
+.native-monogram-intro h1{
+  margin:0;
+  font-family:var(--serif);
+  font-size:clamp(38px,5.5vw,66px);
+  line-height:1;
+  letter-spacing:-.055em;
+  color:var(--ink);
+}
+.native-monogram-intro>p:not(.eyebrow){
+  max-width:590px;
+  margin:16px 0 14px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+}
+.native-monogram-intro>strong{
+  display:inline-block;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+.native-monogram-intro+.category-tabs{margin-top:0}
+@media(max-width:600px){
+  .native-monogram-intro{margin-bottom:26px;padding:25px 20px;border-radius:18px}
+  .native-monogram-intro h1{font-size:clamp(36px,10vw,48px)}
+  .native-monogram-intro>p:not(.eyebrow){font-size:12px}
+}
