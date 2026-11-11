@@ -11,7 +11,7 @@ type Product = {
   note: string;
 };
 
-const products: Product[] = [
+let products: Product[] = [
   { id: 1, name: 'Shirt Design 01', category: 'Shirts & Tops', price: 15000, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5841.jpeg', note: 'ADELUX shirts and tops collection.' },
   { id: 37, name: 'Shirt Design 02', category: 'Shirts & Tops', price: 15000, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5842.jpeg', note: 'ADELUX shirts and tops collection.' },
   { id: 38, name: 'Shirt Design 03', category: 'Shirts & Tops', price: 15000, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/IMG_5843.jpeg', note: 'ADELUX shirts and tops collection.' },
@@ -52,33 +52,33 @@ const products: Product[] = [
   { id: 35, name: 'Dress Design 10', category: 'Dresses', price: 18000, color: 'For her', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images%202/IMG_5830.jpeg', note: 'ADELUX dress collection.' },
   { id: 36, name: 'Dress Design 11', category: 'Dresses', price: 18000, color: 'For her', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images%202/IMG_5831.jpeg', note: 'ADELUX dress collection.' },
   { id: 6, name: 'Shoes, Bags & Jewelry', category: 'Accessories', price: 10000, color: 'Accessories', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=900&q=85', note: 'Accessories to complete your look.' },
-  { id: 7, name: 'Native Monogramming 01', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5799.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 8, name: 'Native Monogramming 02', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5800.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 9, name: 'Native Monogramming 03', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5801.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 10, name: 'Native Monogramming 04', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5802.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 11, name: 'Native Monogramming 05', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5803.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 12, name: 'Native Monogramming 06', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5804.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 13, name: 'Native Monogramming 07', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5805.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 14, name: 'Native Monogramming 08', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5806.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 15, name: 'Native Monogramming 09', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5807.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 16, name: 'Native Monogramming 10', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5808.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 17, name: 'Native Monogramming 11', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5809.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 18, name: 'Native Monogramming 12', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5810.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 19, name: 'Native Monogramming 13', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5811.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 20, name: 'Native Monogramming 14', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5812.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 21, name: 'Native Monogramming 15', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5813.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 22, name: 'Native Monogramming 16', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5814.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 23, name: 'Native Monogramming 17', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5815.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 24, name: 'Native Monogramming 18', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5816.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 25, name: 'Native Monogramming 19', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5817.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 61, name: 'Native Monogramming 20', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/0690746b-e849-49e6-a46d-56143d372ca7.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 62, name: 'Native Monogramming 21', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/4ddf6b87-727c-4ccf-9f81-f32739552f15.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 63, name: 'Native Monogramming 22', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/b190e280-f6cd-42a2-ad56-a1b35157e98f.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 64, name: 'Native Monogramming 23', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/b2ed2508-afd7-4af2-a94e-ab9f79af183a.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 65, name: 'Native Monogramming 24', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/d5870484-9c3f-4408-b991-ef3f58752a07.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 66, name: 'Native Monogramming 25', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/d61cfd6c-4af1-4282-9cf0-7da15a71352b.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 67, name: 'Native Monogramming 26', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/fad101f3-4299-4842-bfab-5580e0723c89.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
-  { id: 68, name: 'Native Monogramming 27', category: 'Traditional Wear', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/fe60fa3e-d16d-4df8-9ab5-027d75ed0c78.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 7, name: 'Native Monogramming 01', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5799.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 8, name: 'Native Monogramming 02', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5800.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 9, name: 'Native Monogramming 03', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5801.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 10, name: 'Native Monogramming 04', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5802.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 11, name: 'Native Monogramming 05', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5803.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 12, name: 'Native Monogramming 06', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5804.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 13, name: 'Native Monogramming 07', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5805.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 14, name: 'Native Monogramming 08', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5806.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 15, name: 'Native Monogramming 09', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5807.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 16, name: 'Native Monogramming 10', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5808.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 17, name: 'Native Monogramming 11', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5809.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 18, name: 'Native Monogramming 12', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5810.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 19, name: 'Native Monogramming 13', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5811.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 20, name: 'Native Monogramming 14', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5812.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 21, name: 'Native Monogramming 15', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5813.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 22, name: 'Native Monogramming 16', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5814.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 23, name: 'Native Monogramming 17', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5815.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 24, name: 'Native Monogramming 18', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5816.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 25, name: 'Native Monogramming 19', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/IMG_5817.JPG', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 61, name: 'Native Monogramming 20', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/0690746b-e849-49e6-a46d-56143d372ca7.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 62, name: 'Native Monogramming 21', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/4ddf6b87-727c-4ccf-9f81-f32739552f15.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 63, name: 'Native Monogramming 22', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/b190e280-f6cd-42a2-ad56-a1b35157e98f.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 64, name: 'Native Monogramming 23', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/b2ed2508-afd7-4af2-a94e-ab9f79af183a.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 65, name: 'Native Monogramming 24', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/d5870484-9c3f-4408-b991-ef3f58752a07.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 66, name: 'Native Monogramming 25', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/d61cfd6c-4af1-4282-9cf0-7da15a71352b.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 67, name: 'Native Monogramming 26', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/fad101f3-4299-4842-bfab-5580e0723c89.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
+  { id: 68, name: 'Native Monogramming 27', category: 'Native Monogramming', price: 20000, color: 'Made to order', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images/fe60fa3e-d16d-4df8-9ab5-027d75ed0c78.jpeg', note: 'Custom Agbada design · Enquire for fabric, colour and sizing.' },
   { id: 69, name: 'Dress Design 12', category: 'Dresses', price: 18000, color: 'For her', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images%202/26d6c63a-a965-4fbd-83cb-dd1a5184e4e9.jpeg', note: 'ADELUX dress collection.' },
   { id: 70, name: 'Dress Design 13', category: 'Dresses', price: 18000, color: 'For her', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/images%202/78d04124-04d0-4045-ae0b-f0b83851ae76.jpeg', note: 'ADELUX dress collection.' },
   { id: 71, name: 'Shirt Design 16', category: 'Shirts & Tops', price: 15000, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/6ed5c595-7178-46d0-8475-4a2ade88e050.jpeg', note: 'ADELUX shirts and tops collection.' },
@@ -87,7 +87,7 @@ const products: Product[] = [
   { id: 74, name: 'Shirt Design 19', category: 'Shirts & Tops', price: 15000, color: 'Unisex', image: 'https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/image%203/ea32978a-3637-41c0-893a-5ae8df60143a.jpeg', note: 'ADELUX shirts and tops collection.' },
 ];
 
-const visibleCategories = ['Shirts & Tops', 'Sportswear', 'Dresses', 'Traditional Wear', 'Kids'];
+const visibleCategories = ['Shirts & Tops', 'Sportswear', 'Dresses', 'Native Monogramming', 'Kids'];
 
 const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
 
@@ -133,10 +133,11 @@ const app = document.querySelector<HTMLDivElement>('#app')!;
 app.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-details]'); if (button) openProductDetails(Number(button.dataset.details)); });
 
 function productCard(product: Product, preview = false) {
+  const isNative = product.category === 'Native Monogramming';
   const action = preview
     ? `data-view-more="${product.category}" aria-label="View more ${product.category}"`
-    : product.price === 0
-      ? `data-enquire="${product.id}" aria-label="Ask for the price of ${product.name}"`
+    : (isNative || product.price === 0)
+      ? `data-enquire="${product.id}" aria-label="Contact ADELUX on WhatsApp about ${product.name}"`
       : `data-details="${product.id}" aria-label="Choose options for ${product.name}"`;
   return `
     <article class="product-card ${preview ? "product-card-preview" : ""}" ${preview ? `data-open-category="${product.category}" tabindex="0" role="link" aria-label="Open the full ${product.category} collection"` : ""}>
@@ -146,12 +147,12 @@ function productCard(product: Product, preview = false) {
         <button class="wishlist-button ${wishlist.includes(product.id) ? 'is-saved' : ''}" data-wishlist="${product.id}" aria-label="${wishlist.includes(product.id) ? 'Remove from' : 'Add to'} wishlist" aria-pressed="${wishlist.includes(product.id)}">${wishlist.includes(product.id) ? '♥' : '♡'}</button>
         ${preview
           ? `<button class="quick-add" ${action}>VIEW MORE</button>`
-          : product.price === 0
-            ? `<button class="quick-add enquire-add" ${action}>REQUEST PRICE <span>↗</span></button>`
+          : (isNative || product.price === 0)
+            ? `<button class="quick-add enquire-add" ${action}>CONTACT ON WHATSAPP <span>↗</span></button>`
             : `<button class="quick-add" ${action}>SELECT OPTIONS <span>＋</span></button>`}
       </div>
       <div class="product-meta">
-        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}<button class="product-details-link" data-details="${product.id}">View details</button></div>
+        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}<button class="product-details-link" ${isNative ? `data-enquire="${product.id}"` : `data-details="${product.id}"`}>${isNative ? 'Contact on WhatsApp' : 'View details'}</button></div>
         <p class="price">${money(product.price)}</p>
       </div>
     </article>`;
@@ -161,6 +162,7 @@ function categoryPageMarkup(category: string) {
   const categoryProducts = filteredProducts(category);
   return `
     <section class="category-page">
+      ${category === 'Native Monogramming' ? `<header class="native-monogram-intro"><p class="eyebrow">ADELUX · MADE TO ORDER</p><h1>Native Monogramming</h1><p>Personalised native pieces, finished with care and made around your style.</p><strong>₦15,000 – ₦20,000</strong></header>` : ''}
       <nav class="category-tabs category-page-tabs" aria-label="Browse ADELUX collections">
         ${['All pieces', ...visibleCategories].map(item => `
           <button class="category-tab ${item === category ? 'active' : ''}" data-category="${item}" ${item === category ? 'aria-current="page"' : ''}>${item === 'Sportswear' ? 'Jerseys' : item}</button>
@@ -171,7 +173,7 @@ function categoryPageMarkup(category: string) {
 
       </div>
       <div class="product-grid category-page-grid">
-        ${categoryProducts.length ? categoryProducts.map(product => productCard(product)).join('') : '<p class="no-results">' + (wishlistOnly ? 'No saved pieces in this collection yet.' : category === 'Kids' ? 'The Kids collection is being prepared. New pieces will appear here soon.' : 'No products match your search.') + '</p>'}
+        ${categoryProducts.length ? categoryProducts.map(product => productCard(product)).join('') : '<p class="no-results">' + (wishlistOnly ? 'No saved pieces in this collection yet.' : category === 'Kids' ? 'New kids wear pieces will appear here as images are uploaded to the ADELUX GitHub kids wear folder.' : 'No products match your search.') + '</p>'}
       </div>
     </section>`;
 }
@@ -335,7 +337,7 @@ function render() {
           <button data-shop-category="Shirts & Tops">Shirts &amp; tops</button>
           <button data-shop-category="Sportswear">Jerseys</button>
           <button data-shop-category="Dresses">Dresses</button>
-          <button data-shop-category="Traditional Wear">Native monogramming</button>
+          <button data-shop-category="Native Monogramming">Native monogramming</button>
           <button data-shop-category="Kids">Kids</button>
         </div>
         <a href="/adelux/#story" data-menu-link>Our point of view</a>
@@ -418,7 +420,7 @@ function openProductDetails(id: number) {
   else document.querySelector('main')?.insertAdjacentHTML('beforeend', recentMarkup);
   const modal = document.querySelector<HTMLDivElement>('#product-detail-backdrop');
   if (!modal) return;
-  modal.innerHTML = `<section class="product-detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title"><button class="detail-close" id="detail-close" aria-label="Close details">×</button><div class="detail-image-wrap"><img src="${product.image}" alt="${product.name}"></div><div class="detail-copy"><p class="eyebrow">ADELUX COLLECTIONS · ${product.category === 'Sportswear' ? 'JERSEYS' : product.category.toUpperCase()}</p><h2 id="detail-title">${product.name}</h2><p class="detail-price">${money(product.price)}</p><p class="detail-description">${product.note}</p><label class="detail-field">Select size<select id="detail-size" required><option value="">Choose your size</option>${(product.category === 'Traditional Wear' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).map(x=>`<option value="${x}">${x}</option>`).join('')}</select></label><label class="detail-field">Preferred colour <input id="detail-color" maxlength="40" placeholder="Enter preferred colour"><small>We will confirm colour availability before production.</small></label><button class="detail-add" id="detail-add">ADD TO BAG</button><p class="detail-note">Size and colour preferences stay attached to this item in your bag. Final colour availability is confirmed by ADELUX.</p><details class="size-guide"><summary>View size guide</summary><div class="size-guide-content">${product.category === 'Traditional Wear' ? '<p>Traditional pieces are best measured individually. Prepare chest, shoulder, sleeve, top length, waist, hip and trouser length measurements. Select “Made to measure” and our team will confirm details.</p>' : product.category === 'Dresses' ? '<p>Indicative body measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr><tr><td>XS</td><td>80–84</td><td>60–64</td><td>86–90</td></tr><tr><td>S</td><td>85–89</td><td>65–69</td><td>91–95</td></tr><tr><td>M</td><td>90–94</td><td>70–74</td><td>96–100</td></tr><tr><td>L</td><td>95–101</td><td>75–81</td><td>101–107</td></tr><tr><td>XL</td><td>102–108</td><td>82–88</td><td>108–114</td></tr><tr><td>XXL</td><td>109–116</td><td>89–96</td><td>115–122</td></tr></table>' : '<p>Indicative chest measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Chest</th></tr><tr><td>XS</td><td>86–91</td></tr><tr><td>S</td><td>92–97</td></tr><tr><td>M</td><td>98–103</td></tr><tr><td>L</td><td>104–109</td></tr><tr><td>XL</td><td>110–117</td></tr><tr><td>XXL</td><td>118–125</td></tr></table>'}<small>Reference guide only. ADELUX’s final garment measurements and fit should be confirmed before production. Measure around the fullest part of the chest/bust without pulling the tape tight.</small></div></details><div class="complete-look"><p class="eyebrow">STYLE IT WITH</p><h3>Complete the look</h3><div class="complete-look-grid">${(product.category === 'Dresses' ? [products.find(p=>p.id===6), products.find(p=>p.id===2)] : [products.find(p=>p.id===2), products.find(p=>p.id===6)]).filter((p): p is Product => Boolean(p)).map(p=>`<button class="complete-look-item" data-details="${p.id}"><img src="${p.image}" alt="${p.name}"><span>${p.name}</span><strong>${money(p.price)}</strong></button>`).join('')}</div></div></div></section>`;
+  modal.innerHTML = `<section class="product-detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title"><button class="detail-close" id="detail-close" aria-label="Close details">×</button><div class="detail-image-wrap"><img src="${product.image}" alt="${product.name}"></div><div class="detail-copy"><p class="eyebrow">ADELUX COLLECTIONS · ${product.category === 'Sportswear' ? 'JERSEYS' : product.category.toUpperCase()}</p><h2 id="detail-title">${product.name}</h2><p class="detail-price">${money(product.price)}</p><p class="detail-description">${product.note}</p><label class="detail-field">Select size<select id="detail-size" required><option value="">Choose your size</option>${(product.category === 'Native Monogramming' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).map(x=>`<option value="${x}">${x}</option>`).join('')}</select></label><label class="detail-field">Preferred colour <input id="detail-color" maxlength="40" placeholder="Enter preferred colour"><small>We will confirm colour availability before production.</small></label><button class="detail-add" id="detail-add">ADD TO BAG</button><p class="detail-note">Size and colour preferences stay attached to this item in your bag. Final colour availability is confirmed by ADELUX.</p><details class="size-guide"><summary>View size guide</summary><div class="size-guide-content">${product.category === 'Native Monogramming' ? '<p>Traditional pieces are best measured individually. Prepare chest, shoulder, sleeve, top length, waist, hip and trouser length measurements. Select “Made to measure” and our team will confirm details.</p>' : product.category === 'Dresses' ? '<p>Indicative body measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr><tr><td>XS</td><td>80–84</td><td>60–64</td><td>86–90</td></tr><tr><td>S</td><td>85–89</td><td>65–69</td><td>91–95</td></tr><tr><td>M</td><td>90–94</td><td>70–74</td><td>96–100</td></tr><tr><td>L</td><td>95–101</td><td>75–81</td><td>101–107</td></tr><tr><td>XL</td><td>102–108</td><td>82–88</td><td>108–114</td></tr><tr><td>XXL</td><td>109–116</td><td>89–96</td><td>115–122</td></tr></table>' : '<p>Indicative chest measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Chest</th></tr><tr><td>XS</td><td>86–91</td></tr><tr><td>S</td><td>92–97</td></tr><tr><td>M</td><td>98–103</td></tr><tr><td>L</td><td>104–109</td></tr><tr><td>XL</td><td>110–117</td></tr><tr><td>XXL</td><td>118–125</td></tr></table>'}<small>Reference guide only. ADELUX’s final garment measurements and fit should be confirmed before production. Measure around the fullest part of the chest/bust without pulling the tape tight.</small></div></details><div class="complete-look"><p class="eyebrow">STYLE IT WITH</p><h3>Complete the look</h3><div class="complete-look-grid">${(product.category === 'Dresses' ? [products.find(p=>p.id===6), products.find(p=>p.id===2)] : [products.find(p=>p.id===2), products.find(p=>p.id===6)]).filter((p): p is Product => Boolean(p)).map(p=>`<button class="complete-look-item" data-details="${p.id}"><img src="${p.image}" alt="${p.name}"><span>${p.name}</span><strong>${money(p.price)}</strong></button>`).join('')}</div></div></div></section>`;
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('detail-open');
@@ -553,7 +555,7 @@ function bindEvents() {
   document.querySelectorAll<HTMLButtonElement>('[data-enquire]')
     .forEach(button => button.addEventListener('click', () => {
       const product = products.find(item => item.id === Number(button.dataset.enquire));
-      if (product) window.location.href = 'https://wa.me/2348184952775?text=' + encodeURIComponent('Hello ADELUX, please share the price and availability for ' + product.name + '.');
+      if (product) window.open('https://wa.me/2348184952775?text=' + encodeURIComponent('Hello ADELUX, I would like to enquire about ' + product.name + '. Please share the available designs, sizes, fabric/colour options and final price. I understand Native Monogramming is priced between ₦15,000 and ₦20,000.'), '_blank', 'noopener,noreferrer');
     }));
   document.querySelectorAll<HTMLButtonElement>('[data-wishlist]')
     .forEach(button => button.addEventListener('click', event => { event.stopPropagation(); toggleWishlist(Number(button.dataset.wishlist)); }));
@@ -665,7 +667,38 @@ function bindEvents() {
 }
 
 render();
+void loadKidsCollection();
 if (new URLSearchParams(window.location.search).get('track') === '1') { document.querySelector('#track-backdrop')?.classList.add('is-open'); document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','false'); document.body.classList.add('track-open'); }
+
+async function loadKidsCollection() {
+  try {
+    const response = await fetch('https://api.github.com/repos/stateman219-boop/oppi-adelux/contents/kids%20wear?ref=main');
+    if (!response.ok) throw new Error('Kids collection could not be loaded');
+    const files = await response.json() as Array<{ name: string; type: string; download_url: string | null }>;
+    const images = files
+      .filter(file => file.type === 'file' && /\.(jpe?g|png|webp|avif|gif)$/i.test(file.name))
+      .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+    const kids = images.map(file => {
+      let hash = 2166136261;
+      for (const char of file.name) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
+      const id = 100000 + (hash >>> 0);
+      const label = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim();
+      return {
+        id,
+        name: label || 'Kids Wear',
+        category: 'Kids',
+        price: 0,
+        color: 'Made to order',
+        image: file.download_url || `https://raw.githubusercontent.com/stateman219-boop/oppi-adelux/main/kids%20wear/${encodeURIComponent(file.name)}`,
+        note: 'ADELUX kids wear collection. Contact us for sizes, colours and pricing.'
+      } as Product;
+    });
+    products = [...products.filter(product => product.category !== 'Kids'), ...kids];
+    render();
+  } catch (error) {
+    console.warn('ADELUX Kids collection:', error);
+  }
+}
 
 let activeBrand = 'adelux';
 window.setInterval(() => {
