@@ -1798,3 +1798,16 @@ main{width:100%;max-width:none;margin:0;padding:0}
   .native-monogram-intro h1{font-size:clamp(36px,10vw,48px)}
   .native-monogram-intro>p:not(.eyebrow){font-size:12px}
 }
+
+
+/* Optional jersey name printing */
+.jersey-name-option{margin:18px 0;padding:15px;border:1px solid #e4e4e4;border-radius:12px;background:#fafafa}
+.jersey-name-toggle{display:flex;align-items:center;gap:11px;cursor:pointer}
+.jersey-name-toggle input{width:18px;height:18px;accent-color:#111;flex:0 0 auto}
+.jersey-name-toggle span{display:grid;gap:4px}
+.jersey-name-toggle strong{font-size:12px;letter-spacing:.01em}
+.jersey-name-toggle small{font-size:10px;color:#777;font-weight:400;letter-spacing:normal}
+.jersey-name-fields[hidden]{display:none}
+.jersey-name-fields .detail-field{margin:14px 0 8px}
+.jersey-name-price{margin:0;font-size:12px;font-weight:700}
+.cart-item-price small{display:block;margin-top:4px;color:#777;font-size:9px;font-weight:400}
