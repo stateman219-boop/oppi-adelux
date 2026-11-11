@@ -18,4 +18,19 @@ const manifest = files.map(name => ({
   src: "/recent%20works/" + encodeURIComponent(name)
 }));
 fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
-console.log(`Collected ${files.length} Recent Works image(s).`);
+
+// Embed the manifest in each standalone page so the gallery never depends on
+// a separate JSON request being available or cached by the hosting layer.
+const inlineData = "<script>window.OPPI_RECENT_WORKS=" + JSON.stringify(manifest) + ";</script>";
+for (const page of ["index.html", "oppi.html", "gallery.html"]) {
+  const pagePath = path.join(root, "dist", page);
+  if (!fs.existsSync(pagePath)) continue;
+  let html = fs.readFileSync(pagePath, "utf8");
+  html = html.replace("</head>", inlineData + "\n</head>");
+  html = html.replaceAll(
+    "fetch('/recent-works.json')",
+    "Promise.resolve({ok:true,json:()=>window.OPPI_RECENT_WORKS||[]})"
+  );
+  fs.writeFileSync(pagePath, html);
+}
+console.log(`Collected and embedded ${files.length} Recent Works image(s).`);
