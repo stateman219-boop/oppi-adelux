@@ -198,7 +198,24 @@ img{image-rendering:auto}
 .lg-popup p{color:#555;line-height:1.85;margin:0;font-size:14px}
 @media(max-width:620px){.lg-popup{grid-template-columns:1fr;max-height:88vh}.lg-popup-frame{min-height:190px;padding:22px}.lg-popup-frame:before{width:170px;height:170px}.lg-popup-frame:after{width:125px;height:125px}.lg-frame-word{font-size:38px;margin:24px 0}.lg-popup-copy{padding:28px 24px 32px}.lg-popup h3{margin:12px 0}}
 @media(prefers-reduced-motion:reduce){.lg-popup-backdrop,.lg-popup,.service{transition:none}}
-</style></head>
+</style>
+<style id="global-floating-navigation">
+/* Keep OPPIGRAPHIX navigation visible on every section while scrolling. */
+header.nav{
+ position:fixed!important;top:12px!important;left:50%!important;right:auto!important;
+ transform:translateX(-50%)!important;width:min(1400px,calc(100% - 40px))!important;
+ margin:0!important;z-index:10000!important;
+}
+body{padding-top:104px!important}
+html{scroll-padding-top:120px!important}
+@media(max-width:700px){
+ header.nav{top:8px!important;width:calc(100% - 16px)!important;margin:0!important}
+ body{padding-top:82px!important}
+ html{scroll-padding-top:98px!important}
+}
+</style>
+
+</head>
 <body>
 
 <header class="nav"><div class="logo-cycle" aria-label="OPPIGRAPHIX and ADELUX Collections"><a class="cycle-logo cycle-oppi active" href="./oppi.html" aria-label="OPPIGRAPHIX"><img src="./oppi-logo.png.png" alt="OPPIGRAPHIX"></a><a class="cycle-logo cycle-adelux" href="./index.html" aria-label="ADELUX Collections"><img src="./adelux-logo.png.png" alt="ADELUX Collections"></a></div><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button><nav class="navlinks" id="mobile-menu"><a href="#services">Services</a><a href="#work">What we do</a><a href="#process">Process</a><a href="#contact">Contact</a></nav><a class="btn desktop-adelux" href="./index.html">ADELUX COLLECTIONS</a></header>
