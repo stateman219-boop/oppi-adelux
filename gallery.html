@@ -23,6 +23,42 @@ footer{padding:28px var(--pad);display:flex;justify-content:space-between;align-
 @media(max-width:760px){.nav{padding:10px 16px}.logo-cycle{flex-basis:150px;width:150px;height:52px}.cycle-logo{inset:0 3px}.cycle-logo img{max-width:145px;max-height:46px}.menu-toggle{display:block}.navlinks{display:none;position:absolute;top:100%;left:0;right:0;padding:12px 18px 20px;background:rgba(255,255,255,.96);flex-direction:column;align-items:stretch;gap:4px}.navlinks.open{display:flex}.navlinks a{padding:13px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding-left:12px;padding-right:12px}.gallery-item{aspect-ratio:3/4}.intro{padding:56px 18px 28px}.cta{margin:0 12px 55px;display:block}.cta a{margin-top:12px}footer{flex-wrap:wrap}}
 @media(max-width:380px){.gallery{grid-template-columns:1fr}.gallery-item{aspect-ratio:4/3}}
 </style>
+
+<style id="premium-liquid-glass-controls">
+/* Matching premium Liquid Glass controls across the project gallery */
+:root{--control-red:#df1e32}
+.menu-toggle,.cta a,.lightbox button{
+ position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
+ min-height:46px;padding:12px 21px;border:1px solid rgba(255,255,255,.76)!important;
+ border-radius:999px!important;background:rgba(255,255,255,.22)!important;color:#111!important;
+ -webkit-backdrop-filter:blur(24px) saturate(175%)!important;backdrop-filter:blur(24px) saturate(175%)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 9px 26px rgba(0,0,0,.12)!important;
+ font:650 12px/1.2 Arial,Helvetica,sans-serif!important;letter-spacing:.035em;text-decoration:none!important;
+ transition:transform .28s cubic-bezier(.2,.7,.2,1),background .28s ease,border-color .28s ease,box-shadow .28s ease!important;
+}
+.menu-toggle{width:46px;height:46px;min-height:46px;padding:0!important;border-radius:50%!important}
+.cta a{background:rgba(255,255,255,.2)!important;color:#fff!important;border-color:rgba(255,255,255,.62)!important}
+.lightbox button{width:46px;height:46px;min-height:46px;padding:0!important;border-radius:50%!important;background:rgba(255,255,255,.16)!important;color:#fff!important}
+.menu-toggle:hover,.cta a:hover,.lightbox button:hover{transform:translateY(-2px);border-color:#fff!important;box-shadow:inset 0 1px 0 #fff,0 14px 32px rgba(0,0,0,.18)!important}
+.menu-toggle:active,.cta a:active,.lightbox button:active{transform:scale(.975)}
+.nav{background:rgba(255,255,255,.28)!important;border:1px solid rgba(255,255,255,.68)!important;border-radius:0 0 22px 22px!important;box-shadow:0 10px 30px rgba(0,0,0,.09),inset 0 1px 0 rgba(255,255,255,.9)!important;-webkit-backdrop-filter:blur(28px) saturate(175%)!important;backdrop-filter:blur(28px) saturate(175%)!important}
+.navlinks a{padding:11px 15px!important;border-radius:999px!important;transition:background .25s ease,color .25s ease!important}
+.navlinks a:hover,.navlinks a.active{background:rgba(255,255,255,.38)!important;color:var(--control-red)!important}
+.gallery-item{border-radius:14px!important;overflow:hidden}
+.gallery-item:after{border-radius:999px!important;background:rgba(18,18,20,.38)!important;border:1px solid rgba(255,255,255,.72)!important;padding:11px 16px!important;-webkit-backdrop-filter:blur(20px) saturate(170%)!important;backdrop-filter:blur(20px) saturate(170%)!important}
+button:focus-visible,a:focus-visible{outline:2px solid var(--control-red)!important;outline-offset:4px!important}
+@media(max-width:760px){
+ .navlinks{background:rgba(255,255,255,.94)!important;border:1px solid rgba(255,255,255,.9)!important;border-radius:0 0 20px 20px!important;box-shadow:0 14px 32px rgba(0,0,0,.13)!important;-webkit-backdrop-filter:blur(28px)!important;backdrop-filter:blur(28px)!important}
+ .navlinks a{min-height:44px;border-radius:12px!important}
+ .menu-toggle{width:44px;height:44px;min-height:44px}
+ .cta a{min-height:48px}
+}
+@media(prefers-reduced-motion:reduce){.menu-toggle,.cta a,.lightbox button,.navlinks a{transition:none!important}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .menu-toggle{background:#fff!important}.cta a{background:#222!important;color:#fff!important}
+}
+</style>
+
 </head>
 <body>
 <header class="nav">
