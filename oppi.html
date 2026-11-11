@@ -459,6 +459,23 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--control-red)!import
 }
 </style>
 
+
+<style id="always-accessible-floating-header">
+/* Keep navigation within reach while the visitor scrolls the page. */
+#site-header.nav{
+ position:fixed!important;top:12px!important;left:50%!important;right:auto!important;
+ transform:translateX(-50%)!important;width:min(1400px,calc(100% - 40px))!important;
+ margin:0!important;z-index:10000!important;
+}
+body{padding-top:104px!important}
+html{scroll-padding-top:120px!important}
+@media(max-width:700px){
+ #site-header.nav{top:8px!important;width:calc(100% - 16px)!important;margin:0!important}
+ body{padding-top:82px!important}
+ html{scroll-padding-top:96px!important}
+}
+</style>
+
 </head>
 <body>
 
