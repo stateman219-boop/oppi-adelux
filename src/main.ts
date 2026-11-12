@@ -565,36 +565,6 @@ function sendWhatsAppOrder(event: SubmitEvent) {
   window.open('https://wa.me/2348184952775?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
   closeCheckout();
 }
-async function startPaystackCheckout(event: SubmitEvent) {
-  event.preventDefault();
-  if (!bag.length) return;
-  const form = document.querySelector<HTMLFormElement>('#checkout-form');
-  if (!form || !form.reportValidity()) return;
-  const values = new FormData(form);
-  const customer = { name: String(values.get('name')||'').trim(), phone: String(values.get('phone')||'').trim(), note: String(values.get('note')||'').trim() };
-  const email = String(values.get('email')||'').trim().toLowerCase();
-  const button = document.querySelector<HTMLButtonElement>('#checkout-pay');
-  if (button) { button.disabled = true; button.textContent = 'Connecting securely to Paystack…'; }
-  const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 90000);
-  try {
-    const response = await fetch(PAYMENTS_API_URL + '/api/payments/initialize', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, customer, items: bag.map(({ product, quantity, size, colorChoice, namePrintingText, namePrintingFee }) => ({ productId: product.id, quantity, size, color: colorChoice, namePrintingText: namePrintingText || '', namePrintingFee: namePrintingFee || 0 })) }),
-      signal: controller.signal
-    });
-    const raw = await response.text();
-    let data: { authorizationUrl?: string; error?: string; orderNumber?: string } = {};
-    try { data = JSON.parse(raw); } catch { throw new Error('Payment server returned an unreadable response. Please retry.'); }
-    if (!response.ok || !data.authorizationUrl) throw new Error(data.error || 'Checkout could not start (HTTP ' + response.status + ').');
-    try { sessionStorage.setItem('adelux-last-order', JSON.stringify({ orderNumber: data.orderNumber, phone: customer.phone })); } catch {}
-    window.location.href = data.authorizationUrl;
-  } catch (error) {
-    const message = error instanceof DOMException && error.name === 'AbortError' ? 'Payment server took too long to respond. Please retry.' : error instanceof TypeError ? 'Could not reach the payment server. Please try again shortly.' : error instanceof Error ? error.message : 'Payment service unavailable.';
-    showToast(message);
-    if (button) { button.disabled = false; button.textContent = 'Retry secure payment'; }
-  } finally { window.clearTimeout(timeout); }
-}
 async function trackOrder(event: SubmitEvent) {
   event.preventDefault();
   const form = document.querySelector<HTMLFormElement>('#track-form');
