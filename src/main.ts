@@ -142,13 +142,10 @@ const app = document.querySelector<HTMLDivElement>('#app')!;
 app.addEventListener('click', event => { const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-details]'); if (button) openProductDetails(Number(button.dataset.details)); });
 
 function productCard(product: Product, preview = false) {
-  const isNative = product.category === 'Native Monogramming';
-  const isEnquiry = isNative || product.category === 'Kids' || product.price === 0;
+  const isEnquiry = product.category === 'Native Monogramming' || product.category === 'Kids' || product.price === 0;
   const action = preview
     ? `data-view-more="${product.category}" aria-label="View more ${product.category}"`
-    : isEnquiry
-      ? `data-enquire="${product.id}" aria-label="Contact ADELUX on WhatsApp about ${product.name}"`
-      : `data-details="${product.id}" aria-label="Choose options for ${product.name}"`;
+    : `data-details="${product.id}" aria-label="Choose options and enquire on WhatsApp about ${product.name}"`;
   return `
     <article class="product-card ${preview ? "product-card-preview" : ""}" ${preview ? `data-open-category="${product.category}" tabindex="0" role="link" aria-label="Open the full ${product.category} collection"` : ""}>
       <div class="product-image">
@@ -157,12 +154,10 @@ function productCard(product: Product, preview = false) {
         <button class="wishlist-button ${wishlist.includes(product.id) ? 'is-saved' : ''}" data-wishlist="${product.id}" aria-label="${wishlist.includes(product.id) ? 'Remove from' : 'Add to'} wishlist" aria-pressed="${wishlist.includes(product.id)}">${wishlist.includes(product.id) ? '♥' : '♡'}</button>
         ${preview
           ? `<button class="quick-add" ${action}>VIEW MORE</button>`
-          : isEnquiry
-            ? `<button class="quick-add enquire-add" ${action}>CONTACT ON WHATSAPP</button>`
-            : `<button class="quick-add" ${action}>SELECT OPTIONS <span>＋</span></button>`}
+          : `<button class="quick-add" ${action}>${isEnquiry ? 'ENQUIRE ON WHATSAPP' : 'SELECT OPTIONS'} <span>＋</span></button>`}
       </div>
       <div class="product-meta">
-        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}<button class="product-details-link" ${isEnquiry ? `data-enquire="${product.id}"` : `data-details="${product.id}"`}>${isEnquiry ? 'Contact on WhatsApp' : 'View details'}</button></div>
+        <div><p class="product-name">${product.name}</p>${product.category === 'Dresses' ? '' : `<p class="product-color">${product.color} · Unisex</p>`}<button class="product-details-link" data-details="${product.id}">${isEnquiry ? 'Enquire on WhatsApp' : 'View details'}</button></div>
         <p class="price">${money(product.price)}</p>
       </div>
     </article>`;
@@ -387,10 +382,10 @@ ${mainContentMarkup()}
     <aside class="cart-drawer ${bagOpen ? 'is-open' : ''}" id="cart-drawer" aria-hidden="${!bagOpen}" aria-label="Shopping cart">
       <div class="cart-head"><div><p class="eyebrow">YOUR SELECTION</p><h2>Shopping cart <span>(${bag.reduce((n, item) => n + item.quantity, 0)})</span></h2></div><button id="cart-close" aria-label="Close cart">Close</button></div>
       <div class="cart-items">${bag.length ? bag.map(({lineId, product, quantity, size, colorChoice, namePrintingText, namePrintingFee}) => `<article class="cart-item"><img src="${product.image}" alt="${product.name}"><div class="cart-item-info"><p class="cart-item-name">${product.name}</p><p class="cart-item-color">${product.color} · Size: ${size} · Colour: ${colorChoice}${namePrintingText ? ' · Name: ' + namePrintingText : ''}</p><p class="cart-item-price">${money(product.price + (namePrintingFee || 0))}${namePrintingFee ? ' <small>(includes ' + money(namePrintingFee) + ' name printing)</small>' : ''}</p><div class="cart-quantity"><button data-qty="${lineId}" data-change="-1" aria-label="Decrease quantity">Decrease</button><span>${quantity}</span><button data-qty="${lineId}" data-change="1" aria-label="Increase quantity">Increase</button><button class="cart-remove" data-remove="${lineId}">Remove</button></div></div></article>`).join('') : '<p class="cart-empty">Your cart is empty.<br>Find something considered.</p>'}</div>
-      <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><strong>${money(bag.reduce((sum, item) => sum + (item.product.price + (item.namePrintingFee || 0)) * item.quantity, 0))}</strong></div><p>Secure payment by Paystack. Collection is from the ADELUX Area 10 store, Abuja.</p><button class="cart-checkout" id="cart-checkout" ${bag.length ? '' : 'disabled'}>Continue to checkout</button><button class="track-order-link" id="track-order-open">Already ordered? Track your order</button></div>
+      <div class="cart-foot"><div class="cart-subtotal"><span>Subtotal</span><strong>${money(bag.reduce((sum, item) => sum + (item.product.price + (item.namePrintingFee || 0)) * item.quantity, 0))}</strong></div><p>Send your selected items and preferences to ADELUX on WhatsApp. We will confirm availability, delivery/collection and payment details with you.</p><button class="cart-checkout" id="cart-checkout" ${bag.length ? '' : 'disabled'}>SEND ORDER TO WHATSAPP</button><button class="track-order-link" id="track-order-open">Already ordered? Track your order</button></div>
     </aside>
     <div class="product-detail-backdrop" id="product-detail-backdrop" aria-hidden="true"></div>
-    <div class="checkout-backdrop" id="checkout-backdrop" aria-hidden="true"><section class="checkout-panel" role="dialog" aria-modal="true" aria-labelledby="checkout-title"><button class="checkout-close" id="checkout-close" type="button">×</button><p class="eyebrow">ADELUX COLLECTIONS · CHECKOUT</p><h2 id="checkout-title">Your details,<br><em>then checkout.</em></h2><p class="checkout-intro">Complete your contact details. Orders are prepared over five days and collected from our Area 10 store in Abuja.</p><form id="checkout-form"><label>Full name<input name="name" autocomplete="name" required minlength="2" placeholder="Your full name"></label><label>Mobile number<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required minlength="10" placeholder="e.g. 08012345678"></label><label>Email address<input name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label><label>Additional instructions <span>(optional)</span><textarea name="note" rows="3" maxlength="500" placeholder="Any notes for the ADELUX team"></textarea></label><div class="collection-confirm"><strong>Collection point</strong><span>ADELUX Area 10 store, Abuja</span><small>We will call the mobile number above on Day 5 to arrange pickup.</small></div><button class="checkout-pay" id="checkout-pay" type="submit">Continue to secure payment</button></form></section></div>
+    <div class="checkout-backdrop" id="checkout-backdrop" aria-hidden="true"><section class="checkout-panel" role="dialog" aria-modal="true" aria-labelledby="checkout-title"><button class="checkout-close" id="checkout-close" type="button">×</button><p class="eyebrow">ADELUX COLLECTIONS · CHECKOUT</p><h2 id="checkout-title">Your details,<br><em>then WhatsApp.</em></h2><p class="checkout-intro">Add your contact details and we will send your full selection to ADELUX on WhatsApp. The team will confirm availability and payment arrangements.</p><form id="checkout-form"><label>Full name<input name="name" autocomplete="name" required minlength="2" placeholder="Your full name"></label><label>Mobile number<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required minlength="10" placeholder="e.g. 08012345678"></label><label>Email address <span>(optional)</span><input name="email" type="email" autocomplete="email" placeholder="you@example.com"></label><label>Additional instructions <span>(optional)</span><textarea name="note" rows="3" maxlength="500" placeholder="Any notes for the ADELUX team"></textarea></label><div class="collection-confirm"><strong>Order follow-up</strong><span>ADELUX will confirm availability, total price and fulfilment options with you on WhatsApp.</span></div><button class="checkout-pay" id="checkout-pay" type="submit">Send details to WhatsApp</button></form></section></div>
     <div class="track-backdrop" id="track-backdrop" aria-hidden="true"><section class="track-panel" role="dialog" aria-modal="true" aria-labelledby="track-title"><button class="checkout-close" id="track-close" type="button">×</button><p class="eyebrow">ADELUX ORDER CARE</p><h2 id="track-title">Track your order.</h2><form id="track-form"><label>Order number<input name="orderNumber" required placeholder="e.g. AD12AB34CD56"></label><label>Mobile number used at checkout<input name="phone" type="tel" inputmode="tel" required placeholder="Your checkout mobile number"></label><button class="checkout-pay" type="submit">Check order progress</button></form><div id="track-result" aria-live="polite"></div></section></div>
     <a class="whatsapp-float" href="https://wa.me/2348184952775?text=Hello%20ADELUX%2C%20I%20would%20like%20more%20information%20about%20your%20collection." target="_blank" rel="noopener noreferrer" aria-label="Chat with ADELUX on WhatsApp for more information" title="Chat with us on WhatsApp">
       <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.02 3C8.86 3 3.04 8.78 3.04 15.9c0 2.27.6 4.49 1.75 6.45L3 29l6.85-1.78a13.1 13.1 0 0 0 6.17 1.55h.01c7.16 0 12.98-5.78 12.98-12.9A12.82 12.82 0 0 0 16.02 3Zm0 23.58h-.01a10.9 10.9 0 0 1-5.55-1.51l-.4-.24-4.07 1.06 1.09-3.94-.26-.41a10.65 10.65 0 0 1-1.67-5.64c0-5.99 4.9-10.86 10.88-10.86 2.9 0 5.63 1.13 7.68 3.18a10.75 10.75 0 0 1 3.19 7.67c0 5.99-4.9 10.85-10.88 10.85Zm5.97-8.13c-.33-.16-1.94-.96-2.24-1.07-.3-.11-.52-.16-.74.16-.22.33-.85 1.07-1.04 1.29-.19.22-.38.25-.71.08-.33-.16-1.4-.51-2.67-1.63-.99-.87-1.66-1.94-1.85-2.27-.19-.33-.02-.5.14-.66.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.06-.41-.03-.57-.08-.16-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.15 1.12-1.15 2.73s1.18 3.17 1.34 3.39c.16.22 2.32 3.54 5.62 4.96.79.34 1.4.54 1.88.69.79.25 1.51.22 2.08.13.63-.09 1.94-.79 2.21-1.56.27-.77.27-1.43.19-1.56-.08-.14-.3-.22-.63-.38Z"/></svg>
@@ -433,9 +428,19 @@ function openProductDetails(id: number) {
   else document.querySelector('main')?.insertAdjacentHTML('beforeend', recentMarkup);
   const modal = document.querySelector<HTMLDivElement>('#product-detail-backdrop');
   if (!modal) return;
-  modal.innerHTML = `<section class="product-detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title"><button class="detail-close" id="detail-close" aria-label="Close details">×</button><div class="detail-image-wrap"><img src="${product.image}" alt="${product.name}"></div><div class="detail-copy"><p class="eyebrow">ADELUX COLLECTIONS · ${product.category === 'Sportswear' ? 'JERSEYS' : product.category.toUpperCase()}</p><h2 id="detail-title">${product.name}</h2><p class="detail-price">${money(product.price)}</p><p class="detail-description">${product.note}</p><label class="detail-field">Select size<select id="detail-size" required><option value="">Choose your size</option>${(product.category === 'Native Monogramming' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).map(x=>`<option value="${x}">${x}</option>`).join('')}</select></label><label class="detail-field">Preferred colour <input id="detail-color" maxlength="40" placeholder="Enter preferred colour"><small>We will confirm colour availability before production.</small></label>${product.category === 'Sportswear' ? `<section class="jersey-name-option"><label class="jersey-name-toggle"><input type="checkbox" id="jersey-name-enabled"><span><strong>Add a name to this jersey?</strong><small>Optional back-name printing</small></span></label><div class="jersey-name-fields" id="jersey-name-fields" hidden><label class="detail-field" for="jersey-name-text">Name to print<input id="jersey-name-text" type="text" maxlength="15" autocomplete="off" placeholder="Enter name (up to 15 characters)"><small>1–8 characters: ₦2,000 · 9–15 characters: ₦3,000</small></label><p class="jersey-name-price" id="jersey-name-price">Name printing: ₦0</p></div></section>` : ''}<button class="detail-add" id="detail-add">ADD TO BAG</button><p class="detail-note">Size and colour preferences stay attached to this item in your bag. Final colour availability is confirmed by ADELUX.</p><details class="size-guide"><summary>View size guide</summary><div class="size-guide-content">${product.category === 'Native Monogramming' ? '<p>Traditional pieces are best measured individually. Prepare chest, shoulder, sleeve, top length, waist, hip and trouser length measurements. Select “Made to measure” and our team will confirm details.</p>' : product.category === 'Dresses' ? '<p>Indicative body measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr><tr><td>XS</td><td>80–84</td><td>60–64</td><td>86–90</td></tr><tr><td>S</td><td>85–89</td><td>65–69</td><td>91–95</td></tr><tr><td>M</td><td>90–94</td><td>70–74</td><td>96–100</td></tr><tr><td>L</td><td>95–101</td><td>75–81</td><td>101–107</td></tr><tr><td>XL</td><td>102–108</td><td>82–88</td><td>108–114</td></tr><tr><td>XXL</td><td>109–116</td><td>89–96</td><td>115–122</td></tr></table>' : '<p>Indicative chest measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Chest</th></tr><tr><td>XS</td><td>86–91</td></tr><tr><td>S</td><td>92–97</td></tr><tr><td>M</td><td>98–103</td></tr><tr><td>L</td><td>104–109</td></tr><tr><td>XL</td><td>110–117</td></tr><tr><td>XXL</td><td>118–125</td></tr></table>'}<small>Reference guide only. ADELUX’s final garment measurements and fit should be confirmed before production. Measure around the fullest part of the chest/bust without pulling the tape tight.</small></div></details><div class="complete-look"><p class="eyebrow">STYLE IT WITH</p><h3>Complete the look</h3><div class="complete-look-grid">${(product.category === 'Dresses' ? [products.find(p=>p.id===6), products.find(p=>p.id===2)] : [products.find(p=>p.id===2), products.find(p=>p.id===6)]).filter((p): p is Product => Boolean(p)).map(p=>`<button class="complete-look-item" data-details="${p.id}"><img src="${p.image}" alt="${p.name}"><span>${p.name}</span><strong>${money(p.price)}</strong></button>`).join('')}</div></div></div></section>`;
+  modal.innerHTML = `<section class="product-detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title"><button class="detail-close" id="detail-close" aria-label="Close details">×</button><div class="detail-image-wrap"><img src="${product.image}" alt="${product.name}"></div><div class="detail-copy"><p class="eyebrow">ADELUX COLLECTIONS · ${product.category === 'Sportswear' ? 'JERSEYS' : product.category.toUpperCase()}</p><h2 id="detail-title">${product.name}</h2><p class="detail-price">${money(product.price)}</p><p class="detail-description">${product.note}</p><label class="detail-field">Select size<select id="detail-size" required><option value="">Choose your size</option>${(product.category === 'Native Monogramming' ? ['Made to measure','S','M','L','XL','XXL'] : ['XS','S','M','L','XL','XXL']).map(x=>`<option value="${x}">${x}</option>`).join('')}</select></label><fieldset class="detail-field colour-picker-field"><legend>Choose a colour</legend><div class="colour-palette" id="detail-colour-palette"><button type="button" class="colour-swatch" data-colour="Black" aria-label="Black" title="Black"><span style="--swatch:#111111"></span><small>Black</small></button><button type="button" class="colour-swatch" data-colour="White" aria-label="White" title="White"><span style="--swatch:#ffffff"></span><small>White</small></button><button type="button" class="colour-swatch" data-colour="Red" aria-label="Red" title="Red"><span style="--swatch:#d92736"></span><small>Red</small></button><button type="button" class="colour-swatch" data-colour="Navy" aria-label="Navy" title="Navy"><span style="--swatch:#172b4d"></span><small>Navy</small></button><button type="button" class="colour-swatch" data-colour="Blue" aria-label="Blue" title="Blue"><span style="--swatch:#2463c5"></span><small>Blue</small></button><button type="button" class="colour-swatch" data-colour="Grey" aria-label="Grey" title="Grey"><span style="--swatch:#858585"></span><small>Grey</small></button><button type="button" class="colour-swatch" data-colour="Beige" aria-label="Beige" title="Beige"><span style="--swatch:#d8c3a5"></span><small>Beige</small></button><button type="button" class="colour-swatch" data-colour="Brown" aria-label="Brown" title="Brown"><span style="--swatch:#795548"></span><small>Brown</small></button><button type="button" class="colour-swatch" data-colour="Green" aria-label="Green" title="Green"><span style="--swatch:#28734a"></span><small>Green</small></button><button type="button" class="colour-swatch" data-colour="Pink" aria-label="Pink" title="Pink"><span style="--swatch:#e89ab5"></span><small>Pink</small></button><button type="button" class="colour-swatch" data-colour="Yellow" aria-label="Yellow" title="Yellow"><span style="--swatch:#f1ce42"></span><small>Yellow</small></button><button type="button" class="colour-swatch" data-colour="Purple" aria-label="Purple" title="Purple"><span style="--swatch:#7652a5"></span><small>Purple</small></button><button type="button" class="colour-swatch" data-colour="Orange" aria-label="Orange" title="Orange"><span style="--swatch:#ed8733"></span><small>Orange</small></button><button type="button" class="colour-swatch colour-other" data-colour="Other"><span>＋</span><small>Other</small></button></div><input id="detail-color-other" maxlength="40" placeholder="Enter another colour" hidden><input id="detail-color" type="hidden" value=""><small>We will confirm colour availability before production.</small></fieldset><label class="detail-field">Additional details or special requests <textarea id="detail-notes" rows="3" maxlength="500" placeholder="Write any extra instructions here (optional)"></textarea></label>${product.category === 'Sportswear' ? `<section class="jersey-name-option"><label class="jersey-name-toggle"><input type="checkbox" id="jersey-name-enabled"><span><strong>Add a name to this jersey?</strong><small>Optional back-name printing</small></span></label><div class="jersey-name-fields" id="jersey-name-fields" hidden><label class="detail-field" for="jersey-name-text">Name to print<input id="jersey-name-text" type="text" maxlength="15" autocomplete="off" placeholder="Enter name (up to 15 characters)"><small>1–8 characters: ₦2,000 · 9–15 characters: ₦3,000</small></label><p class="jersey-name-price" id="jersey-name-price">Name printing: ₦0</p></div></section>` : ''}<button class="detail-add" id="detail-add">CONTINUE ON WHATSAPP</button><p class="detail-note">Your selections and notes will be sent to ADELUX on WhatsApp to confirm availability and your order.</p><details class="size-guide"><summary>View size guide</summary><div class="size-guide-content">${product.category === 'Native Monogramming' ? '<p>Traditional pieces are best measured individually. Prepare chest, shoulder, sleeve, top length, waist, hip and trouser length measurements. Select “Made to measure” and our team will confirm details.</p>' : product.category === 'Dresses' ? '<p>Indicative body measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th></tr><tr><td>XS</td><td>80–84</td><td>60–64</td><td>86–90</td></tr><tr><td>S</td><td>85–89</td><td>65–69</td><td>91–95</td></tr><tr><td>M</td><td>90–94</td><td>70–74</td><td>96–100</td></tr><tr><td>L</td><td>95–101</td><td>75–81</td><td>101–107</td></tr><tr><td>XL</td><td>102–108</td><td>82–88</td><td>108–114</td></tr><tr><td>XXL</td><td>109–116</td><td>89–96</td><td>115–122</td></tr></table>' : '<p>Indicative chest measurements (cm), not garment measurements:</p><table><tr><th>Size</th><th>Chest</th></tr><tr><td>XS</td><td>86–91</td></tr><tr><td>S</td><td>92–97</td></tr><tr><td>M</td><td>98–103</td></tr><tr><td>L</td><td>104–109</td></tr><tr><td>XL</td><td>110–117</td></tr><tr><td>XXL</td><td>118–125</td></tr></table>'}<small>Reference guide only. ADELUX’s final garment measurements and fit should be confirmed before production. Measure around the fullest part of the chest/bust without pulling the tape tight.</small></div></details><div class="complete-look"><p class="eyebrow">STYLE IT WITH</p><h3>Complete the look</h3><div class="complete-look-grid">${(product.category === 'Dresses' ? [products.find(p=>p.id===6), products.find(p=>p.id===2)] : [products.find(p=>p.id===2), products.find(p=>p.id===6)]).filter((p): p is Product => Boolean(p)).map(p=>`<button class="complete-look-item" data-details="${p.id}"><img src="${p.image}" alt="${p.name}"><span>${p.name}</span><strong>${money(p.price)}</strong></button>`).join('')}</div></div></div></section>`;
   const jerseyNameEnabled = modal.querySelector<HTMLInputElement>('#jersey-name-enabled');
   const jerseyNameFields = modal.querySelector<HTMLDivElement>('#jersey-name-fields');
+  const colourInput = modal.querySelector<HTMLInputElement>('#detail-color');
+  const otherColour = modal.querySelector<HTMLInputElement>('#detail-color-other');
+  modal.querySelectorAll<HTMLButtonElement>('[data-colour]').forEach(swatch => swatch.addEventListener('click', () => {
+    const colour = swatch.dataset.colour || '';
+    modal.querySelectorAll('[data-colour]').forEach(item => item.classList.remove('is-selected'));
+    swatch.classList.add('is-selected');
+    if (colourInput) colourInput.value = colour === 'Other' ? (otherColour?.value.trim() || 'Other - to specify') : colour;
+    if (otherColour) { otherColour.hidden = colour !== 'Other'; if (colour === 'Other') otherColour.focus(); else otherColour.value = ''; }
+  }));
+  otherColour?.addEventListener('input', () => { if (colourInput) colourInput.value = otherColour.value.trim() || 'Other - to specify'; });
   const jerseyNameText = modal.querySelector<HTMLInputElement>('#jersey-name-text');
   const jerseyNamePrice = modal.querySelector<HTMLParagraphElement>('#jersey-name-price');
   const updateJerseyNamePrice = () => {
@@ -452,7 +457,8 @@ function openProductDetails(id: number) {
   modal.onclick = event => { if (event.target === modal) closeProductDetails(); };
   document.querySelector('#detail-add')?.addEventListener('click', () => {
     const size = (document.querySelector<HTMLInputElement | HTMLSelectElement>('#detail-size')?.value || '').trim();
-    const colorChoice = (document.querySelector<HTMLInputElement>('#detail-color')?.value || '').trim() || 'Confirm with ADELUX';
+    const colorChoice = (document.querySelector<HTMLInputElement>('#detail-color')?.value || '').trim() || 'Not selected - please advise';
+    const customNotes = (document.querySelector<HTMLTextAreaElement>('#detail-notes')?.value || '').trim();
     if (!size) { showToast('Please select a size first'); return; }
     let namePrintingText = '';
     let namePrintingFee = 0;
@@ -462,7 +468,22 @@ function openProductDetails(id: number) {
       if (!/^[A-Za-z0-9 .'-]{1,15}$/.test(namePrintingText)) { showToast('Use up to 15 letters, numbers or simple spaces'); return; }
       namePrintingFee = namePrintingText.length <= 8 ? 2000 : 3000;
     }
-    addToBag(id, size, colorChoice, namePrintingText, namePrintingFee);
+    const message = [
+      'Hello ADELUX, I would like to place an order / enquire about this product.',
+      '',
+      'Product: ' + product.name,
+      'Category: ' + product.category,
+      'Price shown: ' + money(product.price),
+      'Size: ' + size,
+      'Preferred colour: ' + colorChoice,
+      'Quantity: 1',
+      namePrintingText ? 'Jersey name to print: ' + namePrintingText : '',
+      namePrintingFee ? 'Name printing fee shown: ' + money(namePrintingFee) : '',
+      customNotes ? 'Additional instructions: ' + customNotes : '',
+      '',
+      'Please confirm availability, final price and next steps.'
+    ].filter(Boolean).join('\n');
+    window.open('https://wa.me/2348184952775?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
     closeProductDetails();
   });
 }
@@ -505,6 +526,44 @@ function closeCheckout() {
   document.querySelector('#checkout-backdrop')?.classList.remove('is-open');
   document.querySelector('#checkout-backdrop')?.setAttribute('aria-hidden','true');
   document.body.classList.remove('checkout-open');
+}
+function sendWhatsAppOrder(event: SubmitEvent) {
+  event.preventDefault();
+  if (!bag.length) return;
+  const form = document.querySelector<HTMLFormElement>('#checkout-form');
+  if (!form || !form.reportValidity()) return;
+  const values = new FormData(form);
+  const name = String(values.get('name') || '').trim();
+  const phone = String(values.get('phone') || '').trim();
+  const email = String(values.get('email') || '').trim();
+  const note = String(values.get('note') || '').trim();
+  const lines = bag.map((item, index) => [
+    (index + 1) + '. ' + item.product.name,
+    '   Category: ' + item.product.category,
+    '   Quantity: ' + item.quantity,
+    '   Size: ' + item.size,
+    '   Colour: ' + item.colorChoice,
+    '   Price shown: ' + money(item.product.price),
+    item.namePrintingText ? '   Jersey name: ' + item.namePrintingText : '',
+    item.namePrintingFee ? '   Name printing fee shown: ' + money(item.namePrintingFee) : ''
+  ].filter(Boolean).join('\n'));
+  const subtotal = bag.reduce((sum, item) => sum + (item.product.price + (item.namePrintingFee || 0)) * item.quantity, 0);
+  const message = [
+    'Hello ADELUX, I would like to enquire / place an order for the following items:',
+    '',
+    ...lines,
+    '',
+    'Subtotal shown: ' + money(subtotal),
+    '',
+    'Customer name: ' + name,
+    'Contact number: ' + phone,
+    email ? 'Email: ' + email : '',
+    note ? 'Additional instructions: ' + note : '',
+    '',
+    'Please confirm availability, final total, delivery or collection options, and payment instructions.'
+  ].filter(Boolean).join('\n');
+  window.open('https://wa.me/2348184952775?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+  closeCheckout();
 }
 async function startPaystackCheckout(event: SubmitEvent) {
   event.preventDefault();
@@ -587,12 +646,7 @@ function bindEvents() {
   document.querySelectorAll<HTMLButtonElement>('[data-enquire]')
     .forEach(button => button.addEventListener('click', () => {
       const product = products.find(item => item.id === Number(button.dataset.enquire));
-      if (product) {
-        const message = product.category === 'Native Monogramming'
-          ? 'Hello ADELUX, I would like to enquire about ' + product.name + '. Please share the available designs, sizes, fabric/colour options and final price. I understand Native Monogramming is priced between ₦15,000 and ₦20,000.'
-          : 'Hello ADELUX, I would like to enquire about ' + product.name + '. Please share the available sizes, colours and pricing.';
-        window.open('https://wa.me/2348184952775?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
-      }
+      if (product) openProductDetails(product.id);
     }));
   document.querySelectorAll<HTMLButtonElement>('[data-wishlist]')
     .forEach(button => button.addEventListener('click', event => { event.stopPropagation(); toggleWishlist(Number(button.dataset.wishlist)); }));
@@ -692,7 +746,7 @@ function bindEvents() {
   document.querySelector('#cart-checkout')?.addEventListener('click', openCheckout);
   document.querySelector('#checkout-close')?.addEventListener('click', closeCheckout);
   document.querySelector('#checkout-backdrop')?.addEventListener('click', e=>{if(e.target===e.currentTarget)closeCheckout()});
-  document.querySelector<HTMLFormElement>('#checkout-form')?.addEventListener('submit', startPaystackCheckout);
+  document.querySelector<HTMLFormElement>('#checkout-form')?.addEventListener('submit', sendWhatsAppOrder);
   const openTrack = () => { setCartOpen(false); setMenuOpen(false); document.querySelector('#track-backdrop')?.classList.add('is-open'); document.querySelector('#track-backdrop')?.setAttribute('aria-hidden','false'); document.body.classList.add('track-open'); };
   document.querySelector('#track-order-open')?.addEventListener('click',openTrack);
   document.querySelector('#header-track-toggle')?.addEventListener('click',openTrack);
