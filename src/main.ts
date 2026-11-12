@@ -259,7 +259,7 @@ function mainContentMarkup() {
           alt="ADELUX campaign">
         <div class="campaign-overlay">
           <p class="eyebrow campaign-eyebrow">BEYOND THE SEASON</p>
-          <h2 class="campaign-heading">Wear what<br><em>remains.</em></h2>
+          <h2 class="campaign-heading">CLASSY AND<br><em>AFFORDABLE</em></h2>
           <a class="light-link campaign-link" href="#collection">
             Explore the edit
           </a>
