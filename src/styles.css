@@ -1948,3 +1948,25 @@ body.cart-open .site-header { z-index: 9999 !important; }
   .detail-copy{padding-top:14px}
   .detail-back{top:0;margin-bottom:12px}
 }
+
+
+/* Keep every ADELUX modal above the floating navigation and provide consistent return controls. */
+.checkout-backdrop,.track-backdrop,.account-backdrop{z-index:10001!important}
+.site-header{z-index:10000!important}
+.modal-back{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  margin:0 0 16px;
+  padding:0 15px;
+  border:1px solid rgba(17,17,17,.16);
+  border-radius:999px;
+  background:rgba(255,255,255,.96);
+  color:#111;
+  font:600 11px Arial,sans-serif;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+.modal-back:hover{border-color:#111;background:#f5f5f5}
+.checkout-panel,.track-panel,.account-panel{scroll-margin-top:16px}
