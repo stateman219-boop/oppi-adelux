@@ -1847,3 +1847,9 @@ html{scroll-padding-top:132px!important}
 body.menu-open .site-header { z-index: 9999 !important; }
 .menu-backdrop { z-index: 10001 !important; }
 .menu-drawer { z-index: 10002 !important; }
+
+
+/* Keep the floating header behind the shopping bag whenever the bag is open. */
+.cart-backdrop { z-index: 10001 !important; }
+.cart-drawer { z-index: 10002 !important; }
+body.cart-open .site-header { z-index: 9999 !important; }
