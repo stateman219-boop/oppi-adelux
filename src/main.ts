@@ -99,8 +99,8 @@ products = products.map(product => {
 const visibleCategories = ['Shirts & Tops', 'Sportswear', 'Dresses', 'Native Monogramming', 'Kids'];
 
 const money = (amount: number) => amount === 0 ? 'Contact for price' : new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(amount);
-const productMinimumPrice = (product: Product) => product.category === 'Dresses' ? 35000 : product.category === 'Denim' ? 30000 : product.price;
-const productPriceLabel = (product: Product) => product.category === 'Dresses' ? '₦35,000 – ₦40,000' : product.category === 'Denim' ? '₦30,000 – ₦35,000' : money(product.price);
+const productMinimumPrice = (product: Product) => product.category === 'Native Monogramming' ? 15000 : product.category === 'Dresses' ? 35000 : product.category === 'Denim' ? 30000 : product.price;
+const productPriceLabel = (product: Product) => product.category === 'Native Monogramming' ? '₦15,000 – ₦20,000' : product.category === 'Dresses' ? '₦35,000 – ₦40,000' : product.category === 'Denim' ? '₦30,000 – ₦35,000' : money(product.price);
 
 let activeCategory = 'All pieces';
 let searchTerm = '';
