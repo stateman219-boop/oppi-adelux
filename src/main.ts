@@ -301,9 +301,12 @@ function render() {
   );
 
   app.innerHTML = `
-    <div class="announcement">
-      ADELUX COLLECTIONS · UNLEASH YOUR ELEGANCE
-    </div>
+    <a class="announcement oppi-announcement" href="https://oppigraphix.com/" aria-label="Visit OPPIGRAPHIX printing, branding and publishing services">
+      <span class="announcement-track">
+        <span class="announcement-message"><strong>OPPIGRAPHIX LTD</strong><span>BRAND • PUBLISH • PROMOTE</span><span>NEED IT PRINTED? LET'S MAKE IT HAPPEN.</span></span>
+        <span class="announcement-message" aria-hidden="true"><strong>OPPIGRAPHIX LTD</strong><span>BRAND • PUBLISH • PROMOTE</span><span>NEED IT PRINTED? LET'S MAKE IT HAPPEN.</span></span>
+      </span>
+    </a>
 
     <header class="site-header">
       <button class="menu-trigger" id="menu-trigger"
