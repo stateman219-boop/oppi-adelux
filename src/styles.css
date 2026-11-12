@@ -1837,3 +1837,7 @@ html{scroll-padding-top:132px!important}
   #app{padding-top:92px!important}
   html{scroll-padding-top:108px!important}
 }
+
+
+/* Slightly dim the campaign background so the updated headline stays clear. */
+.campaign::after { background: rgba(0,0,0,.28) !important; }
