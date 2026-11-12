@@ -339,7 +339,7 @@ function render() {
     <aside class="menu-drawer ${menuOpen ? 'is-open' : ''}" id="menu-drawer" aria-hidden="${!menuOpen}">
       <div class="drawer-head">
         <a class="wordmark" href="#">ADELUX <span>COLLECTIONS</span></a>
-        <button id="menu-close" class="drawer-close" aria-label="Close menu">Close</button>
+        <button id="menu-close" class="drawer-close" aria-label="Close menu">×</button>
       </div>
       <nav class="drawer-nav" aria-label="Main menu">
         <button id="shop-collection-toggle" class="shop-collection-toggle" aria-expanded="${shopCategoriesOpen}" aria-controls="shop-subcategories">Shop our collection <span class="shop-chevron">${shopCategoriesOpen ? '−' : '＋'}</span></button>
