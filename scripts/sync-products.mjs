@@ -10,10 +10,11 @@ const match = source.match(/((?:const|let)\s+products:\s*Product\[\]\s*=\s*\[)([
 if (!match) throw new Error("Could not locate the ADELUX products array in src/main.ts (expected const or let products: Product[] = [...]).");
 
 const mappings = [
-  { folder: "images", category: "Traditional Wear", prefix: "Agbada Design", price: 20000, color: "Made to order", note: "Custom Agbada design · Enquire for fabric, colour and sizing." },
-  { folder: "images 2", category: "Dresses", prefix: "Dress Design", price: 18000, color: "For her", note: "ADELUX dress collection." },
-  { folder: "image 3", category: "Shirts & Tops", prefix: "Shirt Design", price: 15000, color: "Unisex", note: "ADELUX shirts and tops collection." },
-  { folder: "image 4", category: "Sportswear", prefix: "Jersey Design", price: 25000, color: "Unisex", note: "ADELUX jersey collection." },
+  // Keep these folder names in sync with the live ADELUX collection folders.
+  { folder: "Tshirt", category: "Shirts & Tops", prefix: "Shirt Design", price: 15000, color: "Unisex", note: "ADELUX shirts and tops collection." },
+  { folder: "Jersey", category: "Sportswear", prefix: "Jersey Design", price: 25000, color: "Unisex", note: "ADELUX jersey collection." },
+  { folder: "dresses", category: "Dresses", prefix: "Dress Design", price: 18000, color: "For her", note: "ADELUX dress collection." },
+  { folder: "MONograms", category: "Native Monogramming", prefix: "Native Monogramming", price: 20000, color: "Made to order", note: "Custom Agbada design · Enquire for fabric, colour and sizing." },
   { folder: "kids wear", category: "Kids", prefix: "Adelux Pro", price: 0, color: "Made to order", note: "ADELUX kids wear collection. Contact us for sizes, colours and pricing." }
 ];
 
