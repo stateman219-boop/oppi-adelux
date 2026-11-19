@@ -52,6 +52,8 @@ jobs:
           cp oppi.html dist/index.html
           cp oppi.html dist/oppi.html
           cp gallery.html dist/gallery.html
+          cp sitemap.xml dist/sitemap.xml
+          cp robots.txt dist/robots.txt
           cp payment-result.html dist/adelux/payment-result.html
           cp order-admin.html dist/adelux/order-admin.html
           cp adelux-logo.png.png dist/adelux-logo.png.png
