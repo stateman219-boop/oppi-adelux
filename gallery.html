@@ -1,82 +1,48 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gallery — OPPIGRAPHIX LTD</title>
-<meta name="description" content="Explore selected printing, branding, design and publishing work by OPPIGRAPHIX LTD.">
-<style>
-:root{--black:#101010;--red:#df1e32;--gray:#707070;--pad:clamp(20px,6vw,88px)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--black);font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}
-.nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px var(--pad);background:rgba(255,255,255,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-.logo-cycle{position:relative;display:block;flex:0 1 250px;width:min(250px,28vw);height:68px;overflow:hidden}.cycle-logo{position:absolute;inset:0 8px;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .5s}.cycle-logo.active{opacity:1;visibility:visible}.cycle-logo img{max-width:min(235px,27vw);max-height:60px;object-fit:contain}
-.navlinks{display:flex;align-items:center;gap:22px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}.navlinks a{padding:10px 12px;border-radius:999px}.navlinks a:hover,.navlinks a.active{color:var(--red);background:rgba(0,0,0,.045)}
-.menu-toggle{display:none;border:0;background:none;font-size:25px}
-.intro{padding:clamp(58px,9vw,110px) var(--pad) 42px;max-width:1400px;margin:auto}.eyebrow{color:var(--red);font-size:11px;letter-spacing:.2em;font-weight:700;text-transform:uppercase;margin:0 0 14px}
-h1{font-size:clamp(48px,8vw,100px);letter-spacing:-.075em;line-height:.9;margin:0;max-width:900px}h1 span{color:var(--red)}.intro p:last-child{max-width:560px;color:var(--gray);font-size:14px;line-height:1.8;margin-top:22px}
-.gallery{padding:24px var(--pad) 110px;max-width:1500px;margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.gallery-item{position:relative;overflow:hidden;background:#f2f2f2;aspect-ratio:4/5;border:0;padding:0;cursor:zoom-in;text-align:left}
-.gallery-item:nth-child(3n+2){aspect-ratio:4/5}.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .5s}.gallery-item:hover img{transform:scale(1.045);filter:brightness(.9)}
-.gallery-item:after{content:"View image ";position:absolute;left:16px;bottom:16px;color:#fff;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 13px;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.24);backdrop-filter:blur(10px);opacity:0;transition:opacity .25s}.gallery-item:hover:after{opacity:1}
-.cta{margin:0 var(--pad) 80px;padding:clamp(28px,5vw,58px);background:#111;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:25px}.cta h2{font-size:clamp(28px,4vw,48px);letter-spacing:-.05em;margin:0}.cta p{color:#ccc;font-size:13px;line-height:1.7;max-width:440px}.cta a{display:inline-flex;padding:14px 20px;background:var(--red);color:white;border-radius:99px;font-size:11px;white-space:nowrap}
-footer{padding:28px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:18px;border-top:1px solid #eee;color:#777;font-size:10px;letter-spacing:.08em}
-.lightbox{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.91)}.lightbox.open{display:flex}.lightbox img{max-width: min(92vw,1200px);max-height:86vh;object-fit:contain}.lightbox button{position:absolute;top:18px;right:22px;border:1px solid #777;background:rgba(255,255,255,.12);color:#fff;border-radius:50%;width:44px;height:44px;font-size:25px}
-@media(max-width:760px){.nav{padding:10px 16px}.logo-cycle{flex-basis:150px;width:150px;height:52px}.cycle-logo{inset:0 3px}.cycle-logo img{max-width:145px;max-height:46px}.menu-toggle{display:block}.navlinks{display:none;position:absolute;top:100%;left:0;right:0;padding:12px 18px 20px;background:rgba(255,255,255,.96);flex-direction:column;align-items:stretch;gap:4px}.navlinks.open{display:flex}.navlinks a{padding:13px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding-left:12px;padding-right:12px}.gallery-item{aspect-ratio:3/4}.intro{padding:56px 18px 28px}.cta{margin:0 12px 55px;display:block}.cta a{margin-top:12px}footer{flex-wrap:wrap}}
-@media(max-width:380px){.gallery{grid-template-columns:1fr}.gallery-item{aspect-ratio:4/3}}
-</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://oppigraphix.com/gallery.html">
+<link rel="icon" type="image/png" sizes="512x512" href="https://oppigraphix.com/Oppi%20Logo1.png">
+<link rel="apple-touch-icon" href="https://oppigraphix.com/Oppi%20Logo1.png">
+<title>Printing &amp; Branding Portfolio | OPPIGRAPHIX LTD</title>
+<meta name="description" content="Explore the OPPIGRAPHIX LTD portfolio of printing, corporate branding, signage, design and publishing projects. See our selected creative and production work.">
 
-<style id="premium-liquid-glass-controls">
-/* Matching premium Liquid Glass controls across the project gallery */
-:root{--control-red:#df1e32}
-.menu-toggle,.cta a,.lightbox button{
- position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
- min-height:46px;padding:12px 21px;border:1px solid rgba(255,255,255,.76)!important;
- border-radius:999px!important;background:rgba(255,255,255,.22)!important;color:#111!important;
- -webkit-backdrop-filter:blur(24px) saturate(175%)!important;backdrop-filter:blur(24px) saturate(175%)!important;
- box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 9px 26px rgba(0,0,0,.12)!important;
- font:650 12px/1.2 Arial,Helvetica,sans-serif!important;letter-spacing:.035em;text-decoration:none!important;
- transition:transform .28s cubic-bezier(.2,.7,.2,1),background .28s ease,border-color .28s ease,box-shadow .28s ease!important;
-}
-.menu-toggle{width:46px;height:46px;min-height:46px;padding:0!important;border-radius:50%!important}
-.cta a{background:rgba(255,255,255,.2)!important;color:#fff!important;border-color:rgba(255,255,255,.62)!important}
-.lightbox button{width:46px;height:46px;min-height:46px;padding:0!important;border-radius:50%!important;background:rgba(255,255,255,.16)!important;color:#fff!important}
-.menu-toggle:hover,.cta a:hover,.lightbox button:hover{transform:translateY(-2px);border-color:#fff!important;box-shadow:inset 0 1px 0 #fff,0 14px 32px rgba(0,0,0,.18)!important}
-.menu-toggle:active,.cta a:active,.lightbox button:active{transform:scale(.975)}
-.nav{background:rgba(255,255,255,.28)!important;border:1px solid rgba(255,255,255,.68)!important;border-radius:0 0 22px 22px!important;box-shadow:0 10px 30px rgba(0,0,0,.09),inset 0 1px 0 rgba(255,255,255,.9)!important;-webkit-backdrop-filter:blur(28px) saturate(175%)!important;backdrop-filter:blur(28px) saturate(175%)!important}
-.navlinks a{padding:11px 15px!important;border-radius:999px!important;transition:background .25s ease,color .25s ease!important}
-.navlinks a:hover,.navlinks a.active{background:rgba(255,255,255,.38)!important;color:var(--control-red)!important}
-.gallery-item{border-radius:14px!important;overflow:hidden}
-.gallery-item:after{border-radius:999px!important;background:rgba(18,18,20,.38)!important;border:1px solid rgba(255,255,255,.72)!important;padding:11px 16px!important;-webkit-backdrop-filter:blur(20px) saturate(170%)!important;backdrop-filter:blur(20px) saturate(170%)!important}
-button:focus-visible,a:focus-visible{outline:2px solid var(--control-red)!important;outline-offset:4px!important}
-@media(max-width:760px){
- .navlinks{background:rgba(255,255,255,.94)!important;border:1px solid rgba(255,255,255,.9)!important;border-radius:0 0 20px 20px!important;box-shadow:0 14px 32px rgba(0,0,0,.13)!important;-webkit-backdrop-filter:blur(28px)!important;backdrop-filter:blur(28px)!important}
- .navlinks a{min-height:44px;border-radius:12px!important}
- .menu-toggle{width:44px;height:44px;min-height:44px}
- .cta a{min-height:48px}
-}
-@media(prefers-reduced-motion:reduce){.menu-toggle,.cta a,.lightbox button,.navlinks a{transition:none!important}}
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
- .menu-toggle{background:#fff!important}.cta a{background:#222!important;color:#fff!important}
-}
-</style>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OPPIGRAPHIX LTD">
+<meta property="og:url" content="https://oppigraphix.com/gallery.html">
+<meta property="og:title" content="Printing &amp; Branding Portfolio | OPPIGRAPHIX LTD">
+<meta property="og:description" content="Explore selected OPPIGRAPHIX LTD projects across printing, corporate branding, signage, design and publishing.">
+<meta property="og:image" content="https://oppigraphix.com/oppi-logo.png.png">
+<meta property="og:image:alt" content="OPPIGRAPHIX LTD logo">
 
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Printing &amp; Branding Portfolio | OPPIGRAPHIX LTD">
+<meta name="twitter:description" content="Explore selected OPPIGRAPHIX LTD projects across printing, corporate branding, signage, design and publishing.">
+<meta name="twitter:image" content="https://oppigraphix.com/oppi-logo.png.png">
 
-<style id="always-accessible-floating-header">
-/* Keep the gallery navigation visible and reachable throughout scrolling. */
-header.nav{
- position:fixed!important;top:12px!important;left:50%!important;right:auto!important;
- transform:translateX(-50%)!important;width:min(1400px,calc(100% - 40px))!important;
- margin:0!important;z-index:10000!important;
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "OPPIGRAPHIX LTD Project Gallery",
+  "url": "https://oppigraphix.com/gallery.html",
+  "description": "Selected OPPIGRAPHIX LTD work across printing, corporate branding, signage, design and publishing.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "OPPIGRAPHIX LTD",
+    "url": "https://oppigraphix.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "OPPIGRAPHIX LTD",
+    "url": "https://oppigraphix.com/"
+  }
 }
-body{padding-top:94px!important}
-html{scroll-padding-top:112px!important}
-@media(max-width:760px){
- header.nav{top:8px!important;width:calc(100% - 16px)!important;margin:0!important}
- body{padding-top:76px!important}
- html{scroll-padding-top:92px!important}
-}
-</style>
-
-</head>
+</script>
 <body>
 <header class="nav">
 <a class="logo-cycle" href="/" aria-label="OPPIGRAPHIX home"><span class="cycle-logo active"><img src="/oppi-logo.png.png" alt="OPPIGRAPHIX"></span></a>
