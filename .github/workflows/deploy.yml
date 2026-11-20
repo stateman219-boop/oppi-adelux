@@ -1,7 +1,7 @@
 
 name: Deploy OPPI Adelux Website
 
-# A fresh push creates a clean Pages artifact for each deployment run.
+# Each new commit creates a clean Pages artifact. Avoid rerunning failed runs after artifact upload; push a fresh commit instead.
 
 on:
   push:
