@@ -60,6 +60,7 @@ jobs:
           cp order-admin.html dist/adelux/order-admin.html
           cp adelux-logo.png.png dist/adelux-logo.png.png
           cp oppi-logo.png.png dist/oppi-logo.png.png
+          cp "Oppi logo for browser tab icon.png" dist/favicon.png
           cp "Oppi Logo1.png" dist/
           cp "IMG_6164.png" dist/
           cp oppi-contact.jpeg dist/oppi-contact.jpeg
