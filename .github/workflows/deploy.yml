@@ -85,6 +85,10 @@ jobs:
         with:
           path: ./dist
 
+      # Give GitHub's artifact metadata API time to register the Pages artifact.
+      - name: Wait for Pages artifact registration
+        run: sleep 15
+
       - name: Publish website
         id: deployment
         uses: actions/deploy-pages@v4
