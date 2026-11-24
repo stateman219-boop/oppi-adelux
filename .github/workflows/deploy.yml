@@ -87,3 +87,5 @@ jobs:
       - name: Publish website
         id: deployment
         uses: actions/deploy-pages@v4
+
+# Favicon and header branding updates are deployed from fresh commits.
